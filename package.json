@@ -1,0 +1,26 @@
+{
+  "name": "proyecto-final",
+  "version": "1.0.0",
+  "description": "Proyecto final del curso de backend realizado en Coderhouse",
+  "main": "app.js",
+  "scripts": {
+    "test": "nodemon src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Giovi-22/Proyecto-final-Backend.git"
+  },
+  "author": "Giovanni Barolin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Giovi-22/Proyecto-final-Backend/issues"
+  },
+  "homepage": "https://github.com/Giovi-22/Proyecto-final-Backend#readme",
+  "keywords": [],
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^7.1.1",
+    "mongoose-paginate-v2": "^1.7.1"
+  }
+}
