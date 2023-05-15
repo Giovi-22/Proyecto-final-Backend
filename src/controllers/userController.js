@@ -2,11 +2,11 @@ import UserManager from "../manager/userManager.js";
 
 class UserController{
 
-    static async insert(req,res){
+    static async create(req,res,next){
         const newUser = req.body;
         try {
             const uManager = new UserManager();
-            const result = await uManager.insert(newUser);
+            const result = await uManager.create(newUser);
             return res.status(200).json({status:"success",data:result});
         } catch (error) {
             next({statusCode:error.cause || 500, message:error.message});
@@ -14,7 +14,7 @@ class UserController{
 
     }
 
-    static async list(req,res){
+    static async list(req,res,next){
         const options = {
             ...req.query,
             query: JSON.parse(`{${req.query?.filter || ""}}`)
@@ -30,9 +30,8 @@ class UserController{
         }
     }
 
-    static async getOne(req,res){
+    static async getOne(req,res,next){
         const uid = req.params.uid;
-        
         try {
             const uManager = new UserManager();
             const user = await uManager.getById(uid);
@@ -43,10 +42,9 @@ class UserController{
         }
     }
 
-    static async updateOne(req,res){
+    static async updateOne(req,res,next){
         const uid = req.params.uid;
         const data = req.body;
-        
         try {
             const uManager = new UserManager();
             const userUpdated = await uManager.updateOne(uid,data);
@@ -57,12 +55,12 @@ class UserController{
         }
     }
 
-    static async deleteOne(req,res){
+    static async deleteOne(req,res,next){
         const uid = req.params.uid;
         try {
             const uManager = new UserManager();
             const result = await uManager.deleteOne(uid);
-            return res.status(200).json({status:"success",data:result});
+            return res.status(200).json({status:"success",message:result});
         } catch (error) {
             next({statusCode:error.cause || 500, message:error.message});
             return;

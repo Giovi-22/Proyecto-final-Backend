@@ -84,8 +84,11 @@ class UserMongooseDAO{
 
     async deleteOne(uid){
         try {
-            const result = userModel.deleteOne(uid);
-            return result;
+            const result = await userModel.deleteOne({_id:uid});
+            if(!result.deletedCount){
+                throw new Error("No se pudo eliminar el usuario");
+            }
+            return "Usuario eliminado!";
         } catch (error) {
             throw new Error(error.message,{cause:error.cause || 500}); 
         }
@@ -93,7 +96,7 @@ class UserMongooseDAO{
 
     async update(uid,data){
         try {
-            const userDocument = userModel.findOneAndUpdate({_id:uid},data,{new:true});
+            const userDocument = await userModel.findOneAndUpdate({_id:uid},data,{new:true});
             if(!userDocument){
                 throw new Error(`No se encuentra el usuario ${uid}`,{cause:404});
             }

@@ -8,9 +8,9 @@ class UserManager{
     constructor(){
         this.#userMongooseDAO = new UserMongooseDAO();
     }
-    async insert(user){
+    async create(user){
         try {
-            const newUser = userValidator(user);
+            const newUser = await userValidator(user);
             const result = await this.#userMongooseDAO.create(newUser);
             return result;
         } catch (error) {
@@ -50,6 +50,9 @@ class UserManager{
 
     async updateOne(uid,data){
         try {
+            if(data?.password){
+                throw new Error("no tiene permisos para actualizar el password",{cause:401})
+            }
             const userUpdated = await this.#userMongooseDAO.update(uid,data);
             return userUpdated;
         } catch (error) {
@@ -62,7 +65,7 @@ class UserManager{
             const deletedUser = await this.#userMongooseDAO.deleteOne(uid);
             return deletedUser;
         } catch (error) {
-            
+            throw new Error(error.message,{cause: error.cause || 500});
         }
     }
 

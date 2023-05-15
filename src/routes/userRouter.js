@@ -8,8 +8,8 @@ const userRouter = Router();
 
 userRouter.get('/list',UserController.list);
 userRouter.get('/:uid',UserController.getOne);              
-userRouter.post('/',auth,UserController.insert);            //ruta privada
-userRouter.put('/:uid',UserController.updateOne);
-userRouter.delete('/:uid',UserController.deleteOne);
+userRouter.post('/',auth,UserController.create);            //ruta privada
+userRouter.put('/:uid',auth,UserController.updateOne);
+userRouter.delete('/:uid',auth,UserController.deleteOne);
 
 export default userRouter;

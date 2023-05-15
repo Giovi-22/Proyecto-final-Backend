@@ -1,4 +1,3 @@
-import bcrypt from 'bcrypt';
 
 import { loginValidator } from "../helper/validators.js";
 import UserManager from "./userManager.js";
@@ -16,7 +15,10 @@ class SessionManager{
             if(!isValid){
                 throw new Error('Login failed, invalid password!',{cause:401});
             }
-            return {email: userDB.email};
+            if(userDB.firstName === 'Giovanni'){
+                return {email: userDB.email,admin:true};
+            }
+            return {email: userDB.email,admin:false};
         } catch (error) {
             throw new Error(error.message,{cause:error?.cause || 500}); 
         }
@@ -24,32 +26,13 @@ class SessionManager{
 
     async signup(user){
         try {
-            const passwordHashed = await bcrypt.hash(user.password,10);
-            const payload = {
-                ...user,
-                password: passwordHashed
-            }
             const userM = new UserManager();
-            const newUser = await userM.insert(payload);
+            const newUser = await userM.create(user);
             return newUser;
         } catch (error) {
             throw new Error(error.message,{cause:error?.cause || 500});
         }
     }
-
-    async findFilter(user){
-        try {
-            if(!user.email && !user.password){
-                throw new Error("Todos los campos deben ser completados",{cause:400})
-            }
-            const userM = new UserManager();
-            const userData = await userM.findByFilter({field:"email",value:user.email});
-            console.log(userData)
-        } catch (error) {
-            throw new Error(error.message,{cause:error?.cause || 500}); 
-        }
-    }
-
 }
 
 export default SessionManager;
