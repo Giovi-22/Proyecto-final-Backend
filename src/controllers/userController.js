@@ -9,7 +9,7 @@ class UserController{
             const result = await uManager.insert(newUser);
             return res.status(200).json({status:"success",data:result});
         } catch (error) {
-            throw new Error(error.message);
+            next({statusCode:error.cause || 500, message:error.message});
         }
 
     }
@@ -25,7 +25,8 @@ class UserController{
             const result = await uManager.getList(options);
             return res.status(200).json({status:"success",data:result.docs, ...result, docs:undefined });
         } catch (error) {
-            throw new Error(error.message);
+            next({statusCode:error.cause || 500, message:error.message});
+            return;
         }
     }
 
@@ -37,7 +38,8 @@ class UserController{
             const user = await uManager.getById(uid);
             return res.status(200).json({status:"success",data:user});
         } catch (error) {
-            throw new Error(error.message);
+            next({statusCode:error.cause || 500, message:error.message});
+            return;
         }
     }
 
@@ -50,7 +52,8 @@ class UserController{
             const userUpdated = await uManager.updateOne(uid,data);
             return res.status(200).json({status:"success",data:userUpdated});
         } catch (error) {
-            throw new Error(error.message);
+            next({statusCode:error.cause || 500, message:error.message});
+            return;
         }
     }
 
@@ -61,7 +64,8 @@ class UserController{
             const result = await uManager.deleteOne(uid);
             return res.status(200).json({status:"success",data:result});
         } catch (error) {
-            throw new Error(error.message);
+            next({statusCode:error.cause || 500, message:error.message});
+            return;
         }
     }
 }

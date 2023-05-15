@@ -22,20 +22,6 @@ class SessionManager{
         }
     }
 
-    async logout(session){
-        try {
-            session.destroy((err)=>{
-                if(!err){
-                    console.log("logout")
-                    return 'Logout!';
-                }
-                throw new Error('logout failed !',{cause:401});
-            });
-        } catch (error) {
-            throw new Error(error.message,{cause:error?.cause || 500});
-        }
-    }
-
     async signup(user){
         try {
             const payload = {
