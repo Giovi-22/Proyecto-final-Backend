@@ -1,7 +1,8 @@
 import bcrypt from 'bcrypt';
 
-export const loginValidator = async (user,password)=>{
-    const isHashedPassword = await bcrypt.compare(password,user.password);
+export const loginValidator = async (userDB,password)=>{
+    console.log("Usuario: ",userDB.password,"Password: ",password);
+    const isHashedPassword = await bcrypt.compare(password,userDB.password);
     return isHashedPassword;
 }
 

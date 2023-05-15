@@ -35,7 +35,7 @@ void (async ()=>
     app.use(session({
         store: MongoStore.create({
             mongoUrl: process.env.ECOMMERCEDB_URI,
-            ttl:60
+            ttl:60,
         }),
         secret:'codigoSecreto',
         resave:false,

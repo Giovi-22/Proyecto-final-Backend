@@ -7,16 +7,16 @@ class SessionManager{
 
     async login(user){
         try {
-            if(!user.email && !user.password){
+            if(!user?.email || !user?.password){
                 throw new Error("Todos los campos deben ser completados",{cause:400})
             }
             const userM = new UserManager();
-            const userData = await userM.findByFilter({field:"email",value:user.email});
-            const isValid = loginValidator(userData,user.password);
+            const userDB = await userM.findByFilter({field:"email",value:user.email});
+            const isValid = await loginValidator(userDB,user.password);
             if(!isValid){
                 throw new Error('Login failed, invalid password!',{cause:401});
             }
-            return {email: userData.email};
+            return {email: userDB.email};
         } catch (error) {
             throw new Error(error.message,{cause:error?.cause || 500}); 
         }
@@ -24,9 +24,10 @@ class SessionManager{
 
     async signup(user){
         try {
+            const passwordHashed = await bcrypt.hash(user.password,10);
             const payload = {
                 ...user,
-                password: await bcrypt.hash(user.password)
+                password: passwordHashed
             }
             const userM = new UserManager();
             const newUser = await userM.insert(payload);
