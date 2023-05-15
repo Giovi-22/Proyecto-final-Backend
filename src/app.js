@@ -11,6 +11,8 @@ import cartRouter from './routes/cartRouter.js';
 
 import { clientErrorHandler } from './middlewares/clientErrorHandler.js';
 import { serverErrorHandler } from './middlewares/serverErrorHandler.js';
+import sessionsRouter from './routes/sessionsRouter.js';
+import userRouter from './routes/userRouter.js';
 
 dotenv.config();
 const port = process.env.PORT;
