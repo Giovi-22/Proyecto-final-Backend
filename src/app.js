@@ -9,8 +9,8 @@ import session from 'express-session';
 import pRouter from './routes/productRouter.js';
 import cartRouter from './routes/cartRouter.js';
 
-import { clientErrorHandler } from './middelwares/clientErrorHandler.js';
-import { serverErrorHandler } from './middelwares/serverErrorHandler.js';
+import { clientErrorHandler } from './middlewares/clientErrorHandler.js';
+import { serverErrorHandler } from './middlewares/serverErrorHandler.js';
 
 dotenv.config();
 const port = process.env.PORT;
