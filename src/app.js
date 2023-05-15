@@ -2,6 +2,9 @@ import express  from 'express';
 
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
+import MongoStore from 'connect-mongo';
+import cookieParser from 'cookie-parser';
+import session from 'express-session';
 
 import pRouter from './routes/productRouter.js';
 import cartRouter from './routes/cartRouter.js';
@@ -26,9 +29,21 @@ void (async ()=>
     const app = express();
     app.use(express.json());
     app.use(express.urlencoded({extended:true}));
+    app.use(cookieParser());
+    app.use(session({
+        store: MongoStore.create({
+            mongoUrl: process.env.ECOMMERCEDB_URI,
+            ttl:60
+        }),
+        secret:'codigoSecreto',
+        resave:false,
+        saveUninitialized:false
+    }));
       
     app.use('/api/products/',pRouter);
     app.use('/api/carts/',cartRouter);
+    app.use('/api/sessions',sessionsRouter);
+    app.use('/api/users',userRouter)
 
     app.use(clientErrorHandler);  
     app.use(serverErrorHandler);
