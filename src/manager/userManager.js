@@ -51,7 +51,7 @@ class UserManager{
     async updateOne(uid,data){
         try {
             if(data?.password){
-                throw new Error("no tiene permisos para actualizar el password",{cause:401})
+                throw new Error("no tiene permisos para actualizar el password",{cause:403})
             }
             const userUpdated = await this.#userMongooseDAO.update(uid,data);
             return userUpdated;
