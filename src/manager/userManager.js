@@ -1,5 +1,5 @@
 import UserMongooseDAO from "../dao/userMongooseDAO.js";
-import { userValidator } from "../helper/validators.js";
+import { hashPassword } from "../helper/bcrypt.js";
 
 
 
@@ -10,7 +10,7 @@ class UserManager{
     }
     async create(user){
         try {
-            const newUser = await userValidator(user);
+            const newUser = {...user,password: await hashPassword(user.password)};
             const result = await this.#userMongooseDAO.create(newUser);
             return result;
         } catch (error) {

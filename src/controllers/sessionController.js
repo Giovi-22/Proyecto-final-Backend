@@ -1,3 +1,4 @@
+import { loginValidation, userZodSchema } from "../helper/validators.js";
 import SessionManager from "../manager/sessionManager.js";
 
 class SessionController{
@@ -5,6 +6,7 @@ class SessionController{
 
     static async login(req,res,next){
         try {
+            await loginValidation.parseAsync(req.body);
             const sessionM = new SessionManager();
             const user = await sessionM.login({...req.body});
             req.session.user = user;
@@ -31,11 +33,12 @@ class SessionController{
 
     static async signup(req,res,next){
         try {
+            await userZodSchema.parseAsync(req.body);
             const sessionM = new SessionManager();
             const newUser = await sessionM.signup(req.body);
             res.status(201).send({status:'success',data:newUser});
         } catch (error) {
-            next({statusCode:error.cause || 500, message:error.message});
+            next(error);
             return;
         }
     }

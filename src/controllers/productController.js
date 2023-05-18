@@ -1,15 +1,15 @@
+import { productZodSchema } from '../helper/validators.js';
 import ProductManager from '../manager/ProductManager.js';
 class ProductController{
 
     static addProduct = async (req,res,next)=>{
-            const product = req.body;
             try {
+                await productZodSchema.parseAsync(req.body);
                 const pManager = new ProductManager();
-                const newProduct = await pManager.add(product);
+                const newProduct = await pManager.add(req.body);
                 res.status(201).json({status:'success',data:newProduct});
             } catch (error) {
-                next({statusCode:error.cause || 500, message:error.message});
-                return;
+                next(error);
             }
     }
 

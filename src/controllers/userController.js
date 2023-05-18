@@ -1,3 +1,4 @@
+import { userZodSchema } from "../helper/validators.js";
 import UserManager from "../manager/userManager.js";
 
 class UserController{
@@ -5,11 +6,12 @@ class UserController{
     static async create(req,res,next){
         const newUser = req.body;
         try {
+            await userZodSchema.parseAsync(req.body);
             const uManager = new UserManager();
             const result = await uManager.create(newUser);
             return res.status(200).json({status:"success",data:result});
         } catch (error) {
-            next({statusCode:error.cause || 500, message:error.message});
+            next(error);
         }
 
     }

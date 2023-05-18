@@ -1,17 +1,13 @@
-
-import { loginValidator } from "../helper/validators.js";
+import { verifyPassword } from "../helper/bcrypt.js";
 import UserManager from "./userManager.js";
 
 class SessionManager{
 
     async login(user){
         try {
-            if(!user?.email || !user?.password){
-                throw new Error("Todos los campos deben ser completados",{cause:400})
-            }
             const userM = new UserManager();
             const userDB = await userM.findByFilter({field:"email",value:user.email});
-            const isValid = await loginValidator(userDB,user.password);
+            const isValid = await verifyPassword(userDB.password,user.password);
             if(!isValid){
                 throw new Error('Login failed, invalid password!',{cause:401});
             }
