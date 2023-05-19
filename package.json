@@ -25,6 +25,7 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-session": "^1.17.3",
+    "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.1.1",
     "mongoose-paginate-v2": "^1.7.1",
     "zod": "^3.21.4"
