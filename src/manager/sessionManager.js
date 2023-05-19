@@ -1,5 +1,5 @@
 import { verifyPassword } from "../helper/bcrypt.js";
-import UserManager from "./userManager.js";
+import UserManager from "./UserManager.js";
 
 class SessionManager{
 
