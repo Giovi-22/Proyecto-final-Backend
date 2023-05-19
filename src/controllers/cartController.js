@@ -1,4 +1,4 @@
-import CartManager from "../manager/CartManager.js"
+import CartManager from "../managers/CartManager.js"
 
 class CartController{
 

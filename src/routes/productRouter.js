@@ -1,13 +1,12 @@
 import { Router } from "express";
-import ProductController from "../controllers/productController.js";
-import { productValidator } from "../middlewares/productValidator.js";
+import ProductController from "../controllers/ProductController.js";
 
-const pRouter = Router();
+const productRouter = Router();
 
-pRouter.post('/',ProductController.addProduct);    // <agrega un nuevo producto a la base de datos>
-pRouter.get('/',ProductController.getProducts);                     // <esta ruta funciona con paginate, se le pasan por query params los filtros: http://localhost:8083/api/products?limit=1&page=1&sort=1&filter="<productField>":"<value>"
-pRouter.get('/:pid',ProductController.getOneProduct);               // <devuelve el producto seleccionado por pid>
-pRouter.put('/:pid',ProductController.updateProduct);               // <actualiza los campos del producto seleccionado por pid. los campos se pasan por body: {"<productField>":<value>}>
-pRouter.delete('/:pid',ProductController.deleteProduct);            // <establece el campo "status = false" del producto seleccionado por pid>
+productRouter.post('/',ProductController.addProduct);    // <agrega un nuevo producto a la base de datos>
+productRouter.get('/',ProductController.getProducts);                     // <esta ruta funciona con paginate, se le pasan por query params los filtros: http://localhost:8083/api/products?limit=1&page=1&sort=1&filter="<productField>":"<value>"
+productRouter.get('/:pid',ProductController.getOneProduct);               // <devuelve el producto seleccionado por pid>
+productRouter.put('/:pid',ProductController.updateProduct);               // <actualiza los campos del producto seleccionado por pid. los campos se pasan por body: {"<productField>":<value>}>
+productRouter.delete('/:pid',ProductController.deleteProduct);            // <establece el campo "status = false" del producto seleccionado por pid>
 
-export default pRouter;
+export default productRouter;

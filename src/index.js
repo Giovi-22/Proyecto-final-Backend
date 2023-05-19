@@ -6,7 +6,7 @@ import MongoStore from 'connect-mongo';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 
-import pRouter from './routes/productRouter.js';
+import productRouter from './routes/productRouter.js';
 import cartRouter from './routes/cartRouter.js';
 
 import { clientErrorHandler } from './middlewares/clientErrorHandler.js';
@@ -42,7 +42,7 @@ void (async ()=>
         saveUninitialized:false
     }));
       
-    app.use('/api/products/',pRouter);
+    app.use('/api/products/',productRouter);
     app.use('/api/carts/',cartRouter);
     app.use('/api/sessions',sessionsRouter);
     app.use('/api/users',userRouter)

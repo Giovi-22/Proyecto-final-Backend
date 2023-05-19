@@ -1,5 +1,5 @@
-import { idValidation, productZodSchema } from '../helper/validators.js';
-import ProductManager from '../manager/ProductManager.js';
+import { idValidation, productZodSchema } from '../helpers/validators.js';
+import ProductManager from '../managers/ProductManager.js';
 class ProductController{
 
     static addProduct = async (req,res,next)=>{

@@ -1,5 +1,5 @@
-import { userZodSchema } from "../helper/validators.js";
-import UserManager from "../manager/userManager.js";
+import { userZodSchema } from "../helpers/validators.js";
+import UserManager from "../managers/userManager.js";
 
 class UserController{
 

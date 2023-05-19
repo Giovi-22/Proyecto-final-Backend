@@ -1,5 +1,5 @@
-import { loginValidation, userZodSchema } from "../helper/validators.js";
-import SessionManager from "../manager/sessionManager.js";
+import { loginValidation, userZodSchema } from "../helpers/validators.js";
+import SessionManager from "../managers/SessionManager.js";
 
 class SessionController{
 

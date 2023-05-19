@@ -1,5 +1,5 @@
-import UserMongooseDAO from "../dao/userMongooseDAO.js";
-import { hashPassword } from "../helper/bcrypt.js";
+import UserMongooseDAO from "../daos/userMongooseDAO.js";
+import { hashPassword } from "../helpers/bcrypt.js";
 
 
 
