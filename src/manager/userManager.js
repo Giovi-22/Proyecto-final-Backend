@@ -14,7 +14,7 @@ class UserManager{
             const result = await this.#userMongooseDAO.create(newUser);
             return result;
         } catch (error) {
-            throw new Error(error.message,{cause: error.cause || 500});
+            throw new Error(error.message);
         }
     }
 

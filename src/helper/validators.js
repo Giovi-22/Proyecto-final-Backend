@@ -9,7 +9,7 @@ export const productZodSchema = z.object({
     stock:z.number({required_error:'stock is required',invalid_type_error:'stock must be a number'}),
     status:z.boolean({required_error:'status is required',invalid_type_error:'status must be a boolean'}),
     category:z.string({required_error:'category is required',invalid_type_error:'category must be a string'})
-})
+});
 
 export const userZodSchema = z.object({
     firstName: z.string({required_error:'firstName is required',invalid_type_error:'firstName must be a string'}),
@@ -17,9 +17,11 @@ export const userZodSchema = z.object({
     email:z.string({required_error:'email is required'}).email({message:'email must be like email@email.com'}),
     password:z.string({required_error:'password is required',invalid_type_error:'password must be a string'}),
     age:z.number({required_error:'age is required',invalid_type_error:'age must be a number'}),
-})
+});
 
 export const loginValidation = z.object({
     email:z.string({required_error:'email is required'}).email({message:'email must be like email@email.com'}),
     password:z.string({required_error:'password is required',invalid_type_error:'password must be a string'}),
-})
+});
+
+export const idValidation = z.string().length(24);

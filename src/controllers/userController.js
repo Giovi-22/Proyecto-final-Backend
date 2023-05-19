@@ -6,10 +6,10 @@ class UserController{
     static async create(req,res,next){
         const newUser = req.body;
         try {
-            await userZodSchema.parseAsync(req.body);
+            await userZodSchema.parseAsync(newUser);
             const uManager = new UserManager();
             const result = await uManager.create(newUser);
-            return res.status(200).json({status:"success",data:result});
+            return res.status(201).json({status:"success",data:result});
         } catch (error) {
             next(error);
         }

@@ -9,7 +9,7 @@ class SessionManager{
             const userDB = await userM.findByFilter({field:"email",value:user.email});
             const isValid = await verifyPassword(userDB.password,user.password);
             if(!isValid){
-                throw new Error('Login failed, invalid password!',{cause:401});
+                throw new Error('Login failed, invalid password!');
             }
             if(userDB.firstName === 'Giovanni'){
                 return {email: userDB.email,admin:true};
