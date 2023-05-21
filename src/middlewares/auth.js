@@ -1,9 +1,17 @@
-const auth = (req,res,next)=>{
+import { jwtVerificator } from "../helpers/jsonwebtoken.js";
 
-    if(req.session?.user?.email && req.session?.user?.admin){
-        return next();
+const auth = async (req,res,next)=>{
+
+    try {
+    const authHeader = req.headers.authorization;
+    const token = authHeader.split(' ')[1];
+    const credential = await jwtVerificator(token);
+    req.user = credential.user;
+    next();
+    } catch (error) {
+        next({statusCode:403,message:'Error: Authentication error'})
     }
-    return res.status(401).send({status:'error', message:'Error de autorización'})
+    
 }
 
 export default auth;

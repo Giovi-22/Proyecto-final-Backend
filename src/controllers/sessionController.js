@@ -8,15 +8,21 @@ class SessionController{
         try {
             await loginValidation.parseAsync(req.body);
             const sessionM = new SessionManager();
-            const user = await sessionM.login({...req.body});
-            req.session.user = user;
-            return res.send({message:`Login success`})
+            const accessToken = await sessionM.login({...req.body});
+            return res.cookie('user',accessToken).send({message:'Login success'});
         } catch (error) {
             next({statusCode:error.cause || 500, message:error.message});
             return;
         }
     }
 
+    static async current(req,res,next){
+        try {
+            res.status(200).send({status:'success',payload:req.user});
+        } catch (error) {
+            next({statusCode:error.cause || 500, message:error.message});
+        }
+    }
     static async logout(req,res,next){
         try {
             req.session.destroy((err)=>{

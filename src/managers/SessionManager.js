@@ -1,4 +1,5 @@
 import { verifyPassword } from "../helpers/bcrypt.js";
+import { jwtGenerator } from "../helpers/jsonwebtoken.js";
 import UserManager from "./userManager.js";
 
 class SessionManager{
@@ -11,10 +12,8 @@ class SessionManager{
             if(!isValid){
                 throw new Error('Login failed, invalid password!');
             }
-            if(userDB.firstName === 'Giovanni'){
-                return {email: userDB.email,admin:true};
-            }
-            return {email: userDB.email,admin:false};
+            const userAccessToken = await jwtGenerator(userDB)
+            return userAccessToken;
         } catch (error) {
             throw new Error(error.message,{cause:error?.cause || 500}); 
         }
