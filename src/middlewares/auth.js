@@ -9,7 +9,7 @@ const auth = async (req,res,next)=>{
     req.user = credential.user;
     next();
     } catch (error) {
-        next({statusCode:403,message:'Error: Authentication error'})
+        next(error)
     }
     
 }

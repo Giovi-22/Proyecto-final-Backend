@@ -10,10 +10,9 @@ import cors from 'cors';
 import productRouter from './routes/productRouter.js';
 import cartRouter from './routes/cartRouter.js';
 
-import { clientErrorHandler } from './middlewares/clientErrorHandler.js';
-import { serverErrorHandler } from './middlewares/serverErrorHandler.js';
 import sessionsRouter from './routes/sessionsRouter.js';
 import userRouter from './routes/userRouter.js';
+import { errorHandler } from './middlewares/errorHandler.js';
 
 dotenv.config();
 const port = process.env.PORT;
@@ -49,10 +48,10 @@ void (async ()=>
     app.use('/api/sessions',sessionsRouter);
     app.use('/api/users',userRouter)
 
-    app.use(clientErrorHandler);  
-    app.use(serverErrorHandler);
+    app.use(errorHandler);  
 
     app.listen(port,()=>console.log(`Servidor escuchando en el puerto ${port}`));
+    
     } catch (error) {
         console.log(error.message);
     }

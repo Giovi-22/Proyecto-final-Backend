@@ -2,7 +2,7 @@ const ERRORS={
     "Bad Request":400,
     "Unauthorized":401,
     "Forbidden":403,
-    "Not found":404,
+    "Not Found":404,
 }
 
 export const errorHandler = (err,req,res,next)=>{
