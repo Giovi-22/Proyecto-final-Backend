@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 import MongoStore from 'connect-mongo';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
+import cors from 'cors';
 
 import productRouter from './routes/productRouter.js';
 import cartRouter from './routes/cartRouter.js';
@@ -32,6 +33,7 @@ void (async ()=>
     app.use(express.json());
     app.use(express.urlencoded({extended:true}));
     app.use(cookieParser());
+    app.use(cors());
     app.use(session({
         store: MongoStore.create({
             mongoUrl: process.env.ECOMMERCEDB_URI,
