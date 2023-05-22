@@ -20,10 +20,10 @@ class ProductController{
     static getProducts = async (req,res,next)=>
     {
         const options = {
-            limit: +req.query.limit || 10,
-            page: +req.query.page || 1,
-            sort: +req.query.sort || "", //los valores que recibe para ordenar por precio pueden ser 1 (de menor a mayor) y -1 (de mayor a menor)
-            filter:JSON.parse(`{${req.query.filter || ""}}`) //filter se pasa por query de la siguiente forma: "productField":"value"
+            limit: +req.query.limit ?? 10,
+            page: +req.query.page ?? 1,
+            sort: +req.query.sort ?? "", //los valores que recibe para ordenar por precio pueden ser 1 (de menor a mayor) y -1 (de mayor a menor)
+            filter:JSON.parse(`{${req.query.filter ?? ""}}`) //filter se pasa por query de la siguiente forma: "productField":"value"
         }
         try
         {
