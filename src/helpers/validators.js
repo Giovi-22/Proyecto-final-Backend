@@ -34,3 +34,10 @@ export const loginValidation = z.object
 );
 
 export const idValidation = z.string().length(24);
+
+export const updateCartValidation = z.array(
+        z.object({
+            pid:z.string().length(24),
+            quantity: z.number()
+        })
+);
