@@ -24,7 +24,7 @@ class UserController{
     {
         const options = {
             ...req.query,
-            query: JSON.parse(`{${req.query?.filter || ""}}`)
+            query: JSON.parse(`{${req.query?.filter ?? ""}}`)
         }
         
         try
