@@ -55,6 +55,7 @@ class CartController{
 
     static updateOne = async (req,res,next)=>
     {
+        console.log("updete one")
         const {cid,pid} = req.params;
         const data = req.body;      
         try
@@ -87,6 +88,7 @@ class CartController{
 
     static get = async (req,res,next)=>
     {
+        console.log("dentro del get")
         const cid = req.params.cid;
         try
         {   

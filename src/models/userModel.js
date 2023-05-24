@@ -8,7 +8,8 @@ const userSchema = new mongoose.Schema({
     lastName: {type:String,require:true},
     age: {type:Number,require:true},
     email: {type:String,require:true,unique:true},  
-    password: {type:String,require:true}
+    password: {type:String,require:true},
+    role: {type:mongoose.Schema.Types.ObjectId,ref:'roles'}
 })
 
 userSchema.plugin(mongoosePaginate);

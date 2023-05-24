@@ -12,7 +12,9 @@ import cartRouter from './routes/cartRouter.js';
 
 import sessionsRouter from './routes/sessionsRouter.js';
 import userRouter from './routes/userRouter.js';
+import roleRouter from './routes/roleRouter.js';
 import { errorHandler } from './middlewares/errorHandler.js';
+
 
 dotenv.config();
 const port = process.env.PORT;
@@ -50,6 +52,7 @@ void (async ()=>
     app.use('/api/carts/',cartRouter);
     app.use('/api/sessions',sessionsRouter);
     app.use('/api/users',userRouter)
+    app.use('/api/roles',roleRouter);
 
     app.use(errorHandler);  
 
