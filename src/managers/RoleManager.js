@@ -1,4 +1,4 @@
-import RoleDAO from "../daos/RoleDAO";
+import RoleDAO from "../daos/RoleDAO.js";
 
 class RoleManager
 {

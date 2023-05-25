@@ -1,5 +1,5 @@
-import { idValidation } from "../helpers/validators";
-import RoleManager from "../managers/RoleManager";
+import { idValidation } from "../helpers/validators.js";
+import RoleManager from "../managers/RoleManager.js";
 
 class RoleController{
 

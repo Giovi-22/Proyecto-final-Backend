@@ -1,4 +1,4 @@
-import { roleModel } from "../models/roleModel";
+import { roleModel } from "../models/roleModel.js";
 
 class RoleDAO
 {
@@ -6,7 +6,11 @@ class RoleDAO
     async insert(data)
     {
         const result = await roleModel.create(data);
-        return result;
+        return {
+            id:result._id,
+            name: result.name,
+            permissions:[...result.permissions]
+        }
     }
 
     async getOne(rid)
@@ -14,7 +18,7 @@ class RoleDAO
         const result = await roleModel.findOne({_id:rid});
         return {
             id:result._id,
-            role: result.name,
+            name: result.name,
             permissions: [...result.permissions]
         };
     }

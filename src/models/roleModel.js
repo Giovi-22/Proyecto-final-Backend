@@ -3,8 +3,8 @@ import mongoose from 'mongoose'
 const rolesCollection = 'roles';
 
 const roleSchema = new mongoose.Schema({
-    name: {type:String,required:true},
-    permissions: {type:Array, required:true}
+    name: {type:String,required:true, index:true},
+    permissions: [{type:String, required:true}]
 })
 
 
