@@ -19,7 +19,7 @@ class UserMongooseDAO{
     {
         let query = {};
         query[filter.field]=filter.value;
-        const userDocument = await userModel.findOne(query);
+        const userDocument = await userModel.findOne(query).populate('role');
         if(!userDocument)
         {
             throw new Error(`No se encuentra ${filter.field}: ${filter.value}`,{casuse:'Not Found'});
@@ -30,7 +30,8 @@ class UserMongooseDAO{
             lastName: userDocument.lastName,
             email: userDocument.email,
             age:userDocument.age,
-            password:userDocument.password
+            password:userDocument.password,
+            role: userDocument.role
         }
     }
 

@@ -1,4 +1,5 @@
 import { jwtVerificator } from "../helpers/jsonwebtoken.js";
+import jwt from 'jsonwebtoken';
 
 const auth = async (req,res,next)=>{
 
@@ -8,9 +9,11 @@ const auth = async (req,res,next)=>{
         throw new Error('Error: authorization has not been sent',{cause:'Bad Request'});
     }
     const token = authHeader.split(' ')[1];
+
     const credential = await jwtVerificator(token);
     req.user = credential.user;
     next();
+    
     } catch (error) {
         next(error)
     }

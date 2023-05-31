@@ -22,6 +22,16 @@ class RoleDAO
             permissions: [...result.permissions]
         };
     }
+
+    async update(rid,data)
+    {
+        const result = await roleModel.findByIdAndUpdate(rid,{$set:data},{new:true});
+        return {
+            id:result._id,
+            name: result.name,
+            permissions: [...result.permissions]
+        };
+    }
 }
 
 export default RoleDAO;

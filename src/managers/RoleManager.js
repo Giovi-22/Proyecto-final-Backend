@@ -21,6 +21,14 @@ class RoleManager
         return role;
     }
 
+    async update(rid,data)
+    {
+        {
+            const updatedRole = await this.#roleDAO.update(rid,data);
+            return updatedRole;
+        }
+    }
+
 }
 
 export default RoleManager;

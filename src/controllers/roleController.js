@@ -31,6 +31,23 @@ class RoleController{
             next(error);
         }
     }
+
+    static async update(req,res,next)
+    {
+        try 
+        {
+            idValidation.parse(req.params.rid);
+            const roleM = new RoleManager();
+            const updatedRole = await roleM.update(req.params.rid,req.body);
+            res.status(200).send({status:'succsess',data:updatedRole})
+        } 
+        catch (error) 
+        {
+            next(error);
+        }
+    }
 }
+
+
 
 export default RoleController;
