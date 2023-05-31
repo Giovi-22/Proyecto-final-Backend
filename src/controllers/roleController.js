@@ -23,7 +23,7 @@ class RoleController{
         {
             idValidation.parse(req.params.rid);
             const roleM = new RoleManager();
-            const role = await roleM.findOne(req.params.rid);
+            const role = await roleM.getOne(req.params.rid);
             res.status(200).send({status:'succsess',data:role})
         } 
         catch (error) 
@@ -32,13 +32,30 @@ class RoleController{
         }
     }
 
-    static async update(req,res,next)
+    static async updatePermissions(req,res,next)
     {
+        const permission = req.body?.permission;
         try 
         {
             idValidation.parse(req.params.rid);
             const roleM = new RoleManager();
-            const updatedRole = await roleM.update(req.params.rid,req.body);
+            const updatedRole = await roleM.addPermission(req.params.rid,permission);
+            res.status(200).send({status:'succsess',data:updatedRole})
+        } 
+        catch (error) 
+        {
+            next(error);
+        }
+    }
+
+    static async deletePermission(req,res,next)
+    {
+        const permission = req.body?.permission;
+        try 
+        {
+            idValidation.parse(req.params.rid);
+            const roleM = new RoleManager();
+            const updatedRole = await roleM.deletePermission(req.params.rid,permission);
             res.status(200).send({status:'succsess',data:updatedRole})
         } 
         catch (error) 

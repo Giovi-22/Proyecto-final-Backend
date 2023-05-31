@@ -15,16 +15,36 @@ class RoleManager
         return newRole;
     }
 
-    async findOne(rid)
+    async getOne(rid)
     {
         const role = await this.#roleDAO.getOne(rid);
         return role;
     }
 
-    async update(rid,data)
+    async addPermission(rid,permission)
     {
-        {
-            const updatedRole = await this.#roleDAO.update(rid,data);
+        {   
+            const role = await this.getOne(rid);
+            const result = role.permissions.find(element => element === permission);
+            if(result)
+            {
+               throw new Error('El permiso ya existe',{cuase:'Bad Request'}) 
+            }
+            role.permissions.push(permission);
+            const updatedRole = await this.#roleDAO.updatePermission(rid,role.permissions);
+            return updatedRole;
+        }
+    }
+
+    async deletePermission(rid,permission)
+    {
+        {   
+            console.log(permission)
+            const role = await this.getOne(rid);
+            const result = role.permissions.filter(element => element !== permission);
+            console.log(result)
+            role.permissions = [...result];
+            const updatedRole = await this.#roleDAO.updatePermission(rid,role.permissions);
             return updatedRole;
         }
     }

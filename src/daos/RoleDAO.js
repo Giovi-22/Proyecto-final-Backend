@@ -15,7 +15,10 @@ class RoleDAO
 
     async getOne(rid)
     {
-        const result = await roleModel.findOne({_id:rid});
+        const result = await roleModel.findById(rid);
+        if(!result){
+            throw new Error(`No se pudo encontrar el rol con id ${rid}`,{cause:'Bad Request'});
+        }
         return {
             id:result._id,
             name: result.name,
@@ -23,9 +26,9 @@ class RoleDAO
         };
     }
 
-    async update(rid,data)
+    async updatePermission(rid,data)
     {
-        const result = await roleModel.findByIdAndUpdate(rid,{$set:data},{new:true});
+        const result = await roleModel.findByIdAndUpdate(rid,{permissions:data},{new:true});
         return {
             id:result._id,
             name: result.name,
