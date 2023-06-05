@@ -1,12 +1,14 @@
 import { Router } from "express";
 import CartController from "../controllers/cartController.js";
+import auth from "../middlewares/auth.js";
+import { authorization } from "../middlewares/authorization.js";
 
 
 
 const cartRouter = Router();
 
-cartRouter.get('/',CartController.getAll);                          // <devuelve todos los productos>
-cartRouter.get('/:cid',CartController.get);                         // <devuelve el carrito seleccionado pasandole por params el cid>
+cartRouter.get('/',auth,authorization('getCarts'),CartController.getAll);                          // <devuelve todos los carritos>
+cartRouter.get('/:cid',auth,CartController.get);                         // <devuelve el carrito seleccionado pasandole por params el cid>
 cartRouter.post('/',CartController.create);                         // <crea el carrito con un array products vacío>
 cartRouter.post('/:cid/product/:pid',CartController.addOne);        // <agrega un producto al carrito, con quantity = 1>
 cartRouter.put('/:cid/',CartController.updateCart);                 // <actualiza el carrito pasando por body los productos con el siguiente formato: [{"pid":<valor>,"quantity":<valor>},...]>
