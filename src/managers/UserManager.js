@@ -16,7 +16,16 @@ class UserManager
     {
         const newUser = {...user,password: await hashPassword(user.password)};
         const result = await this.#userMongooseDAO.create(newUser);
-        return result;
+        return {
+            id: result?._id,
+            firstName: result?.firstName,
+            lastName: result?.lastName,
+            age: result?.age,
+            email: result?.email,
+            cart: result?.cart,
+            role: result?.role,
+            isAdmin: result?.isAdmin
+        }
     }
 
     async getList(filters)

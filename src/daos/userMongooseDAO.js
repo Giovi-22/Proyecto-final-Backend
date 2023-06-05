@@ -7,11 +7,11 @@ class UserMongooseDAO{
     {
         const newUser = await userModel.create(user);
         return {
-            id:newUser._id,
-            firstName: newUser.firstName,
-            lastName: newUser.lastName,
-            email: newUser.email,
-            age:newUser.age
+            id:newUser?._id,
+            firstName: newUser?.firstName,
+            lastName: newUser?.lastName,
+            email: newUser?.email,
+            age:newUser?.age
         }
     }
 
@@ -25,13 +25,14 @@ class UserMongooseDAO{
             throw new Error(`No se encuentra ${filter.field}: ${filter.value}`,{casuse:'Not Found'});
         }
         return {
-            id:userDocument._id,
-            firstName: userDocument.firstName,
-            lastName: userDocument.lastName,
-            email: userDocument.email,
-            age:userDocument.age,
-            password:userDocument.password,
-            role: userDocument.role
+            id:userDocument?._id,
+            firstName: userDocument?.firstName,
+            lastName: userDocument?.lastName,
+            email: userDocument?.email,
+            age:userDocument?.age,
+            password:userDocument?.password,
+            cart: userDocument?.cart,
+            role: userDocument?.role
         }
     }
 
@@ -43,11 +44,11 @@ class UserMongooseDAO{
             throw new Error(`El usuario con id ${uid} no existe`,{cause:'Not Found'});
         }
         return {
-            id:user._id,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            email: user.email,
-            age:user.age
+            id:user?._id,
+            firstName: user?.firstName,
+            lastName: user?.lastName,
+            email: user?.email,
+            age:user?.age
         }
     }
 
@@ -63,11 +64,11 @@ class UserMongooseDAO{
             ...result,
             docs:result.docs.map(user =>(
                 {
-                    id:user._id,
-                    firstName:user.firstName,
-                    lastName:user.lastName,
-                    email:user.email,
-                    age:user.age
+                    id:user?._id,
+                    firstName:user?.firstName,
+                    lastName:user?.lastName,
+                    email:user?.email,
+                    age:user?.age
                 }))
         }
     }
@@ -90,11 +91,11 @@ class UserMongooseDAO{
             throw new Error(`No se encuentra el usuario ${uid}`,{cause:'Not Found'});
         }
         return {
-            id:userDocument._id,
-            firstName: userDocument.firstName,
-            lastName: userDocument.lastName,
-            email: userDocument.email,
-            age:userDocument.age
+            id:userDocument?._id,
+            firstName: userDocument?.firstName,
+            lastName: userDocument?.lastName,
+            email: userDocument?.email,
+            age:userDocument?.age
         }
     }
 }

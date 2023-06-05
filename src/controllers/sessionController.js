@@ -11,7 +11,7 @@ class SessionController{
             await loginValidation.parseAsync(req.body);
             const sessionM = new SessionManager();
             const accessToken = await sessionM.login({...req.body});
-            return res.cookie('user',accessToken).send({message:'Login success',data:accessToken});
+            return res.cookie('user',accessToken,{maxAge:(60*1000)*10}).send({message:'Login success',data:accessToken});
         } 
         catch (error)
         {

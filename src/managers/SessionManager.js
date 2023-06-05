@@ -13,7 +13,7 @@ class SessionManager{
         {
             throw new Error('Login failed, invalid password!',{cause:'Bad Request'});
         }
-        const userAccessToken = await jwtGenerator(userDB)
+        const userAccessToken = await jwtGenerator({...userDB,password:undefined})
         return userAccessToken;
     }
 
