@@ -3,7 +3,7 @@ import RoleManager from "../managers/RoleManager.js";
 
 class RoleController{
 
-    static async insert(req,res,next)
+    static async create(req,res,next)
     {
         try 
         {

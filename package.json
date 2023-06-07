@@ -4,7 +4,8 @@
   "description": "Proyecto final del curso de backend realizado en Coderhouse",
   "main": "index.js",
   "scripts": {
-    "dev": "node src/index.js"
+    "dev": "node src/index.js",
+    "nodemon-dev": "nodemon src/index.js"
   },
   "repository": {
     "type": "git",
