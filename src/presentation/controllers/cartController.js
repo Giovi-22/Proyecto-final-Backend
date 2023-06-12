@@ -1,5 +1,5 @@
-import { idValidation, updateCartValidation } from "../helpers/validators.js";
-import CartManager from "../managers/CartManager.js"
+import { idValidation, updateCartValidation } from "../../domain/validations/validators.js";
+import CartManager from "../../domain/managers/CartManager.js"
 
 class CartController{
 

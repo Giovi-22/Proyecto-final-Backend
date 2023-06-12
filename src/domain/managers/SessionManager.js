@@ -1,5 +1,5 @@
-import { verifyPassword } from '../helpers/bcrypt.js';
-import { jwtGenerator } from '../helpers/jsonwebtoken.js';
+import { verifyPassword } from '../../helpers/bcrypt.js';
+import { jwtGenerator,  } from '../../helpers/jsonwebtoken.js';
 import UserManager from './userManager.js';
 
 class SessionManager{

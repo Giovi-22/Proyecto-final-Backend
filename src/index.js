@@ -7,13 +7,13 @@ import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import cors from 'cors';
 
-import productRouter from './routes/productRouter.js';
-import cartRouter from './routes/cartRouter.js';
+import productRouter from '../src/presentation/routes/productRouter.js';
+import cartRouter from '../src/presentation/routes/cartRouter.js';
 
-import sessionsRouter from './routes/sessionsRouter.js';
-import userRouter from './routes/userRouter.js';
-import roleRouter from './routes/roleRouter.js';
-import { errorHandler } from './middlewares/errorHandler.js';
+import sessionsRouter from '../src/presentation/routes/sessionsRouter.js';
+import userRouter from '../src/presentation/routes/userRouter.js';
+import roleRouter from '../src/presentation/routes/roleRouter.js';
+import { errorHandler } from '../src/presentation/middlewares/errorHandler.js';
 
 
 dotenv.config();

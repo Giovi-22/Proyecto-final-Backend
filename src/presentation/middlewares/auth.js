@@ -1,5 +1,5 @@
-import { jwtVerificator } from "../helpers/jsonwebtoken.js";
-import jwt from 'jsonwebtoken';
+import { jwtVerificator } from "../../helpers/jsonwebtoken.js";
+
 
 const auth = async (req,res,next)=>{
 
