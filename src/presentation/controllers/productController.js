@@ -1,4 +1,4 @@
-import { idValidation, productZodSchema } from '../../domain/validations/validators.js';
+
 import ProductManager from '../../domain/managers/ProductManager.js';
 class ProductController{
 
@@ -6,7 +6,6 @@ class ProductController{
     {
             try
             {
-                await productZodSchema.parseAsync(req.body);
                 const pManager = new ProductManager();
                 const newProduct = await pManager.add(req.body);
                 res.status(201).json({status:'success',data:newProduct});
@@ -42,7 +41,6 @@ class ProductController{
         const pid = req.params.pid;
         try
         {
-            await idValidation.parseAsync(pid);
             const pManager = new ProductManager();
             const product = await pManager.getOne(pid);
             res.status(200).json({status:'success',data:product});
@@ -60,7 +58,6 @@ class ProductController{
         const data = req.body;
         try
         {
-            await idValidation.parseAsync(pid);
             const pManager = new ProductManager();
             const productUpdated = await pManager.update(pid,data);
             res.status(200).json({status:'success',data:productUpdated});
@@ -76,7 +73,6 @@ class ProductController{
         const pid = req.params.pid;
         try
         {
-            await idValidation.parseAsync(pid);
             const pManager = new ProductManager();
             const productDeleted = await pManager.deleteOne(pid);
             res.status(200).json({status:'success',data:productDeleted});

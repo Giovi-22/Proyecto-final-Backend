@@ -1,4 +1,5 @@
 import RoleDAO from "../../data/daos/RoleDAO.js";
+import { idValidation } from "../validations/validators.js";
 
 class RoleManager
 {
@@ -17,6 +18,7 @@ class RoleManager
 
     async getOne(rid)
     {
+        idValidation.parse(rid);
         const role = await this.#roleDAO.getOne(rid);
         return role;
     }
@@ -24,6 +26,7 @@ class RoleManager
     async addPermission(rid,permission)
     {
         {   
+            idValidation.parse(rid);
             const role = await this.getOne(rid);
             const result = role.permissions.find(element => element === permission);
             if(result)
@@ -39,6 +42,7 @@ class RoleManager
     async deletePermission(rid,permission)
     {
         {   
+            idValidation.parse(rid);
             console.log(permission)
             const role = await this.getOne(rid);
             const result = role.permissions.filter(element => element !== permission);

@@ -1,5 +1,6 @@
 import UserMongooseDAO from '../../data/daos/userMongooseDAO.js';
 import { hashPassword } from '../../helpers/bcrypt.js';
+import { idValidation, userZodSchema } from '../validations/validators.js';
 
 
 
@@ -14,6 +15,7 @@ class UserManager
 
     async create(user)
     {
+        await userZodSchema.parseAsync(newUser);
         const newUser = {...user,password: await hashPassword(user.password)};
         const result = await this.#userMongooseDAO.create(newUser);
         return {
@@ -45,12 +47,14 @@ class UserManager
     }
     async getById(uid)
     {
+        await idValidation.parseAsync(uid);
         const user = await this.#userMongooseDAO.findById(uid);
         return user;
     }
 
     async updateOne(uid,data)
     {
+        await idValidation.parseAsync(uid);
         if(data?.password)
         {
             throw new Error('no tiene permisos para actualizar el password',{cause:'Forbidden'})
@@ -61,6 +65,7 @@ class UserManager
     
     async deleteOne(uid)
     {
+        await idValidation.parseAsync(uid);
         const deletedUser = await this.#userMongooseDAO.deleteOne(uid);
         return deletedUser;
     }

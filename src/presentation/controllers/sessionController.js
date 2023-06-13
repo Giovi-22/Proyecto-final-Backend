@@ -1,4 +1,4 @@
-import { loginValidation, userZodSchema } from "../../domain/validations/validators.js";
+
 import SessionManager from "../../domain/managers/SessionManager.js";
 
 class SessionController{
@@ -8,7 +8,7 @@ class SessionController{
     {
         try
         {
-            await loginValidation.parseAsync(req.body);
+
             const sessionM = new SessionManager();
             const accessToken = await sessionM.login({...req.body});
             return res.cookie('user',accessToken,{maxAge:(60*1000)*10}).send({message:'Login success',data:accessToken});
@@ -53,7 +53,6 @@ class SessionController{
     {
         try
         {
-            await userZodSchema.parseAsync(req.body);
             const sessionM = new SessionManager();
             const newUser = await sessionM.signup(req.body);
             res.status(201).send({status:'success',data:newUser});

@@ -16,8 +16,5 @@ cartRouter.put('/:cid/product/:pid',CartController.updateOne);      // <actualiz
 cartRouter.delete('/:cid',CartController.deleteAll);                // <borra todos los productos del carrito seleccionado (cid)>
 cartRouter.delete('/:cid/products/:pid',CartController.deleteOne);  // <borra del carrito (cid) el producto (pid)
 
-cartRouter.param('cid',(req,res,next,cid)=>{
-    console.log("dentro del param antes de la ruta",cid);
-    next();
-})
+
 export default cartRouter;

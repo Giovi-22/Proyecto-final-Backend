@@ -1,4 +1,4 @@
-import { idValidation } from "../../domain/validations/validators.js";
+
 import RoleManager from "../../domain/managers/RoleManager.js";
 
 class RoleController{
@@ -21,7 +21,6 @@ class RoleController{
     {
         try 
         {
-            idValidation.parse(req.params.rid);
             const roleM = new RoleManager();
             const role = await roleM.getOne(req.params.rid);
             res.status(200).send({status:'succsess',data:role})
@@ -37,7 +36,6 @@ class RoleController{
         const permission = req.body?.permission;
         try 
         {
-            idValidation.parse(req.params.rid);
             const roleM = new RoleManager();
             const updatedRole = await roleM.addPermission(req.params.rid,permission);
             res.status(200).send({status:'succsess',data:updatedRole})
@@ -53,7 +51,6 @@ class RoleController{
         const permission = req.body?.permission;
         try 
         {
-            idValidation.parse(req.params.rid);
             const roleM = new RoleManager();
             const updatedRole = await roleM.deletePermission(req.params.rid,permission);
             res.status(200).send({status:'succsess',data:updatedRole})

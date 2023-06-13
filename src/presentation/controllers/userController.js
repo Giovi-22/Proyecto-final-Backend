@@ -1,5 +1,4 @@
-import { idValidation, userZodSchema } from "../../domain/validations/validators.js";
-import UserManager from "../../domain/managers/UserManager.js";
+import UserManager from "../../domain/managers/userManager.js";
 
 class UserController{
 
@@ -8,7 +7,6 @@ class UserController{
         const newUser = req.body;
         try
         {
-            await userZodSchema.parseAsync(newUser);
             const uManager = new UserManager();
             const result = await uManager.create(newUser);
             return res.status(201).json({status:"success",data:result});
@@ -44,7 +42,7 @@ class UserController{
         const uid = req.params.uid;
         try
         {
-            await idValidation.parseAsync(uid);
+
             const uManager = new UserManager();
             const user = await uManager.getById(uid);
             return res.status(200).json({status:"success",data:user});
@@ -60,8 +58,7 @@ class UserController{
         const uid = req.params.uid;
         const data = req.body;
         try
-        {
-            await idValidation.parseAsync(uid);
+        {         
             const uManager = new UserManager();
             const userUpdated = await uManager.updateOne(uid,data);
             return res.status(200).json({status:"success",data:userUpdated});
@@ -77,7 +74,6 @@ class UserController{
         const uid = req.params.uid;
         try
         {
-            await idValidation.parseAsync(uid);
             const uManager = new UserManager();
             const result = await uManager.deleteOne(uid);
             return res.status(200).json({status:"success",message:result});

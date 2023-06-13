@@ -14,6 +14,8 @@ export const productZodSchema = z.object
     }
 );
 
+export const productUpdateSchema = productZodSchema.partial();
+
 export const userZodSchema = z.object
 (
     {
