@@ -32,7 +32,7 @@ class ExpressApp{
         
         this.app.use(session({
             store: MongoStore.create({
-                mongoUrl: config.mongoUri,
+                mongoUrl: config.dbUri,
                 ttl:60,
             }),
             secret:'codigoSecreto',
