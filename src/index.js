@@ -15,7 +15,7 @@ void (async ()=>
         useUnifiedTopology: true
       });
 
-    const expressApp = AppFactory.create('express');
+    const expressApp = AppFactory.create(config.appType);
     
     expressApp.init();
     expressApp.build();
