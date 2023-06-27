@@ -8,9 +8,8 @@ class SessionController{
     {
         try
         {
-
             const sessionM = new SessionManager();
-            const accessToken = await sessionM.login({...req.body});
+            const accessToken = await sessionM.login(req.body);
             return res.cookie('user',accessToken,{maxAge:(60*1000)*10}).send({message:'Login success',data:accessToken});
         } 
         catch (error)

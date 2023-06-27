@@ -1,8 +1,6 @@
-import mongoose from 'mongoose';
-
-
 import { config } from './config/index.js';
 import AppFactory from './presentation/factories/AppFactory.js';
+import DbFactory from './data/factories/dbFactory.js';
 
 
 
@@ -10,16 +8,14 @@ import AppFactory from './presentation/factories/AppFactory.js';
 void (async ()=>
 {
     try{
-    await mongoose.connect(config.mongoUri,{
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-      });
-
-    const expressApp = AppFactory.create(config.appType);
+    const db = DbFactory.create(config.dbType);
+    const app = AppFactory.create('express');
     
-    expressApp.init();
-    expressApp.build();
-    expressApp.listen();
+    db.init(config.dbUri);
+
+    app.init();
+    app.build();
+    app.listen();
       
 
     } catch (error) {

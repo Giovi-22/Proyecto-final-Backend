@@ -1,4 +1,4 @@
-import ProductMongooseDAO from '../../data/daos/productMongooseDAO.js';
+import container from '../../container.js';
 import { idValidation, productUpdateSchema, productZodSchema } from '../validations/validators.js';
 
 class ProductManager
@@ -7,7 +7,7 @@ class ProductManager
 
     constructor()
     {
-        this.#productManagerDAO = new ProductMongooseDAO();
+        this.#productManagerDAO = container.resolve('ProductDao');
     }
 
     async add(product)

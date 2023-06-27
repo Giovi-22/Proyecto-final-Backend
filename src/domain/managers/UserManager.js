@@ -1,4 +1,4 @@
-import UserMongooseDAO from '../../data/daos/userMongooseDAO.js';
+import container from '../../container.js';
 import { hashPassword } from '../../helpers/bcrypt.js';
 import { idValidation, userZodSchema } from '../validations/validators.js';
 
@@ -10,12 +10,12 @@ class UserManager
 
     constructor()
     {
-        this.#userMongooseDAO = new UserMongooseDAO();
+        this.#userMongooseDAO = container.resolve('UserDao');
     }
 
     async create(user)
     {
-        await userZodSchema.parseAsync(newUser);
+        await userZodSchema.parseAsync(user);
         const newUser = {...user,password: await hashPassword(user.password)};
         const result = await this.#userMongooseDAO.create(newUser);
         return {

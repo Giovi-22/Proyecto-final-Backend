@@ -7,7 +7,7 @@ class SessionManager{
 
     async login(user)
     {
-        await loginValidation.parseAsync(req.body);
+        await loginValidation.parseAsync(user);
         const userM = new UserManager();
         const userDB = await userM.findByFilter({field:'email',value:user.email});
         const isValid = await verifyPassword(userDB.password,user.password);
@@ -21,7 +21,7 @@ class SessionManager{
 
     async signup(user)
     {
-        await userZodSchema.parseAsync(req.body);
+        await userZodSchema.parseAsync(user);
         const userM = new UserManager();
         const newUser = await userM.create(user);
         return newUser;
