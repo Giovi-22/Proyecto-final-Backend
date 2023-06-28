@@ -1,4 +1,4 @@
-import CartMongooseDAO from "../../data/daos/cartMongooseDAO.js";
+import container from "../../container.js";
 import { idValidation, updateCartValidation } from "../validations/validators.js";
 
 
@@ -8,7 +8,7 @@ class CartManager{
 
     constructor()
     {
-        this.#cartMongooseDAO = new CartMongooseDAO();
+        this.#cartMongooseDAO = container.resolve('CartDao');
     }
     
     async createCart(cart)
