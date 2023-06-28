@@ -1,4 +1,4 @@
-import RoleDAO from "../../data/daos/RoleDAO.js";
+import container from "../../container.js";
 import { idValidation } from "../validations/validators.js";
 
 class RoleManager
@@ -8,7 +8,7 @@ class RoleManager
 
     constructor()
     {
-        this.#roleDAO = new RoleDAO();
+        this.#roleDAO = container.resolve('RoleDao');
     }
     async create(data)
     {
