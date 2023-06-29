@@ -4,7 +4,7 @@ import { roleModel } from "../models/roleModel.js";
 class RoleRepository
 {
 
-    async insert(data)
+    async create(data)
     {
         const result = await roleModel.create(data);
         return new Role({

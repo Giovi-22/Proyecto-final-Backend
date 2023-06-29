@@ -4,22 +4,22 @@ import { idValidation } from "../validations/validators.js";
 class RoleManager
 {
 
-    #roleDAO;
+    #roleRepository;
 
     constructor()
     {
-        this.#roleDAO = container.resolve('RoleDao');
+        this.#roleRepository = container.resolve('RoleRepository');
     }
     async create(data)
     {
-        const newRole = await this.#roleDAO.insert(data);
+        const newRole = await this.#roleRepository.insert(data);
         return newRole;
     }
 
     async getOne(rid)
     {
         idValidation.parse(rid);
-        const role = await this.#roleDAO.getOne(rid);
+        const role = await this.#roleRepository.getOne(rid);
         return role;
     }
 
@@ -34,7 +34,7 @@ class RoleManager
                throw new Error('El permiso ya existe',{cuase:'Bad Request'}) 
             }
             role.permissions.push(permission);
-            const updatedRole = await this.#roleDAO.updatePermission(rid,role.permissions);
+            const updatedRole = await this.#roleRepository.updatePermission(rid,role.permissions);
             return updatedRole;
         }
     }
@@ -48,7 +48,7 @@ class RoleManager
             const result = role.permissions.filter(element => element !== permission);
             console.log(result)
             role.permissions = [...result];
-            const updatedRole = await this.#roleDAO.updatePermission(rid,role.permissions);
+            const updatedRole = await this.#roleRepository.updatePermission(rid,role.permissions);
             return updatedRole;
         }
     }
