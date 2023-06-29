@@ -9,6 +9,7 @@ const cartRouter = Router();
 
 cartRouter.get('/',auth,authorization('getCarts'),CartController.getAll);// <devuelve todos los carritos>
 cartRouter.get('/:cid',auth,CartController.get);                     // <devuelve el carrito seleccionado pasandole por params el cid>
+cartRouter.post('/:cid/purchase',auth,CartController.purchase);
 cartRouter.post('/',CartController.create);                         // <crea el carrito con un array products vacío>
 cartRouter.post('/:cid/product/:pid',auth,CartController.addOne);        // <agrega un producto al carrito, con quantity = 1>
 cartRouter.put('/:cid/',CartController.updateCart);                 // <actualiza el carrito pasando por body los productos con el siguiente formato: [{"pid":<valor>,"quantity":<valor>},...]>

@@ -45,6 +45,14 @@ class CartManager{
         return cart;
     }
 
+    async finishPurchase(cid){
+        const cart = await this.getOne(cid);
+        if(!cart){
+            throw new Error('El carrito no existe',{cause:"Bad Request"});
+        }
+        console.log(cart);
+    }
+
     async updateAll(cid,data)
     {
         idValidation.parse(cid);

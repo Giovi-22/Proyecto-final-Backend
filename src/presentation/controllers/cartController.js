@@ -93,6 +93,21 @@ class CartController{
         }
     }
 
+    static purchase = async (req,res,next)=>
+    {
+        const cid = req.params.cid;
+        try
+        {   
+            const cartM = new CartManager();
+            const cart = await cartM.finishPurchase(cid);
+            res.status(200).json({status:"success",data:cart});
+        }
+        catch (error)
+        {
+            next(error);
+        }
+    }
+
     static deleteAll = async (req,res,next)=>
     {
         const cid = req.params.cid;
