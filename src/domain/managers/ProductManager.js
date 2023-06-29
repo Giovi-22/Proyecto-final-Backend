@@ -3,35 +3,35 @@ import { idValidation, productUpdateSchema, productZodSchema } from '../validati
 
 class ProductManager
 {
-    #productManagerDAO;
+    #ProductRepository;
 
     constructor()
     {
-        this.#productManagerDAO = container.resolve('ProductDao');
+        this.#ProductRepository = container.resolve('ProductRepository');
     }
 
     async add(product)
     {
         await productZodSchema.parseAsync(product);
-        const codeExist = await this.#productManagerDAO.findByFilter({code:{$eq:product.code}});
+        const codeExist = await this.#ProductRepository.findByFilter({code:{$eq:product.code}});
         if(codeExist.length)
         {
             throw new Error('El código del producto ya existe',{cause:'Bad Request'});
         }
-        const newProduct = await this.#productManagerDAO.insertOne(product);
+        const newProduct = await this.#ProductRepository.insertOne(product);
         return newProduct;  
     }
 
     async get(options)
     {
-        const products = await this.#productManagerDAO.Paginate(options);
+        const products = await this.#ProductRepository.Paginate(options);
         return products;
     }
 
     async getOne(pid)
     {
         await idValidation.parseAsync(pid);
-        const product = await this.#productManagerDAO.findById(pid);
+        const product = await this.#ProductRepository.findById(pid);
         return product;        
     }
 
@@ -39,7 +39,7 @@ class ProductManager
     {
         await idValidation.parseAsync(pid);
         await productUpdateSchema.parseAsync(data);
-        const updatedProduct = await this.#productManagerDAO.update(pid,data);
+        const updatedProduct = await this.#ProductRepository.update(pid,data);
         return updatedProduct;
     }
     async deleteOne(pid)
