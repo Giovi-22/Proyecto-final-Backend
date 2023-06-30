@@ -100,6 +100,7 @@ class CartController{
         {   
             const cartM = new CartManager();
             const cart = await cartM.finishPurchase(cid);
+            console.log("productos disponibles para la compra: ", cart)
             res.status(200).json({status:"success",data:cart});
         }
         catch (error)

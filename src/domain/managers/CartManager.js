@@ -1,5 +1,7 @@
 import container from "../../container.js";
+import Cart from "../entities/Cart.js";
 import { idValidation, updateCartValidation } from "../validations/validators.js";
+import ProductManager from "./ProductManager.js";
 
 
 class CartManager{
@@ -46,11 +48,24 @@ class CartManager{
     }
 
     async finishPurchase(cid){
+        const productM = new ProductManager();
+        let availableProducts =[];
         const cart = await this.getOne(cid);
         if(!cart){
             throw new Error('El carrito no existe',{cause:"Bad Request"});
         }
-        console.log(cart);
+        for await (const product of cart.getProducts()){
+            if(product.quantity <= product.product.stock){
+                console.log("Hay stock")
+                const updatedStock = (product.product.stock - product.quantity) >= 0 ? (product.product.stock - product.quantity) : 0;
+                await productM.update(product.product.id,{stock: updatedStock});
+                availableProducts.push(product);
+            }
+            else{
+                console.log("No hay suficiente stock de este producto");
+            }
+        };
+        return availableProducts;
     }
 
     async updateAll(cid,data)
