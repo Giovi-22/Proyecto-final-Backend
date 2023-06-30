@@ -49,7 +49,10 @@ class CartManager{
 
     async finishPurchase(cid){
         const productM = new ProductManager();
-        let availableProducts =[];
+        let purchaseDto ={
+            availableProducts:[],
+            unavailableProducs:[]
+        };
         const cart = await this.getOne(cid);
         if(!cart){
             throw new Error('El carrito no existe',{cause:"Bad Request"});
@@ -59,13 +62,35 @@ class CartManager{
                 console.log("Hay stock")
                 const updatedStock = (product.product.stock - product.quantity) >= 0 ? (product.product.stock - product.quantity) : 0;
                 await productM.update(product.product.id,{stock: updatedStock});
-                availableProducts.push(product);
+                purchaseDto.availableProducts.push(
+                    {
+                        quantity:product.quantity,
+                        product:{
+                        ...product.product,
+                            id:undefined,
+                            stock:undefined,
+                            status:undefined,
+                            code:undefined
+                        }
+                    });
             }
             else{
                 console.log("No hay suficiente stock de este producto");
+                purchaseDto.unavailableProducs.push(
+                    {
+                        quantity:product.quantity,
+                        product:{
+                        ...product.product,
+                            id:undefined,
+                            stock:undefined,
+                            status:undefined,
+                            code:undefined
+                        }
+                    }
+                );
             }
         };
-        return availableProducts;
+        return purchaseDto;
     }
 
     async updateAll(cid,data)
