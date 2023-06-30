@@ -54,40 +54,20 @@ class CartManager{
             unavailableProducs:[]
         };
         const cart = await this.getOne(cid);
+
         if(!cart){
             throw new Error('El carrito no existe',{cause:"Bad Request"});
         }
+
         for await (const product of cart.getProducts()){
-            if(product.quantity <= product.product.stock){
-                console.log("Hay stock")
-                const updatedStock = (product.product.stock - product.quantity) >= 0 ? (product.product.stock - product.quantity) : 0;
-                await productM.update(product.product.id,{stock: updatedStock});
-                purchaseDto.availableProducts.push(
-                    {
-                        quantity:product.quantity,
-                        product:{
-                        ...product.product,
-                            id:undefined,
-                            stock:undefined,
-                            status:undefined,
-                            code:undefined
-                        }
-                    });
+            const isAvailable = product.product.status;
+            if(product.quantity > product.product.stock || !isAvailable){
+                purchaseDto.unavailableProducs.push(product);
             }
             else{
-                console.log("No hay suficiente stock de este producto");
-                purchaseDto.unavailableProducs.push(
-                    {
-                        quantity:product.quantity,
-                        product:{
-                        ...product.product,
-                            id:undefined,
-                            stock:undefined,
-                            status:undefined,
-                            code:undefined
-                        }
-                    }
-                );
+                purchaseDto.availableProducts.push(product);
+                const updatedStock = (product.product.stock - product.quantity) >= 0 ? (product.product.stock - product.quantity) : 0;
+                await productM.update(product.product.id,{stock: updatedStock});
             }
         };
         return purchaseDto;
