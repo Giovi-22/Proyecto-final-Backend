@@ -7,8 +7,9 @@ class TicketManager{
         this.Ticket = new Ticket();
     }
 
-    async generate(){
-
+    async generate(purchase){
+        this.Ticket.code = purchase.code;
+        this.Ticket.
     }
 }
 
