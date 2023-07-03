@@ -7,6 +7,18 @@ const ticketSchema = new mongoose.Schema(
         purchase_datetime: {type:String,required:true},
         amount: {type:Number,required:true},
         purchaser: {type:String,required:true, index:true},
+        products: {
+            type:[
+                {
+                    pid:{
+                        type:mongoose.Schema.Types.ObjectId,
+                        ref:'products'      //coleccion a la que hace referencia el campo pid
+                    },
+                    quantity: Number
+            }
+        ],
+        default:[]
+        },
     }
 );
 

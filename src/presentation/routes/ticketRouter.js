@@ -1,13 +1,13 @@
 import { Router } from "express";
-import CartController from "../controllers/cartController.js";
 import auth from "../middlewares/auth.js";
 import { authorization } from "../middlewares/authorization.js";
+import TicketController from "../controllers/ticketController.js";
 
 
 
 const ticketRouter = Router();
-               // <devuelve el carrito seleccionado pasandole por params el cid>
-ticketRouter.post('/:cid',CartController.purchase);
-ticketRouter.post('/',CartController.create);                         // <crea el carrito con un array products vacío>
+
+ticketRouter.post('/:cid',TicketController.create);
+
 
 export default ticketRouter;
