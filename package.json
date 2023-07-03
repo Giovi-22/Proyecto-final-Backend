@@ -31,6 +31,7 @@
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.1.1",
     "mongoose-paginate-v2": "^1.7.1",
+    "nanoid": "^4.0.2",
     "zod": "^3.21.4"
   },
   "devDependencies": {

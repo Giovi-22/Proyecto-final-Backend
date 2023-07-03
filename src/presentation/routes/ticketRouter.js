@@ -7,7 +7,7 @@ import TicketController from "../controllers/ticketController.js";
 
 const ticketRouter = Router();
 
-ticketRouter.post('/:cid',TicketController.create);
+ticketRouter.post('/:cid',auth,authorization("createTicket"),TicketController.create);
 
 
 export default ticketRouter;

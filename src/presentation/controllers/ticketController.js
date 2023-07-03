@@ -8,8 +8,9 @@ class TicketController{
         try 
         {
             const ticketM = new TicketManager();
-            const newRole = await ticketM.create(req.params.cid);
-            res.status(201).send({status:'Role crated',data:newRole})
+            const newTicket = await ticketM.create(req.params.cid,req.user.email);
+            console.log("Ticket: ",newTicket);
+            res.status(201).send({status:'success',data:newTicket})
         } 
         catch (error) 
         {
