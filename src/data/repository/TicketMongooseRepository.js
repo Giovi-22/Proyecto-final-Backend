@@ -2,7 +2,7 @@ import Ticket from "../../domain/entities/Ticket.js";
 import { TicketModel } from "../models/ticketModel.js";
 
 
-class ProductMongooseRepository{
+class TicketMongooseRepository{
 
     async create(ticket)
     {
@@ -14,6 +14,18 @@ class ProductMongooseRepository{
             amount: newTicket.amount,
             purchaser: newTicket.purchaser
         })  
+    }
+
+    async findById(tid)
+    {
+        const ticket = await TicketModel.findById(tid);
+        return new Ticket({
+            id: ticket._id,
+            code: ticket.code,
+            purchase_datetime: ticket.purchase_datetime,
+            amount: ticket.amount,
+            purchaser: ticket.purchaser 
+        })
     }
     /*
     async findByFilter(filter)
@@ -82,4 +94,4 @@ class ProductMongooseRepository{
     */
 }
 
-export default ProductMongooseRepository;
+export default TicketMongooseRepository;

@@ -1,15 +1,17 @@
+import container from "../../container";
 import Ticket from "../entities/Ticket";
 
 class TicketManager{
 
 
     constructor(){
-        this.Ticket = new Ticket();
+        this.ticketRepository = container.resolve("TicketRepository");
     }
 
-    async generate(purchase){
-        this.Ticket.code = purchase.code;
-        this.Ticket.
+    async create(purchase){
+        const newTicket = await this.ticketRepository.create(purchase);
+        
+        
     }
 }
 

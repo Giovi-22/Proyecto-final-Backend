@@ -62,7 +62,7 @@ class CartManager{
         for await (const product of cart.getProducts()){
             const isAvailable = product.product.status;
             if(product.quantity > product.product.stock || !isAvailable){
-                purchaseDto.unavailableProducs.push(product);
+                purchaseDto.unavailableProducs.push({pid: product.product.pid,quantity:product.quantity});
             }
             else{
                 purchaseDto.availableProducts.push(product);
@@ -70,6 +70,7 @@ class CartManager{
                 await productM.update(product.product.id,{stock: updatedStock});
             }
         };
+        await this.updateAll(cid,purchaseDto.unavailableProducs);
         return purchaseDto;
     }
 

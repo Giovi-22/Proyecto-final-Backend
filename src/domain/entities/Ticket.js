@@ -1,5 +1,10 @@
 
 class Ticket{
+    #id;
+    #code;
+    #purchase_datetime;
+    #amount;
+    #purchaser;
 
     constructor(props){
     this.#id = props.id;
