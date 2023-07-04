@@ -7,7 +7,6 @@ class TicketController{
     {
         try 
         {
-
             const ticketM = new TicketManager();
             const newTicket = await ticketM.create(req.params.cid,req.user.email);
             res.status(201).send({status:'success',data:newTicket.getData()})

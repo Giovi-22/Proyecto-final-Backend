@@ -3,6 +3,7 @@ import { codeIdGenerator } from "../../helpers/nanoidGenerator.js";
 import Ticket from "../entities/Ticket.js";
 import { idValidation } from "../validations/validators.js";
 import CartManager from "./CartManager.js";
+import ProductManager from "./ProductManager.js";
 class TicketManager{
 
 
@@ -13,12 +14,11 @@ class TicketManager{
     async create(cid,userEmail){
         await idValidation.parseAsync(cid);
         const cartM = new CartManager();
+        const productM = new ProductManager();
         const cart = await cartM.finishPurchase(cid);
-        let amount = 0;
         const code = await codeIdGenerator();
-        const products = cart.availableProducts.map(element => {
-            return {pid: element.product.id,quantity: element.quantity}
-            });
+        let amount = 0;
+
         cart.availableProducts.forEach(product => {
             amount += product.quantity * product.product.price;
         })
@@ -26,10 +26,24 @@ class TicketManager{
             code: code,
             amount: amount,
             purchaser: userEmail,
-            products: products
+            products: cart.availableProducts.map(element =>({pid: element.product.id,quantity: element.quantity}))
         })
+
+        for await (const element of cart.availableProducts){
+            const updatedStock = (element.product.stock - element.quantity) >= 0 ? (element.product.stock - element.quantity) : 0;
+            await productM.update(element.product.id,{stock: updatedStock});
+        }
+        if(cart.unavailableProducs.length){
+        cartM.updateAll(cid,cart.unavailableProducs.map(element =>({pid:element.product.id,quantity:element.quantity})));
+        }else{
+            await cartM.deleteAll(cid);
+        }
         return this.ticketRepository.create(newTicket);
 
+    }
+
+    async getOne(tid){
+        
     }
 }
 

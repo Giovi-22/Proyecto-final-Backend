@@ -25,7 +25,8 @@ class TicketMongooseRepository{
             code: ticket.code,
             purchase_datetime: ticket.purchase_datetime,
             amount: ticket.amount,
-            purchaser: ticket.purchaser 
+            purchaser: ticket.purchaser,
+            products: ticket.products
         })
     }
     /*

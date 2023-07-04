@@ -48,29 +48,21 @@ class CartManager{
     }
 
     async finishPurchase(cid){
-        const productM = new ProductManager();
         let purchaseDto ={
             availableProducts:[],
             unavailableProducs:[]
         };
         const cart = await this.getOne(cid);
-        if(!cart){
-            throw new Error('El carrito no existe',{cause:"Bad Request"});
-        }
 
         for await (const product of cart.getProducts()){
             const isAvailable = product.product.status;
             if(product.quantity > product.product.stock || !isAvailable){
-                purchaseDto.unavailableProducs.push({pid: product.product.pid,quantity:product.quantity});
+                purchaseDto.unavailableProducs.push(product);
             }
             else{
                 purchaseDto.availableProducts.push(product);
-                const updatedStock = (product.product.stock - product.quantity) >= 0 ? (product.product.stock - product.quantity) : 0;
-                await productM.update(product.product.id,{stock: updatedStock});
             }
         };
-        //await this.updateAll(cid,purchaseDto.unavailableProducs);
-        console.log("punto 5")
         return purchaseDto;
     }
 
@@ -90,7 +82,7 @@ class CartManager{
         Object.assign(cart.products.at(index),{quantity:quantity});
         return this.#cartRepository.update(cid,cart.products);
     }
-
+    
     async deleteOne(cid,pid)
     {
         idValidation.parse(cid);
