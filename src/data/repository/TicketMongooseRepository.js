@@ -19,7 +19,7 @@ class TicketMongooseRepository{
 
     async findById(tid)
     {
-        const ticket = await TicketModel.findById(tid);
+        const ticket = await TicketModel.findById(tid).populate("products.pid");
         return new Ticket({
             id: ticket._id,
             code: ticket.code,

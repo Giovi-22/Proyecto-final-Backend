@@ -43,7 +43,7 @@ class TicketManager{
     }
 
     async getOne(tid){
-        
+        return this.ticketRepository.findById(tid);
     }
 }
 

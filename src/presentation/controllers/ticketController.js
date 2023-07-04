@@ -23,8 +23,8 @@ class TicketController{
         {
 
             const ticketM = new TicketManager();
-            
-            res.status(200).send({status:'succsess',data:""})
+            const ticket = await ticketM.getOne(req.params.tid)
+            res.status(200).send({status:'succsess',data:ticket.getData()})
         } 
         catch (error) 
         {
