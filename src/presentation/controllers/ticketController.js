@@ -32,6 +32,21 @@ class TicketController{
         }
     }
 
+    static async sendMail(req,res,next)
+    {
+        try 
+        {
+
+            const ticketM = new TicketManager();
+            const ticket = await ticketM.getOne(req.params.tid)
+            res.status(200).send({status:'succsess',data:ticket.getData()})
+        } 
+        catch (error) 
+        {
+            next(error);
+        }
+    }
+
 }
 
 

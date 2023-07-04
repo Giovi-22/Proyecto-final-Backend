@@ -9,6 +9,6 @@ const ticketRouter = Router();
 
 ticketRouter.get('/:tid',auth,TicketController.getOne);
 ticketRouter.post('/:cid',auth,TicketController.create);
-
+ticketRouter.post('/mail',auth,TicketController.sendMail);
 
 export default ticketRouter;
