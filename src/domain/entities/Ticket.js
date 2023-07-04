@@ -15,6 +15,17 @@ class Ticket{
     this.#purchaser = props.purchaser;
     this.#products = props.products;
     }
+
+    getData(){
+        return {
+            id: this.#id,
+            code: this.#code,
+            purchase_datetime: this.#purchase_datetime,
+            amount: this.#amount,
+            purchaser: this.#purchaser,
+            products: this.#products
+        }
+    }
 }
 
 export default Ticket;

@@ -6,14 +6,14 @@ class TicketMongooseRepository{
 
     async create(ticket)
     {
-        const newTicket= await TicketModel.create(ticket);
+        const newTicket= (await TicketModel.create(ticket.getData()));
         return new Ticket({
             id: newTicket._id,
             code: newTicket.code,
             purchase_datetime: newTicket.purchase_datetime,
             amount: newTicket.amount,
             purchaser: newTicket.purchaser,
-            products : newTicket.products
+            products : newTicket.products.map(product =>({pid:product.pid,quantity: product.quantity}))
         })  
     }
 

@@ -54,7 +54,6 @@ class CartManager{
             unavailableProducs:[]
         };
         const cart = await this.getOne(cid);
-
         if(!cart){
             throw new Error('El carrito no existe',{cause:"Bad Request"});
         }
@@ -70,7 +69,8 @@ class CartManager{
                 await productM.update(product.product.id,{stock: updatedStock});
             }
         };
-        await this.updateAll(cid,purchaseDto.unavailableProducs);
+        //await this.updateAll(cid,purchaseDto.unavailableProducs);
+        console.log("punto 5")
         return purchaseDto;
     }
 

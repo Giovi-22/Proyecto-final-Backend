@@ -21,7 +21,8 @@ const ticketSchema = new mongoose.Schema(
     },
     {
         timestamps:{
-            createdAt: 'purchase_datetime'
+            createdAt: 'purchase_datetime',
+            updatedAt: 'purchase_updatetime'
         }
     }
 );

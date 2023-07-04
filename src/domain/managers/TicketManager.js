@@ -15,7 +15,10 @@ class TicketManager{
         const cartM = new CartManager();
         const cart = await cartM.finishPurchase(cid);
         let amount = 0;
-        const code = codeIdGenerator();
+        const code = await codeIdGenerator();
+        const products = cart.availableProducts.map(element => {
+            return {pid: element.product.id,quantity: element.quantity}
+            });
         cart.availableProducts.forEach(product => {
             amount += product.quantity * product.product.price;
         })
@@ -23,9 +26,10 @@ class TicketManager{
             code: code,
             amount: amount,
             purchaser: userEmail,
-            products: cart.availableProducts.map(element => ({pid: element.product.id,quantity: element.quantity}))
+            products: products
         })
-        return await this.ticketRepository.create(newTicket);
+        return this.ticketRepository.create(newTicket);
+
     }
 }
 
