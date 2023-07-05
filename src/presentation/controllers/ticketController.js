@@ -1,5 +1,7 @@
 
 import TicketManager from "../../domain/managers/TicketManager.js";
+import Email from "../../helpers/mailing.js";
+import { purchaseTemplateHtml } from "../views/purchaseTemplate.js";
 
 class TicketController{
 
@@ -8,7 +10,9 @@ class TicketController{
         try 
         {
             const ticketM = new TicketManager();
+            const newEmail = new Email();
             const newTicket = await ticketM.create(req.params.cid,req.user.email);
+            await newEmail.sendMail(newTicket.getData().purchaser,purchaseTemplateHtml(newTicket.getData()));
             res.status(201).send({status:'success',data:newTicket.getData()})
         } 
         catch (error) 
@@ -21,7 +25,6 @@ class TicketController{
     {
         try 
         {
-
             const ticketM = new TicketManager();
             const ticket = await ticketM.getOne(req.params.tid)
             res.status(200).send({status:'succsess',data:ticket.getData()})
@@ -32,20 +35,6 @@ class TicketController{
         }
     }
 
-    static async sendMail(req,res,next)
-    {
-        try 
-        {
-
-            const ticketM = new TicketManager();
-            const ticket = await ticketM.getOne(req.params.tid)
-            res.status(200).send({status:'succsess',data:ticket.getData()})
-        } 
-        catch (error) 
-        {
-            next(error);
-        }
-    }
 
 }
 

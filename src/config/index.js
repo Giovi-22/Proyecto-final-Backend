@@ -9,5 +9,5 @@ export const config = {
     passwordMongoAtlas: process.env.PASSWORDMONGOATLAS,
     dbUri: process.env.DB_URI,
     dbType: process.env.DB_TYPE,
-    emailKey: process.env.MAIL_KEY
+    emailKey: process.env.EMAIL_KEY
 }

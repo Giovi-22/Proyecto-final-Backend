@@ -19,9 +19,14 @@ class TicketManager{
         const code = await codeIdGenerator();
         let amount = 0;
 
+        if(!cart.availableProducts.length){
+            throw new Error("No hay productos disponibles para comprar",{cause: "Bad Request"});
+        }
+
         cart.availableProducts.forEach(product => {
             amount += product.quantity * product.product.price;
         })
+
         const newTicket = new Ticket({
             code: code,
             amount: amount,
@@ -33,11 +38,13 @@ class TicketManager{
             const updatedStock = (element.product.stock - element.quantity) >= 0 ? (element.product.stock - element.quantity) : 0;
             await productM.update(element.product.id,{stock: updatedStock});
         }
+
         if(cart.unavailableProducs.length){
         cartM.updateAll(cid,cart.unavailableProducs.map(element =>({pid:element.product.id,quantity:element.quantity})));
         }else{
             await cartM.deleteAll(cid);
         }
+
         return this.ticketRepository.create(newTicket);
 
     }
