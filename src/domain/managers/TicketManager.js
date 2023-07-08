@@ -9,13 +9,14 @@ class TicketManager{
 
     constructor(){
         this.ticketRepository = container.resolve("TicketRepository");
+        this.cartM = container.resolve('cartManager');
     }
 
     async create(cid,userEmail){
         await idValidation.parseAsync(cid);
-        const cartM = new CartManager();
+        //const cartM = new CartManager();
         const productM = new ProductManager();
-        const cart = await cartM.finishPurchase(cid);
+        const cart = await this.cartM.finishPurchase(cid);
         const code = await codeIdGenerator();
         let amount = 0;
 
@@ -40,9 +41,9 @@ class TicketManager{
         }
 
         if(cart.unavailableProducs.length){
-        cartM.updateAll(cid,cart.unavailableProducs.map(element =>({pid:element.product.id,quantity:element.quantity})));
+        this.cartM.updateAll(cid,cart.unavailableProducs.map(element =>({pid:element.product.id,quantity:element.quantity})));
         }else{
-            await cartM.deleteAll(cid);
+            await this.cartM.deleteAll(cid);
         }
 
         return this.ticketRepository.create(newTicket);
