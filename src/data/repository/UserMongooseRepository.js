@@ -13,6 +13,7 @@ class UserMongooseRepository{
             lastName: newUser?.lastName,
             email: newUser?.email,
             age:newUser?.age
+
         })
     }
 
@@ -81,7 +82,9 @@ class UserMongooseRepository{
         {
             throw new Error("No se pudo eliminar el usuario",{cause:'Not Found'});
         }
-        return "Usuario eliminado!";
+        return {
+            message:"Usuario eliminado!",
+            ...result};
     }
 
     async update(uid,data)

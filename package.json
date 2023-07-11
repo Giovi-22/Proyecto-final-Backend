@@ -4,8 +4,9 @@
   "description": "Proyecto final del curso de backend realizado en Coderhouse",
   "main": "index.js",
   "scripts": {
-    "dev": "node src/index.js",
-    "nodemon": "nodemon src/index.js"
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "test": "mocha src/tests/*"
   },
   "repository": {
     "type": "git",
@@ -36,6 +37,9 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
+    "@faker-js/faker": "^8.0.2",
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0",
     "nodemon": "^2.0.22"
   }
 }
