@@ -9,8 +9,8 @@ const userSchema = new mongoose.Schema({
     age: {type:Number,require:true},
     email: {type:String,require:true,unique:true},  
     password: {type:String,require:true},
-    cart: [{type:mongoose.Schema.Types.ObjectId,ref:'carts'}],
-    role: {type:mongoose.Schema.Types.ObjectId,ref:'roles'},
+    cart: [{type:mongoose.Schema.Types.ObjectId,ref:'carts',default:null}],
+    role: {type:mongoose.Schema.Types.ObjectId,ref:'roles',default:null},
     isAdmin: {type:mongoose.Schema.Types.Boolean,default:false}
 })
 

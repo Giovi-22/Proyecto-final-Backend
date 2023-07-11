@@ -4,12 +4,15 @@ import { faker } from '@faker-js/faker'
 
 export const generateUser = ()=>{
     return {
-        name: faker.person.firstName(),
+        firstName: faker.person.firstName(),
+        lastName: faker.person.lastName(),
         email: faker.internet.email(),
-        address: faker.location.streetAddress(),
-        bio: faker.lorem.paragraph(),
-        image: faker.image.imageUrl(),
-        createdAt: faker.date.past(),
-        updatedAt: faker.date.recent()
+        age: faker.number.int({min:1,max:90}),
+        password: faker.internet.password({ length: 20 }),
+        role:null,
+        cart:null,
+        isAdmin: false,
     }
 }
+
+//role:"647fd20fb16b39892de4c6aa",

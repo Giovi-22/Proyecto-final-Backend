@@ -1,4 +1,4 @@
-import UserManager from "../../domain/managers/userManager.js";
+import UserManager from "../../domain/managers/UserManager.js";
 
 class UserController{
 
@@ -76,7 +76,7 @@ class UserController{
         {
             const uManager = new UserManager();
             const result = await uManager.deleteOne(uid);
-            return res.status(200).json({status:"success",message:result});
+            return res.status(200).json({status:"success",message:result.message});
         }
         catch (error)
         {
