@@ -5,6 +5,7 @@ import DbFactory from "../data/factories/dbFactory.js";
 import UserMongooseRepository from "../data/repository/UserMongooseRepository.js";
 import User from "../domain/entities/User.js";
 import { generateUser } from "../helpers/fakers.js";
+import mongoose from "mongoose";
 
 const expect = chai.expect;
 
@@ -59,12 +60,32 @@ describe("Testing user Mongoose Repository",()=>{
             expect(result.firstName).to.be.equals(this.user.firstName);
             expect(result.lastName).to.be.equals(this.user.lastName);
             expect(result.email).to.be.equals(this.user.email);
+            expect(result.id instanceof mongoose.Schema.Types.ObjectId);
             this.currentUser = result;
         });
     });
 
+    it("El repository debe devolver un usuario",function(){
+        return this.userRepository.findById(this.currentUser.id)
+        .then((result)=>{
+            expect(result instanceof User).to.be.ok;
+            expect(result.id.toString()).to.be.equal(this.currentUser.id.toString());
+            expect(result.age).to.be.greaterThan(0);
+            expect(result.age).to.be.equal(this.currentUser.age);
+        })
+    });
+
+    it("El repository debe poder actualizar un usuario",function(){
+        // data = { field: value}
+        const data={age:34,firstName:"mena"}
+        return this.userRepository.update(this.currentUser.id,data)
+        .then(result => {
+            expect(result.age).to.be.equal(data.age);
+            expect(result.firstName).to.be.equal(data.firstName)
+        });
+    });
+
     it("El repository debe poder borrar un usuario",function(){
-        console.log("Usuario actual: ",this.currentUser);
         return this.userRepository.deleteOne(this.currentUser.id)
         .then(result => {
             expect(result.message).to.be.equal("Usuario eliminado!");

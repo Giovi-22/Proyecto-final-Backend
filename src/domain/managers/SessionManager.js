@@ -1,7 +1,7 @@
 import { verifyPassword } from '../../helpers/bcrypt.js';
 import { jwtGenerator,  } from '../../helpers/jsonwebtoken.js';
 import { loginValidation, userZodSchema } from '../validations/validators.js';
-import UserManager from './userManager.js';
+import UserManager from './UserManager.js';
 
 class SessionManager{
 
