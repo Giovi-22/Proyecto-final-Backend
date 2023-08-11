@@ -73,6 +73,14 @@ class SessionController{
         }
     }
 
+    static async changePassword(req,res,next){
+        try {
+            res.render('restorePassword');
+        } catch (error) {
+            return next(error);
+        } 
+    }
+
 }
 
 export default SessionController;
