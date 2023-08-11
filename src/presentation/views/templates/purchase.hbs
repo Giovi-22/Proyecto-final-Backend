@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase</title>
+</head>
+<body>
+<div>
+        <h1 style="margin: 10px 0">E-Commerce App</h1>
+        <hr>
+        <h2>Tu compra {{id}} se encuentra en proceso de preparación</h2>
+        <p>Gracias por comprar en e-commerce app, en breve nos comunicaremos...</p>
+        <br>
+        <h3>Detalle de tu compra</h3>
+        <p>Fecha: {{purchase_datetime}}</p>
+        <p>Code: {{code}}</p>
+        <hr>
+        <br>
+        <h4 style ="background-color: aliceblue;" >Productos</h4>
+        <table style="width: 100%;">
+            <tr>
+                <th style = "text-align: left;" >Item</th>
+                <th style = "text-align: left;" >Price</th>
+                <th style = "text-align: left;" >Quantity</th>
+                <th style = "text-align: left;" >Total</th>
+            </tr>
+            {{#each products}}
+            {{#with this}}
+                <tr >
+                    <td>{{title}}</td>
+                    <td>{{price}}</td>
+                    <td>{{quantity}}</td>
+                    <td>${{total}}</td>
+                </tr>
+            {{/with}}
+            {{/each}}
+            <tr style = "margin-top: 15px;">
+                <td style = "font-weight: bold; font-size: 1rem;">Total</td>
+                <td> </td>
+                <td> </td>
+                <td style = "font-weight: bold; font-size: 1rem;">${{amount}}</td>
+            </tr>
+        </table>
+</div>
+
+</body>
+</html>

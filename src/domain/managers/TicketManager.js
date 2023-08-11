@@ -50,6 +50,16 @@ class TicketManager{
 
     }
 
+    async convertProductData(ticket){
+        const products = ticket.products.map(item=>({
+            title:item.pid.title,
+            price: item.pid.price,
+            quantity: item.quantity,
+            total: (item.pid.price * item.quantity)
+        }))
+    return products;
+    } 
+
     async getOne(tid){
         return this.ticketRepository.findById(tid);
     }

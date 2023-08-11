@@ -1,8 +1,7 @@
 
 import EmailManager from "../../domain/managers/EmailManager.js";
 import TicketManager from "../../domain/managers/TicketManager.js";
-import Email from "../../helpers/mailing.js";
-import { purchaseTemplateHtml } from "../views/purchaseTemplate.js";
+
 
 class TicketController{
 
@@ -10,13 +9,11 @@ class TicketController{
     {
         try 
         {
-            const serverUrl = `${req.protocol}://${req.get('host')}`;
             const ticketM = new TicketManager();
-            const newEmail = new Email();
-           // const emailM = new EmailManager();
+            const emailM = new EmailManager();
             const newTicket = await ticketM.create(req.params.cid,req.user.email);
-            //await emailM.send(newTicket.getData().purchaser,"Ticket created",{})
-            await newEmail.sendMail(newTicket.getData().purchaser,purchaseTemplateHtml(newTicket.getData()));
+            const products = await ticketM.convertProductData(newTicket.getData());
+            await emailM.send(newTicket.getData().purchaser,"Ticket created",{...newTicket.getData(),products},"purchase.hbs")
             res.status(201).send({status:'success',data:newTicket.getData()})
         } 
         catch (error) 

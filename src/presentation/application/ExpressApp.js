@@ -2,6 +2,7 @@ import express  from 'express';
 import MongoStore from 'connect-mongo';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
+import { engine } from 'express-handlebars';
 import cors from 'cors';
 import path from 'path';
 

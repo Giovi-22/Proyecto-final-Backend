@@ -3,7 +3,8 @@ import fs from 'fs/promises'
 import Handlebars from 'handlebars';
 import path from 'path';
 
-import { config } from '../../config';
+import { config } from '../../config/index.js';
+
 
 
 
@@ -29,8 +30,9 @@ class EmailManager{
 
     async send(to,subject,data,templateHbs){
         try {
-            const template = await this.#selectTemplate(data,templateHbs);
-
+            const template = await this.#selectTemplate({...data},templateHbs);
+            console.log("a quien va enviado: ",to)
+            console.log("data: ",data)
             let email = await this.#transporter.sendMail(
             {
                 from:"giovannibarolin@gmail.com",

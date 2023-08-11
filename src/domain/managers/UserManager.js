@@ -53,12 +53,8 @@ class UserManager
     }
 
     async updateOne(uid,data)
-    {
+    {   
         await idValidation.parseAsync(uid);
-        if(data?.password)
-        {
-            throw new Error('no tiene permisos para actualizar el password',{cause:'Forbidden'})
-        }
         const userUpdated = await this.#UserRepository.update(uid,data);
         return userUpdated;
     }

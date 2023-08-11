@@ -81,6 +81,17 @@ class SessionController{
         } 
     }
 
+    static async restorePassword(req,res,next){
+        try {
+            const {password, confirm, token} = req.body;
+            const sessionM  = new SessionManager();
+            const updatedUser = await sessionM.changePassword(password,confirm,token);
+            return res.status(200).send({status:"success",data:updatedUser,message:"Password updated successfully"});
+        } catch (error) {
+            return next(error);
+        }
+    }
+
 }
 
 export default SessionController;

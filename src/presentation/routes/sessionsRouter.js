@@ -12,6 +12,6 @@ sessionsRouter.post('/signup',SessionController.signup);
 sessionsRouter.post('/logout',SessionController.logout);
 sessionsRouter.post('/forgotpassword',SessionController.forgotPassword);
 sessionsRouter.get('/changepassword/:token',SessionController.changePassword);
-
+sessionsRouter.put('/restorepassword',SessionController.restorePassword)
 
 export default sessionsRouter;
