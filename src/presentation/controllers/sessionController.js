@@ -62,6 +62,17 @@ class SessionController{
         }
     }
 
+    static async forgotPassword(req,res,next){
+        try {
+            const serverUrl = `${req.protocol}://${req.get('host')}`;
+            const sessionM = new SessionManager();
+            await sessionM.forgotPassword(req.body.email,serverUrl);
+            return res.status(200).send({status:'success',message:'An email has beent sent to reset the password'});
+        } catch (error) {
+            return next(error);
+        }
+    }
+
 }
 
 export default SessionController;
