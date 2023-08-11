@@ -3,6 +3,7 @@ import MongoStore from 'connect-mongo';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import cors from 'cors';
+import path from 'path';
 
 import { config } from '../../config/index.js';
 import productRouter from '../routes/productRouter.js';
@@ -19,6 +20,8 @@ import { errorHandler } from '../middlewares/errorHandler.js';
 
 class ExpressApp{
     
+    #viewPath = path.resolve('src/presentation/views');
+
     constructor(){
        this.app = express();
     }
@@ -28,6 +31,14 @@ class ExpressApp{
         this.app.use(express.json());
         this.app.use(express.urlencoded({extended:true}));
         this.app.use(cookieParser());
+        this.app.use(express.static(path.resolve('src/public')))
+        this.app.engine('handlebars',engine({
+            defaultLayout:`${this.#viewPath}/layouts/main.handlebars`,
+            layoutsDir:`${this.#viewPath}`
+        }))
+        this.app.set('view engine','handlebars');
+        this.app.set('views',this.#viewPath);
+
         this.app.use(cors({
             origin: true,
             credentials:true}));

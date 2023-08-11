@@ -1,0 +1,153 @@
+body{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+    background-color: #9fc1316b;
+}
+
+#form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:30px;
+    padding: 10px;
+    width: 250px;
+    height: 300px;
+    background-color: #fffefed1;
+    -webkit-box-shadow: 0px 0px 14px -3px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 14px -3px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 14px -3px rgba(0,0,0,0.75);
+}
+.form__password, .form__confirm{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+input{
+    border-color: #c5c0c0d4;
+    border-style: solid;
+    border-width: 1px;
+    height: 25px;
+    padding-left: 5px;
+}
+
+label{
+    color:#6c851e;
+    font-weight: bold;
+}
+
+input:focus{
+    outline: none;
+}
+
+button{
+    width: 160px;
+    height: 50px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-transform: uppercase;
+    background-color: #9fc1316b;
+    border: 3px solid transparent;
+    cursor: pointer;
+}
+
+button:hover{
+    transition: background-color 0.5s;
+    background-color: #9fc131a8;
+   
+}
+button:active{
+    border: 3px solid #cfe685;
+}
+
+.spinner {
+    width: 25px;
+    height: 25px;
+    border: 4px solid #8c956b;
+    border-left-color: #f8f9ee;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+#info{
+    position: absolute;
+    right:10px;
+    top:30px;
+}
+  
+.toastr{
+    visibility: visible;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 300px;
+    height: 50px;
+    padding: 10px;
+    position: absolute;
+    right:10px;
+    top:30px;
+    border:none;
+}
+
+.successfully{
+    background-color: #6c851e;
+}
+.failed{
+    background-color: #d13333da;
+}
+.show{
+    visibility: visible;
+}
+
+.hidde{
+    visibility: hidden;
+}
+
+p{
+    margin:0;
+    color:white;
+}
+
+.show-progress{
+    position:absolute;
+    height: 3px;
+    width: 0;
+    left:0;
+    bottom:0;
+    animation: fillAnimation 3s linear forwards;
+}
+.succesfully-progress{
+    background-color: #4b5f0e;
+}
+.failed-progress{
+    background-color: #950808e4;
+}
+  
+  @keyframes fillAnimation {
+    0% {
+      width: 0;
+    }
+    100% {
+      width: 100%;
+    }
+  }
+  
+
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  
+  
+  
+  
