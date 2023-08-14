@@ -55,6 +55,16 @@ class ExpressApp{
         }));
     }
 
+    callback()
+    {
+        return this.app;
+    }
+
+    close()
+    {
+        this.app.close();
+    }
+
     build(){
         this.app.use('/api/products/',productRouter);
         this.app.use('/api/carts/',cartRouter);

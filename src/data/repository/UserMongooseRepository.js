@@ -1,4 +1,4 @@
-import User from "../../domain/entities/User.js";
+import User from "../../domain/entities/User/User.js";
 import { userModel } from "../models/userModel.js";
 
 
