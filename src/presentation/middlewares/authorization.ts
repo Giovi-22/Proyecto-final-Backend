@@ -1,7 +1,9 @@
+import { NextFunction } from "connect";
+import { Request, Response } from "express";
 
-export function authorization(permission){
+export function authorization(permission:string){
 
-    return (req,res,next)=>
+    return (req:Request,res:Response,next:NextFunction)=>
     {
         try 
         {

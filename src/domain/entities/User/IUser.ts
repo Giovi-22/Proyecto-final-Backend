@@ -1,3 +1,4 @@
+import { IRole } from "../Role/IRole";
 
 export interface IUser{
         id:string,
@@ -6,7 +7,7 @@ export interface IUser{
         email: string,
         age: number,
         password: string,
-        role: string,
+        role: IRole,
         cart: string,
         isAdmin: boolean,
 }
