@@ -21,6 +21,7 @@
   "homepage": "https://github.com/Giovi-22/Proyecto-final-Backend#readme",
   "keywords": [],
   "dependencies": {
+    "@types/mongoose": "^5.11.97",
     "awilix": "^8.0.1",
     "bcrypt": "^5.1.0",
     "connect-mongo": "^5.0.0",

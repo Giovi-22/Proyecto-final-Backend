@@ -1,6 +1,6 @@
 import { config } from './config/index.js';
-import AppFactory from './presentation/factories/AppFactory.js';
-import DbFactory from './data/factories/dbFactory.js';
+import AppFactory from './presentation/factories/AppFactory';
+import DbFactory from './data/factories/dbFactory';
 
 
 
