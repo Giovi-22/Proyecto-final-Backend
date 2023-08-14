@@ -1,5 +1,5 @@
 import container from "../../container.js";
-import { codeIdGenerator } from "../../helpers/nanoidGenerator.js";
+import { codeIdGenerator } from "../../shared/nanoidGenerator.js";
 import Ticket from "../entities/Ticket.js";
 import { idValidation } from "../validations/validators.js";
 import CartManager from "./CartManager.js";

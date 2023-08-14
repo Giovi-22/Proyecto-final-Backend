@@ -1,6 +1,6 @@
 
-import { hashPassword, verifyPassword } from '../../helpers/bcrypt.js';
-import { jwtGenerator, jwtVerificator,  } from '../../helpers/jsonwebtoken.js';
+import { hashPassword, verifyPassword } from '../../shared/bcrypt.js';
+import { jwtGenerator, jwtVerificator,  } from '../../shared/jsonwebtoken.js';
 import { loginValidation, userZodSchema } from '../validations/validators.js';
 import EmailManager from './EmailManager.js';
 import UserManager from './UserManager.js';

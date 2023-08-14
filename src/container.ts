@@ -11,19 +11,28 @@ import CartManager from "./domain/managers/CartManager.js";
 
 
 const container = createContainer();
-
-container.register('UserDao', asClass(UserMongooseDAO),{lifetime: Lifetime.SINGLETON});
-container.register('ProductDao', asClass(ProductMongooseDAO),{lifetime: Lifetime.SINGLETON});
-container.register('CartDao', asClass(CartMongooseDAO),{lifetime: Lifetime.SINGLETON});
-
+//--------------------------DAOS----------------------------------------------------
+container.register({
+    UserDao: asClass(UserMongooseDAO,{lifetime:Lifetime.SINGLETON}),
+    ProductDao: asClass(ProductMongooseDAO,{lifetime:Lifetime.SINGLETON}),
+    CartDao: asClass(CartMongooseDAO,{lifetime:Lifetime.SINGLETON})
+})
 //-----------------------REPOSITORIES-------------------------------------------------
-container.register('RoleRepository', asClass(RoleRepository),{lifetime: Lifetime.SINGLETON});
-container.register('CartRepository', asClass(CartMongooseRepository),{lifetime: Lifetime.SINGLETON});
-container.register('ProductRepository', asClass(ProductMongooseRepository),{lifetime: Lifetime.SINGLETON});
-container.register('UserRepository', asClass(UserMongooseRepository),{lifetime: Lifetime.SINGLETON});
-container.register('TicketRepository', asClass(TicketMongooseRepository),{lifetime: Lifetime.SINGLETON});
-
+container.register(
+    {
+        RoleRepository: asClass(RoleMongooseRepository,{lifetime:Lifetime.SINGLETON}),
+        CartRepository: asClass(CartMongooseRepository,{lifetime:Lifetime.SINGLETON}),
+        ProductRepository: asClass(ProductMongooseRepository,{lifetime:Lifetime.SINGLETON}),
+        UserRepository: asClass(UserMongooseRepository,{lifetime:Lifetime.SINGLETON}),
+        TicketRepository: asClass(TicketMongooseRepository,{lifetime:Lifetime.SINGLETON}),
+    }
+)
 //----------------------MANAGERS--------------------------------------------------------
-container.register('cartManager',asClass(CartManager),{lifetime:Lifetime.SINGLETON});
+container.register(
+    {
+        cartManager: asClass(CartManager,{lifetime:Lifetime.SINGLETON})
+    }
+);
+
 export default container;
 

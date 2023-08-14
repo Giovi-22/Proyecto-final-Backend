@@ -1,4 +1,4 @@
-import ExpressApp from "../application/expressApp.js";
+import ExpressApp from "../application/ExpressApp";
 
 class AppFactory{
 
@@ -9,7 +9,7 @@ class AppFactory{
             const app = apps.get(appType);
             return new app();
 
-        } catch (error) {
+        } catch (error:Error | any) {
             throw new Error(error.message);
         }
     }

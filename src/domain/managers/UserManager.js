@@ -1,5 +1,5 @@
 import container from '../../container.js';
-import { hashPassword } from '../../helpers/bcrypt.js';
+import { hashPassword } from '../../shared/bcrypt.js';
 import { idValidation, userZodSchema } from '../validations/validators.js';
 
 

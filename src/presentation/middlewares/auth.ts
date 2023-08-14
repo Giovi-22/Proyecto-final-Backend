@@ -1,12 +1,13 @@
-import { jwtVerificator } from "../../helpers/jsonwebtoken.js";
+import { NextFunction, Request, Response } from "express";
+import { jwtVerificator } from "../../shared/jsonwebtoken.js";
 
 
-const auth = async (req,res,next)=>{
+const auth = async (req:Request,res:Response,next:NextFunction)=>{
 
     try {
     const authHeader = req.headers?.authorization;
     if(!authHeader){
-        throw new Error('Error: authorization has not been sent',{cause:'Bad Request'});
+        throw new Error('Bad Request, authorization has not been sent');
     }
     const token = authHeader.split(' ')[1];
 

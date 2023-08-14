@@ -1,4 +1,4 @@
-import express  from 'express';
+import express, { Application }  from 'express';
 import MongoStore from 'connect-mongo';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
@@ -22,6 +22,7 @@ import { errorHandler } from '../middlewares/errorHandler.js';
 class ExpressApp{
     
     #viewPath = path.resolve('src/presentation/views');
+    app:Application;
 
     constructor(){
        this.app = express();
