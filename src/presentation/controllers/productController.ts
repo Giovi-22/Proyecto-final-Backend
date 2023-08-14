@@ -1,8 +1,10 @@
 
 import ProductManager from '../../domain/managers/ProductManager.js';
+import { Request, Response, NextFunction} from 'express';
+import { IPaginationFilters } from '../../shared/Interfaces/IShared.js';
 class ProductController{
 
-    static addProduct = async (req,res,next)=>
+    static addProduct = async (req:Request,res:Response,next:NextFunction)=>
     {
             try
             {
@@ -16,12 +18,12 @@ class ProductController{
             }
     }
 
-    static getProducts = async (req,res,next)=>
+    static getProducts = async (req:Request,res:Response,next:NextFunction)=>
     {
-        const options = {
-            limit: +req.query.limit ?? 10,
-            page: +req.query.page ?? 1,
-            sort: +req.query.sort ?? "", //los valores que recibe para ordenar por precio pueden ser 1 (de menor a mayor) y -1 (de mayor a menor)
+        const options:IPaginationFilters = {
+            limit: Number(req.query.limit) ?? 10,
+            page: Number(req.query.page) ?? 1,
+            sort: Number(req.query.sort) ?? "", //los valores que recibe para ordenar por precio pueden ser 1 (de menor a mayor) y -1 (de mayor a menor)
             filter:JSON.parse(`{${req.query.filter ?? ""}}`) //filter se pasa por query de la siguiente forma: "productField":"value"
         }
         try
@@ -36,7 +38,7 @@ class ProductController{
         }
     }
 
-    static getOneProduct = async (req,res,next)=>
+    static getOneProduct = async (req:Request,res:Response,next:NextFunction)=>
     {
         const pid = req.params.pid;
         try
@@ -52,7 +54,7 @@ class ProductController{
     }
 
 
-    static updateProduct = async (req,res,next)=>
+    static updateProduct = async (req:Request,res:Response,next:NextFunction)=>
     {
         const pid = req.params.pid;
         const data = req.body;
@@ -68,7 +70,7 @@ class ProductController{
         }
     }
 
-    static deleteProduct = async (req,res,next)=>
+    static deleteProduct = async (req:Request,res:Response,next:NextFunction)=>
     {
         const pid = req.params.pid;
         try

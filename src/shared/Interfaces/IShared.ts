@@ -1,4 +1,4 @@
-export interface IPagination{
+export interface IPaginationFilters{
     limit: number,
     page: number,
     sort: number,
