@@ -1,5 +1,11 @@
 {
     "bail": 1,
     "verbose": true,
-    "testEnvironment":"node"
+    "transform":{},
+    "testEnvironment":"node",
+    "globals":{
+      "ts-jest":{
+        "useESM": true
+      }
+    }
   }

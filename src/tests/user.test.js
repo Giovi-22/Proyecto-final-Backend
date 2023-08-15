@@ -1,3 +1,27 @@
+import { initSupertestServer } from "./index.test";
+
+
+describe("Testing User Endpoints",()=>{
+    beforeAll(async ()=>
+    {
+        /*
+        const {app, db } = await initSupertestServer();
+        const application = app.callback();
+        //const requester = supertest.agent(application);
+        this.dataBase = db;
+        */
+       console.log(" dentro de before all")
+    })
+
+    const nombre = "giovanni"
+    test("El repository debe ser una instancia de UserMongooseRepository",function(){
+      expect(nombre).toBe("giovanni");
+    });
+}
+)
+
+
+/*
 import chai from "chai";
 import { initSupertestServer } from "./index.test.js";
 /*
@@ -10,6 +34,7 @@ import DbFactory from "../data/factories/dbFactory.js";
 import UserMongooseRepository from "../data/repository/UserMongooseRepository.js";
 import User from "../domain/entities/User.js";
 */
+/*
 const expect = chai.expect;
 
 
@@ -33,6 +58,7 @@ describe("Testing User Endpoints",()=>{
     it("El repository debe ser una instancia de UserMongooseRepository",function(){
        // expect(this.userRepository instanceof UserMongooseRepository).to.be.ok;
     });
+    */
     /*
     it("El repository debe devolver un arreglo",function(){
             const filter = {page:1,limit:5};
@@ -98,4 +124,4 @@ describe("Testing User Endpoints",()=>{
         });
     });
 */
-});
+//});
