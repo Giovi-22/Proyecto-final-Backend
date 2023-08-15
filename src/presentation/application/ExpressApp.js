@@ -22,7 +22,7 @@ import { errorHandler } from '../middlewares/errorHandler.js';
 class ExpressApp{
     
     #viewPath = path.resolve('src/presentation/views');
-
+    #server;
     constructor(){
        this.app = express();
     }
@@ -62,7 +62,7 @@ class ExpressApp{
 
     close()
     {
-        this.app.close();
+        this.#server.close(()=>console.log("La app se ha cerrado"))
     }
 
     build(){
@@ -76,7 +76,7 @@ class ExpressApp{
     }
 
     listen(){
-        this.app.listen(config.port,()=>console.log(`Servidor escuchando en el puerto ${config.port}`));
+        this.#server = this.app.listen(config.port,()=>console.log(`Servidor escuchando en el puerto ${config.port}`));
     }
 
 }

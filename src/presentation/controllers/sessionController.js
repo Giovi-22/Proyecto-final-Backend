@@ -52,6 +52,7 @@ class SessionController{
     {
         try
         {
+            console.log("Dentro de signup, los datos: ",req.body)
             const sessionM = new SessionManager();
             const newUser = await sessionM.signup(req.body);
             res.status(201).send({status:'success',data:newUser});

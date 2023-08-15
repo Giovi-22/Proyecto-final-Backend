@@ -1,25 +1,60 @@
-import { initSupertestServer } from "./index.test";
+import { describe, beforeAll, afterAll, expect } from '@jest/globals'
+import supertest from 'supertest';
+import { initSupertestServer } from './index.test';
+import _ from 'mongoose-paginate-v2';
 
 
-describe("Testing User Endpoints",()=>{
+
+describe('Testing User Endpoints',()=>{
+
+    let dataBase;
+    let application;
+    let appRequester;
+    let appServer;
+
     beforeAll(async ()=>
     {
-        /*
         const {app, db } = await initSupertestServer();
-        const application = app.callback();
-        //const requester = supertest.agent(application);
-        this.dataBase = db;
-        */
-       console.log(" dentro de before all")
+        application = app.callback();
+        appServer = app;
+        appRequester = supertest.agent(application);
+        dataBase = db;
     })
 
-    const nombre = "giovanni"
-    test("El repository debe ser una instancia de UserMongooseRepository",function(){
-      expect(nombre).toBe("giovanni");
-    });
-}
-)
+    afterAll(async ()=>
+    {
+        await dataBase.close();
+    })
 
+    test('El repo debe poder crear un usuario /api/sessions/signup',async function(){
+        const payload = 
+        {
+            firstName:"Pablo",
+            lastName:"marchetti",
+            email:"pabloMarche@prueba.com",
+            password: "12345678",
+            age:34
+        }
+        const result = await appRequester.post('/api/sessions/signup').send(payload);
+        const {_body,status} = result;
+        expect(status).toBe(201);
+        expect(_body.data).toHaveProperty('email');
+    });
+
+    test('Sign-in /api/sessions/login',async function(){
+        const payload = 
+        {
+            email:"giovannibarolin@gmail.com",
+            password: "12345678"
+        }
+        const result = await appRequester.post('/api/sessions/login').send(payload);
+        const {_body,status} = result;
+        expect(status).toBe(200);
+        expect(_body).toHaveProperty('message')
+        expect(_body.message).toBe('Login success')
+    })
+
+})
 
 /*
 import chai from "chai";

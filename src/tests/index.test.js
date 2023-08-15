@@ -11,7 +11,7 @@ export const initSupertestServer = async()=>
     const db = DbFactory.create(config.dbType);
     const app = AppFactory.create('express');
     
-    db.init(config.dbUri);
+    await db.init(config.dbUri);
 
     app.init();
     app.build();
