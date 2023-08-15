@@ -4,7 +4,6 @@ import ProductMongooseDAO from "./data/daos/productMongooseDAO.js";
 import CartMongooseDAO from "./data/daos/cartMongooseDAO.js";
 import RoleRepository from "./data/repository/RoleRepository.js";
 import CartMongooseRepository from "./data/repository/CartMongooseRepository.js";
-import ProductMongooseRepository from "./data/repository/ProductMongooseRepository.js";
 import UserMongooseRepository from "./data/repository/UserMongooseRepository.js";
 import TicketMongooseRepository from "./data/repository/TicketMongooseRepository.js";
 import CartManager from "./domain/managers/CartManager.js";
