@@ -7,6 +7,7 @@ import CartMongooseRepository from "./data/repository/CartMongooseRepository.js"
 import UserMongooseRepository from "./data/repository/UserMongooseRepository.js";
 import TicketMongooseRepository from "./data/repository/TicketMongooseRepository.js";
 import CartManager from "./domain/managers/CartManager.js";
+import ProductMongooseRepository from "./data/repository/ProductMongooseRepository.js";
 
 
 const container = createContainer();
