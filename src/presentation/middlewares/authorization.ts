@@ -10,7 +10,7 @@ export function authorization(permission:string){
             const user = req.user;
             const permiso = user?.role?.permissions?.includes(permission);
             if (!user.isAdmin && !permiso) {
-                throw new Error(`Error: User does not have permissions to access`,{cause:'Unauthorized'});
+                throw new Error(`Unauthorized, User does not have permissions to access`);
               }
             next();
 

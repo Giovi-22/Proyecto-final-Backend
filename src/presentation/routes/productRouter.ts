@@ -1,8 +1,9 @@
 import { Router } from "express";
 
-import ProductController from "../controllers/ProductController.js";
-import auth from "../middlewares/auth.js";
-import { authorization } from "../middlewares/authorization.js";
+
+import auth from "../middlewares/auth";
+import { authorization } from "../middlewares/authorization";
+import ProductController from "../controllers/productController";
 
 const productRouter = Router();
 
