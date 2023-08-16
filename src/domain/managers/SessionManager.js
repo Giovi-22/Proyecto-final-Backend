@@ -34,23 +34,28 @@ class SessionManager{
     async forgotPassword(email,serverUrl){
         const dbUser = await this.userM.findByFilter({field:"email",value:email});
         const emailM = new EmailManager();
-        const jwtForgotPassword = await jwtGenerator(dbUser,"5min");
+        const jwtForgotPassword = await jwtGenerator({...dbUser,password:undefined},"5min");
         const result = await emailM.send(dbUser.email,"Change password",{user:dbUser,jwt:jwtForgotPassword,url:serverUrl},"forgotPassword.hbs") 
         return result;
 }
 
-async changePassword(password, confirmedPassword, token){
+async changePassword(password, confirmedPassword, user, email){
     
     //to do: si el cambio de password se realizo correctamente, poner el token en una blacklist
     // para que no pueda volver a usarse hasta que expire.
+    // revisar la seguridad. si un usuario entra a esta ruta con un jwt valido puede cambiar el password de otra persona
 
     if(password !== confirmedPassword){
-        throw new Error("Change password failed, the password and confirmedPassword do not match",{cause:'Bad Request'});
+        throw new Error("Changing password failed, the password and confirmedPassword do not match",{cause:'Bad Request'});
     }
-    const credential = await jwtVerificator(token);
-    const user = await this.userM.findByFilter({field:"email",value:credential.user.email});
+    const userDb = await this.userM.findByFilter({field:"email",value:user.email});
+    if(email){
+        if(userDb.email !== email){
+            throw new Error("Changing password failed, authorization required",{cause:'Bad Request'});  
+        }
+    }
     const newHashPassword = await hashPassword(password);
-    const updatedUser = await this.userM.updateOne(user.id.toString(),{password:newHashPassword});
+    const updatedUser = await this.userM.changePassword(userDb.id.toString(),newHashPassword);
     return updatedUser;
 }
 }

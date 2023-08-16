@@ -13,13 +13,13 @@ sendButton.addEventListener('click',async ()=>{
 const jsonData = {
     password: form.elements['password'].value,
     confirm: form.elements['confirm'].value,
-    token: getUrlToken()
 }
 
 const requestOptions = {
   method: 'put',
   headers: {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${getUrlToken()}`
   },
   body: JSON.stringify(jsonData)
 };

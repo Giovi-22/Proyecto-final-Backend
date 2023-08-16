@@ -63,6 +63,18 @@ class SessionController{
         }
     }
 
+    static async changePassword(req,res,next){
+        try {
+            //to do: terminar de armar la ruta
+            const {password, confirm, email} = req.body;
+            const sessionM  = new SessionManager();
+            const updatedUser = await sessionM.changePassword(password,confirm,req.user,email);
+            return res.status(200).send({status:"success",data:updatedUser,message:"Password updated successfully"});
+        } catch (error) {
+            return next(error);
+        }
+    }
+
     static async forgotPassword(req,res,next){
         try {
             const serverUrl = `${req.protocol}://${req.get('host')}`;
@@ -74,9 +86,9 @@ class SessionController{
         }
     }
 
-    static async changePassword(req,res,next){
+    static async changePasswordView(req,res,next){
         try {
-            res.render('restorePassword');
+            return res.render('restorePassword');
         } catch (error) {
             return next(error);
         } 
@@ -84,9 +96,9 @@ class SessionController{
 
     static async restorePassword(req,res,next){
         try {
-            const {password, confirm, token} = req.body;
+            const { password, confirm } = req.body;
             const sessionM  = new SessionManager();
-            const updatedUser = await sessionM.changePassword(password,confirm,token);
+            const updatedUser = await sessionM.changePassword(password,confirm,req.user);
             return res.status(200).send({status:"success",data:updatedUser,message:"Password updated successfully"});
         } catch (error) {
             return next(error);

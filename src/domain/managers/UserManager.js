@@ -54,7 +54,7 @@ class UserManager
 
     async updateOne(uid,data)
     {   
-        if(data.password){
+        if(data?.password){
             throw new Error("Bad Request, the password field can't be updated");
         }
         await idValidation.parseAsync(uid);
@@ -67,6 +67,13 @@ class UserManager
         await idValidation.parseAsync(uid);
         const deletedUser = await this.#UserRepository.deleteOne(uid);
         return deletedUser;
+    }
+
+    async changePassword(uid,password)
+    {   
+        await idValidation.parseAsync(uid);
+        const userUpdated = await this.#UserRepository.update(uid,{password});
+        return userUpdated;
     }
 
 }
