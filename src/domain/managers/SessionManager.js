@@ -54,6 +54,11 @@ async changePassword(password, confirmedPassword, user, email){
             throw new Error("Changing password failed, authorization required",{cause:'Bad Request'});  
         }
     }
+    
+    const areEqual = await verifyPassword(userDb.password,password);
+    if(areEqual){
+        throw new Error("The new password can't be equal as the previous one.");
+    }
     const newHashPassword = await hashPassword(password);
     const updatedUser = await this.userM.changePassword(userDb.id.toString(),newHashPassword);
     return updatedUser;
