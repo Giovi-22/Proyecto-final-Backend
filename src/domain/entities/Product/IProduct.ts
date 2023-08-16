@@ -1,11 +1,13 @@
+import { Types } from 'mongoose';
+
 export interface IProduct{
-    id:string,
+    id: Types.ObjectId,
     title:string,
     description:string,
     category:string,
     price:number,
     stock:number,
-    thumbnail:string[],
+    thumbnail:Types.Array<string>,
     code:string,
     status:boolean
 }

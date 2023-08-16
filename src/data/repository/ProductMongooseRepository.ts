@@ -1,9 +1,11 @@
-import Product from "../../domain/entities/Product.js";
-import { productModel } from "../models/productModel.js";
+import { IProduct } from "../../domain/entities/Product/IProduct.js";
+import Product from "../../domain/entities/Product/Product.js";
+import { IFilter, IPaginationFilters } from "../../shared/Interfaces/IShared.js";
+import { productModel } from "../models/productModel";
 
 class ProductMongooseRepository{
 
-    async insertOne(product)
+    async insertOne(product:IProduct)
     {
         const newProduct = await productModel.create(product);
         return new Product({
@@ -18,18 +20,18 @@ class ProductMongooseRepository{
             category: newProduct.category
         })  
     }
-    async findByFilter(filter)
+    async findByFilter(filter:IFilter)
     {
         const products = await productModel.find(filter);
         return products.map(product => new Product(product));     
     }
-
-    async Paginate({limit,page,sort,filter})
+/*
+    async Paginate(filters:IPaginationFilters)
     {
         const options = {
-            limit: limit,
-            page: page,
-            sort:{'price':sort,'_id':1}, //condicion requerida en la entrega
+            limit: filters.limit,
+            page: filters.page,
+            sort:{'price':filters.sort,'_id':1}, //condicion requerida en la entrega
         }
         //Model.paginate([query],[options],[callback])
         const result = await productModel.paginate(filter,options);
@@ -49,12 +51,16 @@ class ProductMongooseRepository{
         });
         return result;
     }
-    
-    async findById(pid)
+*/
+    async findById(pid:string)
     {
         const product = await productModel.findById(pid);
-        return {
-            id: (product._id).toString(),
+        if(!product){
+            throw new Error("Product don't found");
+        }
+
+        return new Product({
+            id: product._id,
             title: product.title,
             description: product.description,
             category: product.category,
@@ -63,13 +69,16 @@ class ProductMongooseRepository{
             stock: product.stock,
             code: product.code,
             status: product.status   
-        }
+        })
     }
 
-    async update(pid,data)
+    async update(pid:string,data:Partial<IProduct>)
     {
         const productUpdated = await productModel.findOneAndUpdate({_id:pid},data,{new:true});
-        return {
+        if(!productUpdated){
+            throw new Error('The update product do not found');
+        }
+        return new Product({
                 id: productUpdated._id,
                 title: productUpdated.title,
                 description: productUpdated.description,
@@ -79,7 +88,7 @@ class ProductMongooseRepository{
                 code: productUpdated.code,
                 status: productUpdated.status,
                 category: productUpdated.category
-        }
+        })
     }
 }
 

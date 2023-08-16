@@ -1,6 +1,6 @@
 import container from '../../container';
-import { IPagination } from '../../shared/Interfaces/IShared.js';
-import { IProduct } from '../entities/Product/IProduct.js';
+import { IPaginationFilters } from '../../shared/Interfaces/IShared';
+import { IProduct } from '../entities/Product/IProduct';
 import { idValidation, productUpdateSchema, productZodSchema } from '../validations/validators';
 
 class ProductManager
@@ -24,7 +24,7 @@ class ProductManager
         return newProduct;  
     }
 
-    async get(options:IPagination)
+    async get(options:IPaginationFilters)
     {
         const products = await this.#ProductRepository.Paginate(options);
         return products;
