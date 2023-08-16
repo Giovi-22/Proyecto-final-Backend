@@ -80,7 +80,22 @@ class UserController{
         }
         catch (error)
         {
-            next(error);
+           return next(error);
+        }
+    }
+
+    static async uploadFile(req,res,next)
+    {
+        try 
+        {
+            if(!req.file)
+            {
+                return res.status(400).send({status:'failed',message:'A file has not been provided'});
+            }
+            return res.status(200).send({status:'success',message:'Uploaded file successfully'});
+        } catch (error)
+         {
+          return next(error);  
         }
     }
 }
