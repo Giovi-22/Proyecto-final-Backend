@@ -7,7 +7,7 @@ class ProductController{
             try
             {
                 const pManager = new ProductManager();
-                const newProduct = await pManager.add(req.body);
+                const newProduct = await pManager.add(req.body,req.user);
                 res.status(201).json({status:'success',data:newProduct});
             }
             catch (error)

@@ -58,6 +58,8 @@ class UserManager
             throw new Error("Bad Request, the password field can't be updated");
         }
         await idValidation.parseAsync(uid);
+        const dbUser = await this.#UserRepository.findById(uid);
+        console.log(dbUser)
         const userUpdated = await this.#UserRepository.update(uid,data);
         return userUpdated;
     }

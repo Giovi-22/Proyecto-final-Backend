@@ -12,7 +12,7 @@ class RoleManager
     }
     async create(data)
     {
-        const newRole = await this.#roleRepository.insert(data);
+        const newRole = await this.#roleRepository.create(data);
         return newRole;
     }
 

@@ -40,7 +40,7 @@ class UserMongooseRepository{
 
     async findById(uid)
     {
-        const user = await userModel.findById(uid);
+        const user = await userModel.findById(uid).populate('role');
         if(!user)
         {
             throw new Error(`El usuario con id ${uid} no existe`,{cause:'Not Found'});
@@ -50,7 +50,8 @@ class UserMongooseRepository{
             firstName: user?.firstName,
             lastName: user?.lastName,
             email: user?.email,
-            age:user?.age
+            age:user?.age,
+            role: user.role,
         })
     }
 
@@ -89,7 +90,7 @@ class UserMongooseRepository{
 
     async update(uid,data)
     {
-        const userDocument = await userModel.findOneAndUpdate({_id:uid},data,{new:true});
+        const userDocument = await userModel.findOneAndUpdate({_id:uid},data,{new:true}).populate('role');
         if(!userDocument)
         {
             throw new Error(`No se encuentra el usuario ${uid}`,{cause:'Not Found'});
@@ -99,7 +100,8 @@ class UserMongooseRepository{
             firstName: userDocument?.firstName,
             lastName: userDocument?.lastName,
             email: userDocument?.email,
-            age:userDocument?.age
+            age:userDocument?.age,
+            role: userDocument.role
         })
     }
 }

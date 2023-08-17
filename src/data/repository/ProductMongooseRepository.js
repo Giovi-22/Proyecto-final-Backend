@@ -15,7 +15,8 @@ class ProductMongooseRepository{
             stock: newProduct.stock,
             code: newProduct.code,
             status: newProduct.status,
-            category: newProduct.category
+            category: newProduct.category,
+            owner: newProduct.owner
         })  
     }
     async findByFilter(filter)

@@ -10,9 +10,11 @@ const userRouter = Router();
 
 userRouter.get('/list',auth,authorization('getList'),UserController.list);
 userRouter.get('/:uid',auth,authorization('getOne'),UserController.getOne);              
-userRouter.post('/',auth,authorization('create'),UserController.create);            //ruta privada
+userRouter.post('/',auth,authorization('create'),UserController.create);   
+userRouter.post('/premium/:uid',auth,authorization('changerole'),UserController.changeRole);
+userRouter.post('/file',uploader.single('file') ,UserController.uploadFile);
 userRouter.put('/:uid',auth,authorization('updateOne'),UserController.updateOne);
 userRouter.delete('/:uid',auth,authorization('deleteOne'),UserController.deleteOne);
-userRouter.post('/file',uploader.single('file') ,UserController.uploadFile)
+
 
 export default userRouter;

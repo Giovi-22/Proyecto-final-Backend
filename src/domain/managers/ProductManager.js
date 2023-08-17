@@ -10,13 +10,17 @@ class ProductManager
         this.#ProductRepository = container.resolve('ProductRepository');
     }
 
-    async add(product)
+    async add(product,user)
     {
         await productZodSchema.parseAsync(product);
         const codeExist = await this.#ProductRepository.findByFilter({code:{$eq:product.code}});
         if(codeExist.length)
         {
-            throw new Error('El código del producto ya existe',{cause:'Bad Request'});
+            throw new Error("The product's code already exist",{cause:'Bad Request'});
+        }
+        const isPremium = user.role.name;
+        if(isPremium){
+            product.owner = user.email;
         }
         const newProduct = await this.#ProductRepository.insertOne(product);
         return newProduct;  

@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
     email: {type:String,require:true,unique:true},  
     password: {type:String,require:true},
     cart: [{type:mongoose.Schema.Types.ObjectId,ref:'carts',default:null}],
-    role: {type:mongoose.Schema.Types.ObjectId,ref:'roles',default:null},
+    role: {type:mongoose.Schema.Types.ObjectId,ref:'roles',default:"647fd20fb16b39892de4c6aa"}, //por defecto es el role client
     isAdmin: {type:mongoose.Schema.Types.Boolean,default:false}
 })
 

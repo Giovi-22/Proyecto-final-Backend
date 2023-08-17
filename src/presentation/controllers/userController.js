@@ -7,8 +7,8 @@ class UserController{
         const newUser = req.body;
         try
         {
-            const uManager = new UserManager();
-            const result = await uManager.create(newUser);
+            const userM = new UserManager();
+            const result = await userM.create(newUser);
             return res.status(201).json({status:"success",data:result});
         }
         catch (error)
@@ -27,8 +27,8 @@ class UserController{
         
         try
         {
-            const uManager = new UserManager();
-            const result = await uManager.getList(options);
+            const userM = new UserManager();
+            const result = await userM.getList(options);
             return res.status(200).json({status:"success",data:result.docs, ...result, docs:undefined });
         }
         catch (error)
@@ -43,8 +43,8 @@ class UserController{
         try
         {
 
-            const uManager = new UserManager();
-            const user = await uManager.getById(uid);
+            const userM = new UserManager();
+            const user = await userM.getById(uid);
             return res.status(200).json({status:"success",data:user});
         } 
         catch (error)
@@ -59,8 +59,8 @@ class UserController{
         const data = req.body;
         try
         {         
-            const uManager = new UserManager();
-            const userUpdated = await uManager.updateOne(uid,data);
+            const userM = new UserManager();
+            const userUpdated = await userM.updateOne(uid,data);
             return res.status(200).json({status:"success",data:userUpdated});
         }
         catch (error)
@@ -74,13 +74,26 @@ class UserController{
         const uid = req.params.uid;
         try
         {
-            const uManager = new UserManager();
-            const result = await uManager.deleteOne(uid);
+            const userM = new UserManager();
+            const result = await userM.deleteOne(uid);
             return res.status(200).json({status:"success",message:result.message});
         }
         catch (error)
         {
            return next(error);
+        }
+    }
+
+    static async changeRole(req,res,next){
+        try {
+            const dto={
+                role: req.body.role
+            }
+            const userM = new UserManager();
+            const result = await userM.updateOne(req.params.uid,{role:dto.role})
+            return res.status(200).send({status:'success',message:'Role updated successfully',data:result});
+        } catch (error) {
+            return next(error);
         }
     }
 

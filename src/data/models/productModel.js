@@ -11,7 +11,8 @@ const productSchema = new mongoose.Schema({
     stock: {type:Number,require:true},
     code: {type:String,require:true, index:true},  
     status: {type:Boolean,require:true, index:true},
-    category: {type:String,require:true, index:true}
+    category: {type:String,require:true, index:true},
+    owner: {type:String ,require:true, default:"admin"}
 })
 productSchema.plugin(mongoosePaginate);
 export const productModel = mongoose.model(productsCollection,productSchema);
