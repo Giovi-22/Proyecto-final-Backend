@@ -65,10 +65,9 @@ class SessionController{
 
     static async changePassword(req,res,next){
         try {
-            //to do: terminar de armar la ruta
             const {password, confirm, email} = req.body;
             const sessionM  = new SessionManager();
-            const updatedUser = await sessionM.changePassword(password,confirm,req.user,email);
+            const updatedUser = await sessionM.changePassword(password,confirm,req.user);
             return res.status(200).send({status:"success",data:updatedUser,message:"Password updated successfully"});
         } catch (error) {
             return next(error);
@@ -92,17 +91,6 @@ class SessionController{
         } catch (error) {
             return next(error);
         } 
-    }
-
-    static async restorePassword(req,res,next){
-        try {
-            const { password, confirm } = req.body;
-            const sessionM  = new SessionManager();
-            const updatedUser = await sessionM.changePassword(password,confirm,req.user);
-            return res.status(200).send({status:"success",data:updatedUser,message:"Password updated successfully"});
-        } catch (error) {
-            return next(error);
-        }
     }
 
 }

@@ -16,7 +16,7 @@ const jsonData = {
 }
 
 const requestOptions = {
-  method: 'put',
+  method: 'post',
   headers: {
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${getUrlToken()}`
@@ -25,20 +25,17 @@ const requestOptions = {
 };
 
     sendButton.appendChild(spinner);
-    fetch(`${window.location.href.split('/')[0]}//${window.location.href.split('/')[2]}/api/sessions/restorepassword`, requestOptions)
+    fetch(`${window.location.href.split('/')[0]}//${window.location.href.split('/')[2]}/api/sessions/changepassword`, requestOptions)
     .then((response)=>{
-      if(response.status < 400){
-        console.log("success: el response status es: ",response.status)
+      if(response.status === 200){
         sendButton.removeChild(sendButton.querySelector('span'));
         toastr('success',"successfully restore the password");
       }else{
-        console.log("error: el response status es: ",response.status)
         sendButton.removeChild(sendButton.querySelector('span'));
         toastr('failed',`Failed to restore the password, error: ${response.status}`);
       }})
     .catch( (error)=>{
-      console.log("failed catch: el response status es: ",response.status)
-      toastr('failed',`Failed restore passoword, error: ${response.status}`);
+      toastr('failed',`Failed restore passoword, error: ${error}`);
       sendButton.removeChild(sendButton.querySelector('span'));
       console.error('Error al enviar la solicitud:', error);
     });
