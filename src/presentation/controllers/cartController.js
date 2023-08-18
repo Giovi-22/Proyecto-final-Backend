@@ -23,7 +23,7 @@ class CartController{
         try
         {
             const cartM = new CartManager();
-            const newCart =  await cartM.addOne(cid,pid);
+            const newCart =  await cartM.addOne(cid,pid,req.user);
             return res.status(200).json({status:"success",data:newCart});
         }
         catch (error)

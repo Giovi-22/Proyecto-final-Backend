@@ -7,10 +7,12 @@ import ProductManager from "./ProductManager.js";
 class CartManager{
 
     #cartRepository;
+    #productRepository;
 
     constructor()
     {
         this.#cartRepository= container.resolve('CartRepository');
+        this.#productRepository = container.resolve('ProductRepository');
     }
     
     async createCart(cart)
@@ -19,14 +21,20 @@ class CartManager{
         return newCart;
     }
 
-    async addOne(cid,pid)
+    async addOne(cid,pid,user)
     {
         idValidation.parse(cid);
         idValidation.parse(pid);
         const cart = await this.#cartRepository.findOne(cid);
+        //si el producto le pertenece al usuario premium, no lo agrega
+        const dbProduct = await this.#productRepository.findById(pid);
+        if(dbProduct.owner === user.email){
+            throw new Error("Bad Request, Can't add your product to the cart")
+        }
         const index = cart.products.findIndex(product => product.pid.toString() === pid);
         if(index === -1)
         {
+            //el producto no existe
             cart.products.push({pid:pid,quantity:1});
             return this.#cartRepository.update(cart.id,cart.products);
         }
