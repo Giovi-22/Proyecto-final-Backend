@@ -46,9 +46,16 @@ class ProductManager
         const updatedProduct = await this.#ProductRepository.update(pid,data);
         return updatedProduct;
     }
-    async deleteOne(pid)
+    async deleteOne(pid,user)
     {
         await idValidation.parseAsync(pid);
+        const dbProduct = await this.#ProductRepository.findById(pid);
+        if(user.role.name === 'premium'){
+            if(dbProduct.owner !== user.email){
+                throw new Error("You don't have permission to delete this product")
+            }
+            return this.update(pid,{status:false});
+        }
         const productDeleted = await this.update(pid,{status:false});
         return productDeleted;
     }

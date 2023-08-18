@@ -74,7 +74,7 @@ class ProductController{
         try
         {
             const pManager = new ProductManager();
-            const productDeleted = await pManager.deleteOne(pid);
+            const productDeleted = await pManager.deleteOne(pid,req.user);
             res.status(200).json({status:'success',data:productDeleted});
         }
         catch (error)

@@ -44,7 +44,8 @@ class ProductMongooseRepository{
                 stock: product.stock,
                 thumbnail: product.thumbnail,
                 code: product.code,
-                status: product.status
+                status: product.status,
+                owner: product.owner,
             })),
             
         });
@@ -63,7 +64,8 @@ class ProductMongooseRepository{
             thumbnail: product.thumbnail,
             stock: product.stock,
             code: product.code,
-            status: product.status   
+            status: product.status,
+            owner: product.owner,
         }
     }
 
@@ -79,7 +81,8 @@ class ProductMongooseRepository{
                 stock: productUpdated.stock,
                 code: productUpdated.code,
                 status: productUpdated.status,
-                category: productUpdated.category
+                category: productUpdated.category,
+                owner: productUpdated.owner,
         }
     }
 }
