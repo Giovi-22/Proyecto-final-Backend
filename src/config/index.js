@@ -8,6 +8,7 @@ export const config = {
     userMongoAtlas: process.env.USERMONGOATLAS,
     passwordMongoAtlas: process.env.PASSWORDMONGOATLAS,
     dbUri: process.env.DB_URI,
+    dbUriTests: process.env.DB_URI_TESTS,
     dbType: process.env.DB_TYPE,
     emailKey: process.env.EMAIL_KEY
 }

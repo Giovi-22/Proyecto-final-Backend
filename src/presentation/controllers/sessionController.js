@@ -10,7 +10,7 @@ class SessionController{
         {
             const sessionM = new SessionManager();
             const accessToken = await sessionM.login(req.body);
-            return res.status(201).cookie('user',accessToken,{maxAge:(60*1000)*10}).send({message:'Login success',data:accessToken});
+            return res.status(200).cookie('user',accessToken,{maxAge:(60*1000)*10}).send({message:'Login success',data:accessToken});
         } 
         catch (error)
         {
@@ -22,7 +22,7 @@ class SessionController{
     {
         try 
         {
-            res.status(200).send({status:'success',payload:req.user});
+            res.status(200).send({status:'success',data:req.user});
         }
         catch (error)
         {
@@ -52,7 +52,6 @@ class SessionController{
     {
         try
         {
-            console.log("Dentro de signup, los datos: ",req.body)
             const sessionM = new SessionManager();
             const newUser = await sessionM.signup(req.body);
             res.status(201).send({status:'success',data:newUser});

@@ -55,7 +55,7 @@ class UserManager
     async updateOne(uid,data)
     {   
         if(data?.password){
-            throw new Error("Bad Request, the password field can't be updated");
+            throw new Error("The password field can't be updated",{cause:'Bad Request'});
         }
         await idValidation.parseAsync(uid);
         const dbUser = await this.#UserRepository.findById(uid);

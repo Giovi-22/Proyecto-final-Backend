@@ -2,7 +2,6 @@ import { jwtVerificator } from "../../helpers/jsonwebtoken.js";
 
 
 const auth = async (req,res,next)=>{
-
     try {
     const authHeader = req.headers?.authorization;
     if(!authHeader){

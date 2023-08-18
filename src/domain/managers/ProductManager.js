@@ -52,7 +52,7 @@ class ProductManager
         const dbProduct = await this.#ProductRepository.findById(pid);
         if(user.role.name === 'premium'){
             if(dbProduct.owner !== user.email){
-                throw new Error("You don't have permission to delete this product")
+                throw new Error("You don't have permission to delete this product",{cause:'Unauthorized'})
             }
             return this.update(pid,{status:false});
         }

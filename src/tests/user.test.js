@@ -2,6 +2,7 @@ import { describe, beforeAll, afterAll, expect } from '@jest/globals'
 import supertest from 'supertest';
 import { initSupertestServer } from './index.test';
 import _ from 'mongoose-paginate-v2';
+import { generateUser } from '../helpers/fakers';
 
 
 
@@ -11,6 +12,7 @@ describe('Testing User Endpoints',()=>{
     let application;
     let appRequester;
     let appServer;
+    let newUser;
 
     beforeAll(async ()=>
     {
@@ -25,34 +27,25 @@ describe('Testing User Endpoints',()=>{
     {
         await dataBase.close();
     })
-
-    test('El repo debe poder crear un usuario /api/sessions/signup',async function(){
-        const payload = 
-        {
-            firstName:"Pablo",
-            lastName:"marchetti",
-            email:"pabloMarche@prueba.com",
-            password: "12345678",
-            age:34
-        }
-        const result = await appRequester.post('/api/sessions/signup').send(payload);
+//-----------------SUCCESS TESTS--------------------------------------------------
+    test('El repo debe poder crear un usuario /api/users/',async function(){
+        newUser = generateUser();
+        const result = await appRequester.post('/api/users/').send(newUser);
         const {_body,status} = result;
         expect(status).toBe(201);
         expect(_body.data).toHaveProperty('email');
     });
 
-    test('Sign-in /api/sessions/login',async function(){
-        const payload = 
-        {
-            email:"giovannibarolin@gmail.com",
-            password: "12345678"
-        }
-        const result = await appRequester.post('/api/sessions/login').send(payload);
-        const {_body,status} = result;
-        expect(status).toBe(200);
-        expect(_body).toHaveProperty('message')
-        expect(_body.message).toBe('Login success')
-    })
+
+//---------------------FAILED TESTS-----------------------------------------------------------------
+test('El repo debe generar un error si el usuario a crear ya existe /api/users/',async function(){
+    //const payload = generateUser();
+    const result = await appRequester.post('/api/users/').send(newUser);
+    const {_body,status} = result;
+    expect(status).toBe(400);
+    expect(_body).toHaveProperty('message');
+    expect(_body.message).toBe('failed');
+});
 
 })
 
