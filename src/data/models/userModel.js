@@ -11,7 +11,14 @@ const userSchema = new mongoose.Schema({
     password: {type:String,require:true},
     cart: [{type:mongoose.Schema.Types.ObjectId,ref:'carts',default:null}],
     role: {type:mongoose.Schema.Types.ObjectId,ref:'roles',default:"647fd20fb16b39892de4c6aa"}, //por defecto es el role client
-    isAdmin: {type:mongoose.Schema.Types.Boolean,default:false}
+    isAdmin: {type:mongoose.Schema.Types.Boolean,default:false},
+    documents: [
+        {
+            name:{type:String,default:null},
+            reference:{type:String,default:null}
+        }
+    ],
+    lastConnection:{type:String,default:null}
 })
 
 userSchema.plugin(mongoosePaginate);
