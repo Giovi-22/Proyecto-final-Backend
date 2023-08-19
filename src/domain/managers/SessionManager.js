@@ -1,6 +1,6 @@
 
 import { hashPassword, verifyPassword } from '../../helpers/bcrypt.js';
-import { jwtGenerator, jwtVerificator,  } from '../../helpers/jsonwebtoken.js';
+import { jwtGenerator } from '../../helpers/jsonwebtoken.js';
 import { loginValidation, userZodSchema } from '../validations/validators.js';
 import EmailManager from './EmailManager.js';
 import UserManager from './UserManager.js';
@@ -27,6 +27,8 @@ class SessionManager{
     async signup(user)
     {
         await userZodSchema.parseAsync(user);
+        user.isAdmin=false;
+        user.role="647fd20fb16b39892de4c6aa";
         const newUser = await this.userM.create(user);
         return newUser;
     }
