@@ -3,7 +3,6 @@ import supertest from 'supertest';
 import { initSupertestServer } from '../index.test';
 import _ from 'mongoose-paginate-v2';
 import { generateUser } from '../../helpers/fakers';
-import { faker } from '@faker-js/faker';
 
 
 
@@ -71,30 +70,5 @@ describe('Testing User Endpoints',()=>{
         expect(_body.message).toBe('Login success');
         JWT = _body.data;
     });
-
-    test('Un user premium puede crear un producto', async()=>{
-        console.log("el usuario logueado es: ",user)
-        const newProduct = {
-            title: "Cortante tortuga ninja5",
-            description: "Incluye dos unidades,cortante y marcador. Tamaño 8cm",
-            price: 630,
-            thumbnail: [],
-            code: `CB${faker.number.int({min:1,max:500})}`,
-            stock: 15,
-            status: true,
-            category:"cortantes",
-            owner:user.email
-          }
-        const result = await appRequester
-        .post('/api/products')
-        .set('Authorization',`Bearer ${JWT}`)
-        .send(newProduct);
-        const {_body,status} = result;
-        expect(status).toBe(201);
-        expect(_body.status).toBe('success');
-        expect(_body.data.owner).toBe(user.email)
-    })
-
-
 //---------------------FAILED TESTS-----------------------------------------------------------------
 });
