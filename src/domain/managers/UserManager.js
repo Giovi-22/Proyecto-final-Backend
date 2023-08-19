@@ -78,6 +78,45 @@ class UserManager
         return userUpdated;
     }
 
+    async loadDocuments(uid,files){
+        const user = await this.getById(uid);
+        let documents = {
+            profiles:[],
+            products:[],
+            documents:[],
+        }
+        if(files.profiles){
+            if(user.documents?.profiles){
+                //Object.assign(user.documents['profiles'],[...files.profiles]);
+                documents.profiles = [...user.documents.profiles,...files.profiles];
+            }else{
+                documents.profiles = [...files.profiles];
+            }
+        }
+
+        if(files.products){
+            if(user.documents?.products){
+                //Object.assign(user.documents['products'],[...files.products]);
+                documents.products = [user.documents.products,...files.products];
+            }else{
+                documents.products = [...files.products];
+            }
+        }
+
+        if(files.documents){
+            if(user.documents?.documents){
+                //Object.assign(user.documents['documents'],[...files.documents]);
+                documents.documents = [...user.documents.documents,...files.documents];
+            }else{
+                documents.documents = [...files.documents];
+            }
+        }
+
+        const result = await this.updateOne(uid,{documents:documents});
+        console.log(result);
+        return result;
+    }
+
 }
 
 export default UserManager;

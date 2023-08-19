@@ -105,16 +105,30 @@ class UserController{
             req.file = {
                         key                 value
                 (fieldname)-profile:[{(archivo)->fieldname:'profile',destination:'....',path:'...'etc}],
-                (fieldname)-product:[{(archivo)->fieldname:'profile',destination:'....',path:'...'etc}],
-                (fieldname)-document:[{(archivo)->fieldname:'profile',destination:'....',path:'...'etc}]
+                (fieldname)-product:[{(archivo)->fieldname:'product',destination:'....',path:'...'etc}],
+                (fieldname)-document:[{(archivo)->fieldname:'document',destination:'....',path:'...'etc}]
 
             }
             */
+        
+           console.log(req.files.profile)
             if(!req.files)
             {
                 return res.status(400).send({status:'failed',message:'A file has not been provided'});
             }
-            return res.status(200).send({status:'success',message:'Uploaded file successfully'});
+            const filesDto={};
+            if(req.files['profiles']){
+                filesDto.profiles = req.files['profiles'].map(file=>({name:file.filename,reference:file.destination}))
+            }
+            if(req.files['products']){
+                filesDto.products = req.files['products'].map(file=>({name:file.filename,reference:file.destination}))
+            }
+            if(req.files['documents']){
+                filesDto.documents = req.files['documents'].map(file=>({name:file.filename,reference:file.destination}))
+            }
+            const userM = new UserManager();
+            const result = userM.loadDocuments(req.params.uid,filesDto);
+            return res.status(200).send({status:'success',message:'Uploaded file successfully',data:result});
         } catch (error)
          {
           return next(error);  

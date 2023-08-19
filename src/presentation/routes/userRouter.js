@@ -8,15 +8,15 @@ import { uploadFiles } from '../../helpers/multer.js';
 const userRouter = Router();
 const fileTypes = [
     {
-        name:'profile',
+        name:'profiles',
         maxCount: 1,
     },
     {
-        name:'product',
+        name:'products',
         maxCount: 3,
     },
     {
-        name:'document',
+        name:'documents',
         maxCount: 1
     }
 ]

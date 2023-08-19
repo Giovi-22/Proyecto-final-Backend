@@ -9,13 +9,13 @@ const storage = multer.diskStorage(
         destination: function(req, file, cb)
         {
                 switch(file.fieldname){
-                    case 'profile': 
-                        cb(null,path.resolve(`${dirName}/profile`));
+                    case 'profiles': 
+                        cb(null,path.resolve(`${dirName}/profiles`));
                         break;
-                    case 'product': 
+                    case 'products': 
                         cb(null,path.resolve(`${dirName}/products`));
                         break;
-                    case 'document': 
+                    case 'documents': 
                         cb(null,path.resolve(`${dirName}/documents`));
                         break;
                     default : cb(null,path.resolve(`${dirName}`));
