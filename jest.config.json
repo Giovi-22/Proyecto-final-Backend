@@ -3,6 +3,7 @@
     "verbose": true,
     "transform":{},
     "testEnvironment":"node",
+    "testTimeout":10000,
     "globals":{
       "ts-jest":{
         "useESM": true

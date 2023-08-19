@@ -1,8 +1,8 @@
 import { describe, beforeAll, afterAll, expect } from '@jest/globals'
 import supertest from 'supertest';
-import { initSupertestServer } from './index.test';
+import { initSupertestServer } from '../index.test';
 import _ from 'mongoose-paginate-v2';
-import { generateUser } from '../helpers/fakers';
+import { generateUser } from '../../helpers/fakers';
 
 let user;
 let JWT;
@@ -53,14 +53,16 @@ describe('Testing Session Endpoints',()=>{
     });
 
     test('Current api/sessions/current',async function(){
-        const result = await appRequester.get('/api/sessions/current').set('Authorization',`Bearer ${JWT}`);
+        const result = await appRequester
+            .get('/api/sessions/current')
+            .set('Authorization',`Bearer ${JWT}`);
         const{_body,status} = result;
         expect(status).toBe(200);
         expect(_body.data).toHaveProperty('email')
         expect(_body.data.email).toBe(user.email)
 
     })
-
+//----------------------- FAILED TESTS--------------------------------------------------------------
     test('No se puede loguear un usuario incorrecto /api/sessions/login',async function(){
         const result = await appRequester
             .post('/api/sessions/login')
