@@ -97,11 +97,20 @@ class UserController{
         }
     }
 
-    static async uploadFile(req,res,next)
+    static async loadDocuments(req,res,next)
     {
         try 
         {
-            if(!req.file)
+            /* req.files -> contiene un objeto  en donde la key es el fieldname y el valor es un array con los archivos el archivo subidos:
+            req.file = {
+                        key                 value
+                (fieldname)-profile:[{(archivo)->fieldname:'profile',destination:'....',path:'...'etc}],
+                (fieldname)-product:[{(archivo)->fieldname:'profile',destination:'....',path:'...'etc}],
+                (fieldname)-document:[{(archivo)->fieldname:'profile',destination:'....',path:'...'etc}]
+
+            }
+            */
+            if(!req.files)
             {
                 return res.status(400).send({status:'failed',message:'A file has not been provided'});
             }
@@ -111,6 +120,7 @@ class UserController{
           return next(error);  
         }
     }
+
 }
 
 export default UserController;
