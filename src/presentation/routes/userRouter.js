@@ -17,7 +17,7 @@ const fileTypes = [
     },
     {
         name:'documents',
-        maxCount: 1
+        maxCount: 4
     }
 ]
 

@@ -90,7 +90,7 @@ class UserController{
                 role: req.body.role
             }
             const userM = new UserManager();
-            const result = await userM.updateOne(req.params.uid,{role:dto.role})
+            const result = await userM.premiumUser(req.params.uid)
             return res.status(200).send({status:'success',message:'Role updated successfully',data:result});
         } catch (error) {
             return next(error);
@@ -111,7 +111,6 @@ class UserController{
             }
             */
         
-           console.log(req.files.profile)
             if(!req.files)
             {
                 return res.status(400).send({status:'failed',message:'A file has not been provided'});
@@ -126,8 +125,9 @@ class UserController{
             if(req.files['documents']){
                 filesDto.documents = req.files['documents'].map(file=>({name:file.filename,reference:file.destination}))
             }
+
             const userM = new UserManager();
-            const result = userM.loadDocuments(req.params.uid,filesDto);
+            const result = await userM.loadDocuments(req.params.uid,filesDto);
             return res.status(200).send({status:'success',message:'Uploaded file successfully',data:result});
         } catch (error)
          {

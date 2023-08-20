@@ -58,8 +58,6 @@ class UserManager
             throw new Error("The password field can't be updated",{cause:'Bad Request'});
         }
         await idValidation.parseAsync(uid);
-        const dbUser = await this.#UserRepository.findById(uid);
-        console.log(dbUser)
         const userUpdated = await this.#UserRepository.update(uid,data);
         return userUpdated;
     }
@@ -80,41 +78,44 @@ class UserManager
 
     async loadDocuments(uid,files){
         const user = await this.getById(uid);
-        let documents = {
-            profiles:[],
-            products:[],
-            documents:[],
-        }
         if(files.profiles){
-            if(user.documents?.profiles){
-                //Object.assign(user.documents['profiles'],[...files.profiles]);
-                documents.profiles = [...user.documents.profiles,...files.profiles];
+            if(user.documents.profiles){
+                Object.assign(user.documents.profiles,[...user.documents.profiles,...files.profiles]);
             }else{
-                documents.profiles = [...files.profiles];
+                user.documents.profiles = [...files.profiles];
             }
         }
 
         if(files.products){
-            if(user.documents?.products){
-                //Object.assign(user.documents['products'],[...files.products]);
-                documents.products = [user.documents.products,...files.products];
+            if(user.documents.products){
+                Object.assign(user.documents.products,[...user.documents.products,...files.products]);
             }else{
-                documents.products = [...files.products];
+                user.documents.products = [...files.products];
             }
         }
 
         if(files.documents){
-            if(user.documents?.documents){
-                //Object.assign(user.documents['documents'],[...files.documents]);
-                documents.documents = [...user.documents.documents,...files.documents];
+            if(user.documents.documents){
+                Object.assign(user.documents.documents,[...user.documents.documents,...files.documents]);
             }else{
-                documents.documents = [...files.documents];
+                user.documents.documents = [...files.documents];
             }
         }
-
-        const result = await this.updateOne(uid,{documents:documents});
-        console.log(result);
+        const result = await this.updateOne(uid,{documents:user.documents});
         return result;
+    }
+
+    async premiumUser(uid){
+        const requiredDocuments = ['dni','address','account']
+        const user = await this.getById(uid);
+        const documentsNames = user.documents.documents.map(doc=>doc.name);
+        const result = requiredDocuments.map(doc=>documentsNames.some(element=>element.includes(doc)))
+        const haveAllDocuments = result.every(doc=>doc === true);
+        if(!haveAllDocuments){
+            throw new Error("Can't change the user's role to premium. The user doesn't have all the required documents.",{cause:'Bad Request'})
+        }
+        const updatedUser = await this.updateOne(uid,{role:"64de071ed652ca954dcfbca2"});
+        return updatedUser;
     }
 
 }

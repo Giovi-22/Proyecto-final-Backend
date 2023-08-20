@@ -13,7 +13,10 @@ class UserMongooseRepository{
             lastName: newUser?.lastName,
             email: newUser?.email,
             age:newUser?.age,
+            role: newUser?.role,
+            cart: newUser?.cart,
             documents: newUser?.documents,
+            isAdmin: newUser?.isAdmin,
             lastConnection : newUser?.lastConnection
         })
     }
@@ -37,6 +40,7 @@ class UserMongooseRepository{
             cart: userDocument?.cart,
             role: userDocument?.role,
             documents: userDocument?.documents,
+            isAdmin: userDocument?.isAdmin,
             lastConnection : userDocument?.lastConnection
         })
     }
@@ -55,7 +59,9 @@ class UserMongooseRepository{
             email: user?.email,
             age:user?.age,
             role: user.role,
+            cart: user.cart,
             documents: user?.documents,
+            isAdmin: user.isAdmin,
             lastConnection : user?.lastConnection
         })
     }
@@ -77,7 +83,10 @@ class UserMongooseRepository{
                     lastName:user?.lastName,
                     email:user?.email,
                     age:user?.age,
+                    role:user?.role,
+                    cart:user?.cart,
                     documents: user?.documents,
+                    isAdmin: user?.isAdmin,
                     lastConnection : user?.lastConnection
                 }))
         }
@@ -108,8 +117,10 @@ class UserMongooseRepository{
             lastName: userDocument?.lastName,
             email: userDocument?.email,
             age:userDocument?.age,
-            role: userDocument.role,
+            role: userDocument?.role,
+            cart: userDocument?.cart,
             documents: userDocument?.documents,
+            isAdmin: userDocument?.isAdmin,
             lastConnection : userDocument?.lastConnection
         })
     }

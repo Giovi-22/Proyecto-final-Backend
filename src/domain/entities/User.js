@@ -10,6 +10,7 @@ class User{
         this.password = props?.password,
         this.role = props?.role,
         this.cart = props?.cart,
+        this.documents = props.documents,
         this.isAdmin = props.isAdmin
     }
 }
