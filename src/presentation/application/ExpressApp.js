@@ -5,6 +5,8 @@ import session from 'express-session';
 import { engine } from 'express-handlebars';
 import cors from 'cors';
 import path from 'path';
+import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerUiExpress from 'swagger-ui-express';
 
 import { config } from '../../config/index.js';
 import productRouter from '../routes/productRouter.js';
@@ -19,16 +21,30 @@ import { errorHandler } from '../middlewares/errorHandler.js';
 
 
 
+
 class ExpressApp{
     
     #viewPath = path.resolve('src/presentation/views');
     #server;
     constructor(){
        this.app = express();
+       this.swaggerOptions = {
+        definition:{
+            openapi:'3.0.1',
+            info:{
+                title:'Coder e-commerce API documentation',
+                description: "This is the API documentation for our e-commerce platform. You'll find all the essential information required to utilize each API endpoint"
+            }
+        },
+        apis:[`${path.resolve('docs/**/*.yaml')}`]
+       }
     }
     
 
     init(){
+
+        const specs = swaggerJSDoc(this.swaggerOptions);
+        this.app.use('/apidocs',swaggerUiExpress.serve,swaggerUiExpress.setup(specs));
         this.app.use(express.json());
         this.app.use(express.urlencoded({extended:true}));
         this.app.use(cookieParser());
@@ -62,7 +78,7 @@ class ExpressApp{
 
     close()
     {
-        this.#server.close(()=>console.log("La app se ha cerrado"))
+        this.#server.close(()=>console.log('The app has been closed'))
     }
 
     build(){
