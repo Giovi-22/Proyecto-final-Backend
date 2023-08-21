@@ -38,11 +38,12 @@ class UserController{
     }
 
     static async getOne(req,res,next)
-    {
+    {   
+        console.log("LOs paramas: ",req.params)
         const uid = req.params.uid;
         try
         {
-
+            console.log("El uid es: ",uid)
             const userM = new UserManager();
             const user = await userM.getById(uid);
             return res.status(200).json({status:"success",data:user});

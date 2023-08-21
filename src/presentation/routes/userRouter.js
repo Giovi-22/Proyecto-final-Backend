@@ -25,7 +25,7 @@ userRouter.get('/list',auth,authorization('getList'),UserController.list);
 userRouter.get('/:uid',auth,authorization('getOne'),UserController.getOne);              
 userRouter.post('/',auth,authorization('create'),UserController.create);   
 userRouter.post('/premium/:uid',auth,authorization('changerole'),UserController.changeRole);
-userRouter.post('/:uid/documents',uploadFiles("src/public/assets").fields(fileTypes),UserController.loadDocuments);
+userRouter.post('/:uid/documents',auth,uploadFiles("src/public/assets").fields(fileTypes),UserController.loadDocuments);
 userRouter.put('/:uid',auth,authorization('updateOne'),UserController.updateOne);
 userRouter.delete('/:uid',auth,authorization('deleteOne'),UserController.deleteOne);
 

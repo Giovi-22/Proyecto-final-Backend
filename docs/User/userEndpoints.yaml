@@ -1,0 +1,198 @@
+paths:
+  /api/users/{uid}:
+    get:
+      summary: Obtiene un usuario de la base de datos.
+      description: La ruta solo la puede usar un usuario autenticado. Se debe pasar el id del usuario como parámetro
+      security:
+        - BearerToken: []
+      tags:
+        - Users
+      parameters:
+        - name: uid
+          in: path
+          description: El id del usuario que se desea obtener.
+          required: true
+          schema:
+            type: string
+            example: 647fd24ab16b39892de4c6ac
+      responses:
+        '200':
+          description: Los usuarios fueron obtenidos satisfactoriamente de la base de datos.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: success
+                  data: 
+                    $ref: '#/components/schemas/User'
+        '400':
+          description: Error de autorización
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: error
+                  message:
+                    type: string
+        '500':
+          description: Error interno en el servidor.
+    put:
+      summary: Actualiza el usuario a partir de su uid
+      tags:
+        - Users
+      parameters:
+      - name: uid
+        in: path
+        required: true
+        description: Ingresar el id del usuario que se desea actualizar
+        schema:
+          $type: string
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              $ref: '#components/requestBodies/updateUser'
+components:
+  schemas:
+    Documents:
+      type: object
+      properties:
+        profiles:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                description: Nombre del documento
+                type: string
+              reference:
+                description: Ruta al documento.
+                type: string
+        products:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                description: Nombre del documento
+                type: string
+              reference:
+                description: Ruta al documento.
+                type: string
+        documents:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                description: Nombre del documento
+                type: string
+              reference:
+                description: Ruta al documento.
+                type: string
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id autogenerado de mongo pero guardado en la entidad como string.
+        firstName: 
+          type: string
+          description: Nombre del usuario.
+        lastName:
+          type: string
+          description: Apellido del usuario.
+        email:
+          type: string
+          description: dirección de correo electrónico del usuario. Este campo es único en la base de datos.
+        age: 
+          type: number
+          description: Edad del usuario.
+        role:
+          type: ObjectId
+          description: Role del usuario para interactuar con la app. Por defecto el rol generado es user y solo puede ser modificado por un administrador o un usurio con los permisos necesarios.
+        cart:
+          type: ObjectId
+          description: Referencia a/los carritos de compra del usuario.
+        documents:
+          $ref: '#components/schemas/Documents'
+        isAdmin:
+          type: boolean
+          description: booleano para indicar si el usuario es admin. Por defecto false.
+        lastConnection:
+          type: string
+          description: Muestra la ultima conexion el usuario.s
+      example:
+        id: "649aefb0b67e84a0e47317c3"
+        firstName: Antonella
+        lastName: Perez
+        email: antonellaP@prueba.com
+        age: 23
+        role: ObjectId("647fd20fb16b39892de4c6aa")
+        cart: ObjectId("64596eff0411af1b1e13b8e7")
+        documents:
+          {
+            profiles:
+            [
+              {
+                name: foto1,
+                reference: src/public/assets/profiles
+              }
+            ],
+            products:
+            [
+              {
+                name: product1,
+                reference: src/public/assets/products
+              }
+            ],
+            documents:
+            [
+              {
+                name: doc_1,
+                reference: src/public/assets/documents
+              }
+            ]
+          }
+        isAdmin: false
+        lastConnection: 12/08/2023
+  requestBodies:
+    updateUser:
+      type: object
+      properties:
+        firstName: 
+          type: string
+          description: Nombre del usuario.
+        lastName:
+          type: string
+          description: Apellido del usuario.
+        email:
+          type: string
+          description: dirección de correo electrónico del usuario. Este campo es único en la base de datos.
+        age: 
+          type: number
+          description: Edad del usuario.
+        role:
+          type: ObjectId
+          description: Role del usuario para interactuar con la app. Por defecto el rol generado es user y solo puede ser modificado por un administrador o un usurio con los permisos necesarios.
+        cart:
+          type: ObjectId
+          description: Referencia a/los carritos de compra del usuario.
+        isAdmin:
+          type: boolean
+          description: booleano para indicar si el usuario es admin. Por defecto false.
+      example:
+        id: "649aefb0b67e84a0e47317c3"
+        firstName: Antonella
+        lastName: Perez
+        email: antonellaP@prueba.com
+        age: 23
+        role: "647fd20fb16b39892de4c6aa"
+        isAdmin: false

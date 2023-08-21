@@ -10,7 +10,7 @@ class SessionController{
         {
             const sessionM = new SessionManager();
             const accessToken = await sessionM.login(req.body);
-            return res.status(200).cookie('user',accessToken,{maxAge:(60*1000)*10}).send({message:'Login success',data:accessToken});
+            return res.status(200).cookie('user',accessToken,{maxAge:(60*1000)*10}).send({status:'success', message:'Login success',data:accessToken});
         } 
         catch (error)
         {
