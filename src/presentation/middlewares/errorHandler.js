@@ -9,12 +9,30 @@ export const errorHandler = (err,req,res,next)=>{
     console.log("el error es: ",err.name)
     if(err?.name?.includes('ZodError')){
         console.log("zon error: ",err.issues)
-        return res.status(400).send({status:'error',message:`Error name: ${err.name}`});
+        return res.status(400).send(
+            {
+                status:'error',
+                error:
+                    {
+                        name:err.name,
+                        issues: err.issues
+                    }
+            });
     }
-    if(err?.name?.includes('MongoServer')){
+    if(err?.name?.includes('Mongo')){
         console.log('MongoServer error: ',err)
-        return res.status(400).send({status:'error',message:`Error name: ${err.name}`});
+        return res.status(400).send(
+            {
+                status:'error',
+                error:
+                    {
+                        name:err.name,
+                        code:err.code,
+                        keyValue: err.keyValue 
+                    }
+            });
     }
+
     return res.status(ERRORS[err?.cause] ?? 500).send({status:'error',message:err.message});
    
 }
