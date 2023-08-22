@@ -126,15 +126,14 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: error
-                  message:
-                    type: string
-                    example: 
-                      message: "Error name: ZodError"
+                $ref: '#components/schemas/Errors'
+          example:
+            ZodError:
+              schema:
+                $ref: '#components/schemas/ZodErrors'
+            MongoError:
+              shcema:
+                $ref: '#components/schemas/MongoErrors'
         '401':
           description: Error de autorización
           content:
@@ -151,6 +150,60 @@ paths:
           description: Error interno en el servidor.
 components:
   schemas:
+    Errors:
+      type: object
+      properties:
+        status:
+          type: string
+          example: error
+        error:
+          type: object
+          oneOf:
+            - $ref: '#components/schemas/ZodErrors'
+            - $ref: '#components/schemas/MongoErrors'
+    ZodErrors:
+      type: object
+      properties:
+        name: 
+          type: string
+          example: ZodError
+          description: Error producido por Zod.
+        issues:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+                example: invalid_type
+              expected:
+                type: string
+                example: string
+              received:
+                type: string
+                example: undefined
+              path:
+                type: array
+                example: email
+              message:
+                type: string
+                example: email is required
+    MongoErrors:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Error producido por Mongo DB
+          example: MongoServerError
+        code: 
+          type: number
+          example: 11000
+        keyValue:
+          type: object
+          example:
+            {
+              email: alguien@prueba.com
+            }
     User:
      type: object
      properties:

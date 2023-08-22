@@ -36,3 +36,25 @@ export const errorHandler = (err,req,res,next)=>{
     return res.status(ERRORS[err?.cause] ?? 500).send({status:'error',message:err.message});
    
 }
+
+/*
+ZodErrors:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Nombre del paquete que produjo el error.
+        issues:
+          type: array
+          items:
+            example:
+              [
+                {
+                  code: invalid_type,
+                  expected: string,
+                  received: 'undefined',
+                  path: ['email'],
+                  message: email is required
+                }
+              ]
+            */
