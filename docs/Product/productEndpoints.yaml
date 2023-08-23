@@ -1,129 +1,21 @@
 paths:
-  /api/sessions/login:
+  /api/products/:
     post:
-      summary: Iniciar sesión en la app.
-      description: La ruta permite que un usuario inicie sesión con a través de sus datos.
+      summary: Agregar un producto a la DB.
+      description: La ruta permite agregar un producto a la base de datos. Se requiere autenticaciòn y autorizaciòn.
       tags:
-        - Session
+        - Product
+      security:
+        - BearerToken: []
       requestBody:
         required: true
         content: 
           application/json:
             schema:
-              $ref: '#components/requestBodies/LogIn'
-      responses:
-        '200':
-          description: Inicio de sesión exitoso
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: 'success'
-                  message:
-                    type: string
-                    example: 'Login success'
-                  data: 
-                    type: string
-                    description: Token de acceso de tipo JWT.
-        '400':
-          description: Solicitud incorrecta
-          content:
-            application/json:
-              schema:
-                $ref: '#components/schemas/Errors'
-              examples:
-                ZodError:
-                  $ref: '#components/schemas/ZodErrors'
-                MongoError:
-                  $ref: '#components/schemas/MongoErrors'
-                ClientError:
-                  $ref: '#components/schemas/ClientErrors'
-        '401':
-          description: Error de autorización
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: error
-                  message:
-                    type: string
-        '500':
-          description: Error interno en el servidor.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: error
-                  error:
-                    $ref: '#components/schemas/ServerErrors'
-  /api/sessions/current:
-    get:
-      summary: Obtiene información de la sessión que esta activa
-      description: El endpoint devuelve información del usuario que ha iniciado sesion en la aplicacion.
-      tags:
-        - Session
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: 'success'
-                  data: 
-                    $ref: '#components/schemas/User'
-          example:
-            $ref: '#components/schemas/userExample'
-        '401':
-          description: Error de autorización
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: error
-                  message:
-                    type: string
-        '500':
-          description: Error interno en el servidor.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: error
-                  error:
-                    $ref: '#components/schemas/ServerErrors'
-  /api/sessions/signup:
-    post:
-      summary: Registrarse en la app.
-      description: La ruta permite que un usuario pueda crear un registro con sus datos en la aplicación.
-      tags:
-        - Session
-      requestBody:
-        required: true
-        content: 
-          application/json:
-            schema:
-              $ref: '#components/requestBodies/SignUp'
+              $ref: '#components/schemas/Product'
       responses:
         '201':
-          description: Usuario creado con exito
+          description: Producto creado con exito
           content:
             application/json:
               schema:
@@ -133,14 +25,7 @@ paths:
                     type: string
                     example: 'success'
                   data: 
-                    example:
-                      firstName: Pablo
-                      lastName: Fulano
-                      age: 35
-                      email: pablo@fulano.com
-                      cart: []
-                      role: 647fd20fb16b39892de4c6aa
-                      isAdmin: false
+                    $ref: '#components/schemas/productExample'
         '400':
           description: Solicitud incorrecta
           content:
@@ -154,162 +39,6 @@ paths:
                   $ref: '#components/schemas/MongoErrors'
                 ClientError:
                   $ref: '#components/schemas/Errors'
-        '401':
-          description: Error de autorización
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    description: error
-                    example: error
-                  message:
-                    type: string
-                    example: Login failed, invalid password!
-        '500':
-          description: Error interno en el servidor.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: error
-                  error:
-                    $ref: '#components/schemas/ServerErrors'
-  /api/sessions/logout:
-    post:
-      summary: Finalizar la sesion.
-      description: La ruta finaliza la sesion del usuario actual.
-      tags:
-        - Session
-      responses:
-        '200':
-          description: Sesion finalizada exitosamente!
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: 'success'
-                  message: 
-                    type: string
-                    example: Logout!
-        '500':
-          description: Error interno en el servidor.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: error
-                  error:
-                    $ref: '#components/schemas/ServerErrors'
-  /api/sessions/forgotpassword:
-    post:
-      summary: Restaurar la contraseña del usuario.
-      description: La ruta permite, a través del envío de un email, restaurar la contraseña del usuario.
-      tags:
-        - Session
-      requestBody:
-        required: true
-        content: 
-          application/json:
-            schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                  example: alguien@prueba.com
-
-      responses:
-        '200':
-          description: Se ha enviado un email para restaurar la contraseña.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: 'success'
-                  message:
-                    type: string
-                    example: An email has beent sent to reset the password
-        '400':
-          description: Solicitud incorrecta
-          content:
-            application/json:
-              schema:
-                $ref: '#components/schemas/Errors'
-              examples:
-                ZodError:
-                  $ref: '#components/schemas/ZodErrors'
-                MongoError:
-                  $ref: '#components/schemas/MongoErrors'
-                ClientError:
-                  $ref: '#components/schemas/Errors'
-        '500':
-          description: Error interno en el servidor.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: error
-                  error:
-                    $ref: '#components/schemas/ServerErrors'
-  /api/sessions/changepassword:
-    post:
-      summary: Restaurar la contraseña del usuario
-      description: La ruta permite restaurar la contraseña del usuario. Se requiere inicio de sesion.
-      tags:
-        - Session
-      requestBody:
-        required: true
-        content: 
-          application/json:
-            schema:
-              $ref: '#components/requestBodies/LogIn'
-      responses:
-        '200':
-          description: Usuario creado con exito
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: 'success'
-                  data: 
-                    example:
-                      $ref: '#components/schemas/userExample'
-                  message:
-                    type: string
-                    example: Password updated successfully.
-        '400':
-          description: Solicitud incorrecta
-          content:
-            application/json:
-              schema:
-                $ref: '#components/schemas/Errors'
-              examples:
-                ZodError:
-                  $ref: '#components/schemas/ZodErrors'
-                MongoError:
-                  $ref: '#components/schemas/MongoErrors'
-                ClientError:
-                  $ref: '#components/schemas/ClientErrors'
         '401':
           description: Error de autorización
           content:
@@ -335,4 +64,239 @@ paths:
                     type: string
                     example: error
                   error:
-                    $ref: '#components/schemas/ServerErrors'
+                    $ref: '#components/schemas/CommonErrors'
+    get:
+      summary: Devuelve una paginación de productos.
+      description: La ruta devuelve una paginación de productos desde la DB. Se le pueden pasar filtros.
+      tags:
+        - Product
+      parameters:
+        - name: limit
+          in: query
+          description: Cantidad de productos por pagina.
+          schema:
+            type: number
+            example: 5
+        - name: page
+          in: query
+          description: El numero de pagina que se desea consultar.
+          schema:
+            type: number
+            example: 3
+        - name: sort
+          in: query
+          description: Orden de los datos recibidos. -1 ordena de mayor a menor, 1 de menor a mayor.
+          schema:
+            type: number
+            example: 1
+        - name: filter
+          in: query
+          description: Campo del producto por el que se desea realizar la busqueda.
+          schema:
+            type: object
+            description: "El filtro se pasa en un objeto como key->value. {title: Cortante batman}"
+            example:
+              price: 345
+      responses:
+        '200':
+          description: Producto creado con exito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: 'success'
+                  data: 
+                    $ref: '#components/schemas/productPagination'
+        '400':
+          description: Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Errors'
+              examples:
+                ZodError:
+                  $ref: '#components/schemas/ZodErrors'
+                MongoError:
+                  $ref: '#components/schemas/MongoErrors'
+                ClientError:
+                  $ref: '#components/schemas/ClientErrors'
+        '500':
+          description: Error interno en el servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  error:
+                    $ref: '#components/schemas/CommonErrors'
+  /api/products/{pid}:
+    get:
+      summary: Consultar un producto.
+      description: La ruta devuelve un producto pasando por parametro su id. 
+      tags:
+        - Product
+      parameters:
+        - name: pid
+          in: path
+          description: Codigo de identificación de tipo Mongo id.
+          schema:
+            type: string
+            example: 644afdde5138593c6da796fa
+      responses:
+        '200':
+          description: Producto creado con exito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: 'success'
+                  data: 
+                    $ref: '#components/schemas/Product'
+        '400':
+          description: Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Errors'
+              examples:
+                ZodError:
+                  $ref: '#components/schemas/ZodErrors'
+                MongoError:
+                  $ref: '#components/schemas/MongoErrors'
+                ClientError:
+                  $ref: '#components/schemas/ClientErrors'
+        '500':
+          description: Error interno en el servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  error:
+                    $ref: '#components/schemas/CommonErrors'
+    put:
+      summary: Actualizar producto.
+      description: Actualiza un producto en la DB. La ruta requiere autenticación y autorización.
+      tags:
+        - Product
+      security:
+        - BearerToken: []
+      parameters:
+        - name: pid
+          in: path
+          description: Codigo de identificación de tipo Mongo id.
+          schema:
+            type: string
+            example: 644afdde5138593c6da796fa
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              type: object
+              description: Objeto que representa los campos y sus valores que se desean actualizar en el producto.
+              example:
+                status: false
+      responses:
+        '200':
+          description: Producto creado con exito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: 'success'
+                  data: 
+                    $ref: '#components/schemas/Product'
+        '400':
+          description: Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Errors'
+              examples:
+                ZodError:
+                  $ref: '#components/schemas/ZodErrors'
+                MongoError:
+                  $ref: '#components/schemas/MongoErrors'
+                ClientError:
+                  $ref: '#components/schemas/ClientErrors'
+        '500':
+          description: Error interno en el servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  error:
+                    $ref: '#components/schemas/CommonErrors'
+    delete:
+      summary: Borrar un producto.
+      description: Borra un producto en la DB. La ruta requiere autenticación y autorización.
+      tags:
+        - Product
+      security:
+        - BearerToken: []
+      parameters:
+        - name: pid
+          in: path
+          description: Codigo de identificación de tipo Mongo id.
+          schema:
+            type: string
+            example: 644afdde5138593c6da796fa
+      responses:
+        '200':
+          description: Producto borrado con exito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: 'success'
+                  data: 
+                    $ref: '#components/schemas/Product'
+        '400':
+          description: Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Errors'
+              examples:
+                ZodError:
+                  $ref: '#components/schemas/ZodErrors'
+                MongoError:
+                  $ref: '#components/schemas/MongoErrors'
+                ClientError:
+                  $ref: '#components/schemas/ClientErrors'
+        '500':
+          description: Error interno en el servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  error:
+                    $ref: '#components/schemas/CommonErrors'
+            

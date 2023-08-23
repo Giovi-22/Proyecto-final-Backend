@@ -1,0 +1,319 @@
+components:
+  schemas:
+    cartExample:
+      type: object
+      example:
+        id: 64596eff0411af1b1e13b8e7
+        products:
+          [
+            {
+              pid: 6451a619aaa91a4391bedfba,
+              quantity: 78
+            },
+            {
+              pid: "644f3f7e651b7007124da2b5",
+              quantity: 1
+            }
+          ]
+    Cart:
+      type: object
+      description: Carrito de compras. Tiene una propiedad id y un arreglo de productos.
+      properties:
+        id: 
+          type: string
+          example: 64596eff0411af1b1e13b8e7
+        products:
+          type: array
+          description: Array de los productos guardados en el carrito
+          items:
+            type: object
+            properties:
+              pid: 
+                type: string
+                description: Referencia a un producto de la base de datos. El dato es de tipo ObjectId.
+                example: 6451a619aaa91a4391bedfba
+              quantity: 
+                type: number
+                description: Cantidad de ejemplares en el carrito.
+                example: 5
+    productExample:
+      type: object
+      example:
+        id: 644afdde5138593c6da796fa
+        title: Cortante Mujer maravilla
+        description: Incluye dos unidades,cortante y marcador. Tamaño 8cm
+        category: cortantes
+        price: 345
+        stock: 23
+        thumbnail:
+          [
+            "imagen1",
+            "imagen2"
+          ]
+        code: CB234
+        owner: admin@app.com
+        status: true
+    Product:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Titulo del producto.
+          example: Cortante Mujer maravilla
+        description:
+          type: string
+          description: Descripciòn del producto.
+          example: Incluye dos unidades,cortante y marcador. Tamaño 8cm
+        category:
+          type: string
+          description: Categoria del producto.
+          example: cortantes
+        price:
+          type: number
+          description: Precio del producto.
+          example: 630
+        stock:
+          type: number
+          description: Cantidad de productos disponibles.
+          example: 15
+        thumbnail:
+          type: array
+          description: Array de imagenes del producto.
+          example:
+            [
+              "imagen1",
+              "imagen2"
+            ]
+        code: 
+          type: string
+          description: Código de identificación del producto.
+          example: CB234
+        owner:
+          type: string
+          description: Propiedad que almacena el email del usuario que ha creado el producto.
+          example: admin@app.com
+        status:
+          type: boolean
+          description: El estado indica si el producto esta o no disponible.
+          example: true
+    productPagination:
+      type: object
+      properties:
+        products:
+          type: array
+          items:
+            $ref: '#components/schemas/Product'
+        totalDocs:
+          type: number
+          example: 18
+        limit: 
+          type: number
+          example: 4
+        totalPages: 
+          type: number
+          example: 3
+        page:
+          type: number
+          example: 2
+        pagingCounter:
+          type: number
+          example: 11
+        hasPrevPage:
+          type: boolean
+          example: true
+        hasNextPage:
+          type: boolean
+          example: true
+        prevPage:
+          type: number
+          example: 1
+        nextPage:
+          type: number
+          example: 3
+    Errors:
+      type: object
+      properties:
+        status:
+          type: string
+          example: error
+        error:
+          type: object
+          oneOf:
+            - $ref: '#components/schemas/ZodErrors'
+            - $ref: '#components/schemas/MongoErrors'
+            - $ref: '#components/schemas/ClientErrors'
+    ZodErrors:
+      type: object
+      description: Errores producidos por la libreria Zod
+      properties:
+        name: 
+          type: string
+          example: ZodError
+          description: Error producido por Zod.
+        issues:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+                example: invalid_type
+              expected:
+                type: string
+                example: string
+              received:
+                type: string
+                example: undefined
+              path:
+                type: array
+                example: email
+              message:
+                type: string
+                example: email is required
+    MongoErrors:
+      type: object
+      description: Errores producidos por Mongo
+      properties:
+        name:
+          type: string
+          description: Error producido por Mongo DB
+          example: MongoServerError
+        code: 
+          type: number
+          example: 11000
+        keyValue:
+          type: object
+          example:
+            {
+              email: alguien@prueba.com
+            }
+    ClientErrors:
+      type: object
+      description: Errores producidos por el cliente.
+      properties:
+        name:
+          type: string
+          description: Errores del usuario.
+        message:
+          type: string
+          example: Todos los campos deben ser completados
+    ServerErrors:
+      type: object
+      description: Errores producidos por el  servidor.
+      properties:
+        name:
+          type: string
+          description: Errores internos del servidor
+        message:
+          type: string
+    User:
+     type: object
+     properties:
+       id:
+         type: string
+         description: Id autogenerado de mongo pero guardado en la entidad como string.
+       firstName: 
+         type: string
+         description: Nombre del usuario.
+       lastName:
+         type: string
+         description: Apellido del usuario.
+       email:
+         type: string
+         description: dirección de correo electrónico del usuario. Este campo es único en la base de datos.
+       age: 
+         type: number
+         description: Edad del usuario.
+       role:
+         type: ObjectId
+         description: Role del usuario para interactuar con la app. Por defecto el rol generado es user y solo puede ser modificado por un administrador o un usurio con los permisos necesarios.
+       cart:
+         type: ObjectId
+         description: Referencia a/los carritos de compra del usuario.
+       documents:
+         $ref: '#components/schemas/Documents'
+       isAdmin:
+         type: boolean
+         description: booleano para indicar si el usuario es admin. Por defecto false.
+       lastConnection:
+         type: string
+         description: Muestra la ultima conexion el usuario.s
+    userExample:
+      example:
+        id: "649aefb0b67e84a0e47317c3"
+        firstName: Antonella
+        lastName: Perez
+        email: antonellaP@prueba.com
+        age: 23
+        role: ObjectId("647fd20fb16b39892de4c6aa")
+        cart: ObjectId("64596eff0411af1b1e13b8e7")
+        documents:
+          {
+            profiles:
+            [
+              {
+                name: foto1,
+                reference: src/public/assets/profiles
+              }
+            ],
+            products:
+            [
+              {
+                name: product1,
+                reference: src/public/assets/products
+              }
+            ],
+            documents:
+            [
+              {
+                name: doc_1,
+                reference: src/public/assets/documents
+              }
+            ]
+          }
+        isAdmin: false
+        lastConnection: 12/08/2023
+  requestBodies:
+    LogIn:
+      type: object
+      properties:
+        email: 
+          type: string
+          description: Dirección de email del usuario.
+        password:
+          type: string
+          description: Contraseña del usuario.
+      example:
+        email: "usuario@prueba.com"
+        password: "12344559"
+    SignUp:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: Nombre del usuario.
+        lastName:
+          type: string
+          description: Apellido del usuario.
+        email:
+          type: string
+          description: Dirección de email del usuario.
+        password: 
+          type: string
+          description: Contraseña del usuario.
+        age:
+          type: number
+          description: Edad del usuario.
+      example:
+        firstName: Pablo
+        lastName: Fulano
+        email: pablo@fulano.com
+        password: pabloelfulano
+        age: 35
+  securitySchemes:
+    BearerToken:
+      type: apiKey
+      in: header
+      name: Authorization
+security:
+  - BearerToken: []

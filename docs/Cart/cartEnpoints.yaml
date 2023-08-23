@@ -1,0 +1,411 @@
+paths:
+  /api/carts:
+    post:
+      summary: Crea un carrito vacio.
+      description: Crea el carrito con un array de productos vacio.
+      tags:
+        - Cart
+      responses:
+        '201':
+          description: Carrito creado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: 'success'
+                  data: 
+                    type: object
+                    description: Carrito de compras.
+                    properties:
+                      id: 
+                        type: string
+                        example: 64596eff0411af1b1e13b8e7
+                      products:
+                        type: array
+                        description: Array vacio
+                        example: [{}]
+                        
+        '400':
+          description: Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Errors'
+              examples:
+                ZodError:
+                  $ref: '#components/schemas/ZodErrors'
+                MongoError:
+                  $ref: '#components/schemas/MongoErrors'
+                ClientError:
+                  $ref: '#components/schemas/Errors'
+        '500':
+          description: Error interno en el servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  error:
+                    $ref: '#components/schemas/CommonErrors'
+    get:
+      summary: Listado de carritos.
+      description: Devuelve todos los carritos que existen en la DB. Se requiere autenticación y autorización.
+      tags:
+        - Cart
+      security:
+        - BearerToken: []
+      responses:
+        '200':
+          description: Carritos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: 'success'
+                  data: 
+                    $ref: '#components/schemas/cartExample'
+        '400':
+          description: Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Errors'
+              examples:
+                ZodError:
+                  $ref: '#components/schemas/ZodErrors'
+                MongoError:
+                  $ref: '#components/schemas/MongoErrors'
+                ClientError:
+                  $ref: '#components/schemas/Errors'
+        '401':
+          description: Error de autorización
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: error
+                    example: error
+                  message:
+                    type: string
+                    example: Authorization has not been sent!
+        '500':
+          description: Error interno en el servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  error:
+                    $ref: '#components/schemas/CommonErrors'
+  /api/carts/{cid}:
+    get:
+      summary: Devuelve un carrito.
+      description: Devuelve un carrito de la DB. Se requiere autenticación.
+      tags:
+        - Cart
+      parameters:
+        - name: cid
+          in: path
+          description: Codigo de identificacion del carrito. Tipo de dato Mongo ObjectId.
+          schema:
+            type: string
+            example: 64596eff0411af1b1e13b8e7
+      responses:
+        '200':
+          description: Producto creado con exito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: 'success'
+                  data: 
+                    $ref: '#components/schemas/cartExample'
+        '400':
+          description: Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Errors'
+              examples:
+                ZodError:
+                  $ref: '#components/schemas/ZodErrors'
+                MongoError:
+                  $ref: '#components/schemas/MongoErrors'
+                ClientError:
+                  $ref: '#components/schemas/ClientErrors'
+        '500':
+          description: Error interno en el servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  error:
+                    $ref: '#components/schemas/CommonErrors'
+    put:
+      summary: Actualizar carrito.
+      description: Actualiza el carrito pasando por body los productos deseados. Requiere autenticacion.
+      tags:
+        - Cart
+      security:
+        - BearerToken: []
+      parameters:
+        - name: cid
+          in: path
+          description: Codigo de identificación del carrito de tipo Mongo id.
+          schema:
+            type: string
+            example: 644afdde5138593c6da796fa
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              type: array
+              description: Productos y sus cantidades a agregar al carrito
+              example:
+                [
+                  {
+                    pid: 644f0d1054cb79bacd52ab7e,
+                    quantity: 10
+                  },
+                  {
+                    pid: 6453df2ec823f56ce42c27a8,
+                    quantity: 3
+                  }
+                ]
+      responses:
+        '200':
+          description: Carrito actualizado con exito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: 'success'
+                  data: 
+                    $ref: '#components/schemas/cartExample'
+        '400':
+          description: Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Errors'
+              examples:
+                ZodError:
+                  $ref: '#components/schemas/ZodErrors'
+                MongoError:
+                  $ref: '#components/schemas/MongoErrors'
+                ClientError:
+                  $ref: '#components/schemas/ClientErrors'
+        '500':
+          description: Error interno en el servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  error:
+                    $ref: '#components/schemas/CommonErrors'
+  /api/carts/{cid}/purchase:
+    post:
+      summary: Productos disponibles y no disponibles para comprar.
+      description: La ruta devuelve los productos que estan disponibles y  los que no, antes de finalizar la compra. Se requiere autenticación. 
+      tags:
+        - Cart
+      security:
+        - BearerToken: []
+      parameters:
+        - name: cid
+          in: path
+          description: Codigo de identificación de tipo Mongo id.
+          schema:
+            type: string
+            example: 644afdde5138593c6da796fa
+      responses:
+        '200':
+          description: Productos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: 'success'
+                  data: 
+                    type: object
+                    properties:
+                      availableProducts:
+                        type: array
+                        items:
+                          $ref: '#components/schemas/productExample'
+                      unavailableProducts:
+                        type: array
+                        items:
+                          $ref: '#components/schemas/productExample'
+        '400':
+          description: Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Errors'
+              examples:
+                ZodError:
+                  $ref: '#components/schemas/ZodErrors'
+                MongoError:
+                  $ref: '#components/schemas/MongoErrors'
+                ClientError:
+                  $ref: '#components/schemas/ClientErrors'
+        '500':
+          description: Error interno en el servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  error:
+                    $ref: '#components/schemas/CommonErrors'
+    put:
+      summary: Actualizar producto.
+      description: Actualiza un producto en la DB. La ruta requiere autenticación y autorización.
+      tags:
+        - Product
+      security:
+        - BearerToken: []
+      parameters:
+        - name: pid
+          in: path
+          description: Codigo de identificación de tipo Mongo id.
+          schema:
+            type: string
+            example: 644afdde5138593c6da796fa
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              type: object
+              description: Objeto que representa los campos y sus valores que se desean actualizar en el producto.
+              example:
+                status: false
+      responses:
+        '200':
+          description: Producto creado con exito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: 'success'
+                  data: 
+                    $ref: '#components/schemas/Product'
+        '400':
+          description: Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Errors'
+              examples:
+                ZodError:
+                  $ref: '#components/schemas/ZodErrors'
+                MongoError:
+                  $ref: '#components/schemas/MongoErrors'
+                ClientError:
+                  $ref: '#components/schemas/ClientErrors'
+        '500':
+          description: Error interno en el servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  error:
+                    $ref: '#components/schemas/CommonErrors'
+    delete:
+      summary: Borrar un producto.
+      description: Borra un producto en la DB. La ruta requiere autenticación y autorización.
+      tags:
+        - Product
+      security:
+        - BearerToken: []
+      parameters:
+        - name: pid
+          in: path
+          description: Codigo de identificación de tipo Mongo id.
+          schema:
+            type: string
+            example: 644afdde5138593c6da796fa
+      responses:
+        '200':
+          description: Producto borrado con exito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: 'success'
+                  data: 
+                    $ref: '#components/schemas/Product'
+        '400':
+          description: Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Errors'
+              examples:
+                ZodError:
+                  $ref: '#components/schemas/ZodErrors'
+                MongoError:
+                  $ref: '#components/schemas/MongoErrors'
+                ClientError:
+                  $ref: '#components/schemas/ClientErrors'
+        '500':
+          description: Error interno en el servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  error:
+                    $ref: '#components/schemas/CommonErrors'
+            

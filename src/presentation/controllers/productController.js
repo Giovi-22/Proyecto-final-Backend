@@ -29,7 +29,7 @@ class ProductController{
         {
             const pManager = new ProductManager();
             const products = await pManager.get(options);
-            res.status(200).json({status:'success',payload:products.docs,...products,docs:undefined});
+            res.status(200).json({status:'success',data:{products:products.docs,...products,docs:undefined}});
         }
         catch (error)
         {
