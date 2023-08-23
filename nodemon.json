@@ -6,8 +6,8 @@
     ],
     "watch": [
       "src/*",
-      "docs/**/*.yaml"
+      "docs/*"
     ],
     "exec": "node src/index.js",
-    "ext": "js"
+    "ext": "js yaml"
   }
