@@ -151,6 +151,20 @@ paths:
                   $ref: '#components/schemas/MongoErrors'
                 ClientError:
                   $ref: '#components/schemas/ClientErrors'
+        '401':
+          description: Error de autorización
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: error
+                    example: error
+                  message:
+                    type: string
+                    example: Authorization has not been sent!
         '500':
           description: Error interno en el servidor.
           content:
@@ -173,7 +187,7 @@ paths:
       parameters:
         - name: cid
           in: path
-          description: Codigo de identificación del carrito de tipo Mongo id.
+          description: Codigo de identificación del carrito de tipo Mongo ObjectId.
           schema:
             type: string
             example: 644afdde5138593c6da796fa
@@ -221,6 +235,95 @@ paths:
                   $ref: '#components/schemas/MongoErrors'
                 ClientError:
                   $ref: '#components/schemas/ClientErrors'
+        '401':
+          description: Error de autorización
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: error
+                    example: error
+                  message:
+                    type: string
+                    example: Authorization has not been sent!
+        '500':
+          description: Error interno en el servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  error:
+                    $ref: '#components/schemas/CommonErrors'
+    delete:
+      summary: Borra los productos.
+      description: Borra todos los productos del carrito seleccionado. Requiere autenticación.
+      tags:
+        - Cart
+      security:
+        - BearerToken: []
+      parameters:
+        - name: cid
+          in: path
+          description: Codigo de identificación de tipo Mongo ObjectId.
+          schema:
+            type: string
+            example: 644afdde5138593c6da796fa
+      responses:
+        '200':
+          description: Carrito actualizado con exito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: 'success'
+                  data: 
+                    type: object
+                    description: Carrito de compras.
+                    properties:
+                      id: 
+                        type: string
+                        example: 64596eff0411af1b1e13b8e7
+                      products:
+                        type: array
+                        description: Array vacio
+                        example: [{}]
+        '400':
+          description: Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Errors'
+              examples:
+                ZodError:
+                  $ref: '#components/schemas/ZodErrors'
+                MongoError:
+                  $ref: '#components/schemas/MongoErrors'
+                ClientError:
+                  $ref: '#components/schemas/ClientErrors'
+        '401':
+          description: Error de autorización
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: error
+                    example: error
+                  message:
+                    type: string
+                    example: Authorization has not been sent!
         '500':
           description: Error interno en el servidor.
           content:
@@ -244,13 +347,13 @@ paths:
       parameters:
         - name: cid
           in: path
-          description: Codigo de identificación de tipo Mongo id.
+          description: Codigo de identificación de tipo Mongo ObjectId.
           schema:
             type: string
             example: 644afdde5138593c6da796fa
       responses:
         '200':
-          description: Productos
+          description: Carrito vaciado
           content:
             application/json:
               schema:
@@ -283,6 +386,20 @@ paths:
                   $ref: '#components/schemas/MongoErrors'
                 ClientError:
                   $ref: '#components/schemas/ClientErrors'
+        '401':
+          description: Error de autorización
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: error
+                    example: error
+                  message:
+                    type: string
+                    example: Authorization has not been sent!
         '500':
           description: Error interno en el servidor.
           content:
@@ -295,32 +412,30 @@ paths:
                     example: error
                   error:
                     $ref: '#components/schemas/CommonErrors'
-    put:
-      summary: Actualizar producto.
-      description: Actualiza un producto en la DB. La ruta requiere autenticación y autorización.
+  /api/carts/{cid}/product/{pid}:
+    post:
+      summary: Agrega un producto al carrito
+      description: La ruta agrega un producto al carrito con quantity = 1. Requiere autenticación.
       tags:
-        - Product
+        - Cart
       security:
         - BearerToken: []
       parameters:
-        - name: pid
+        - name: cid
           in: path
-          description: Codigo de identificación de tipo Mongo id.
+          description: Codigo de identificación del carrito de tipo Mongo ObjectId.
           schema:
             type: string
             example: 644afdde5138593c6da796fa
-      requestBody:
-        required: true
-        content: 
-          application/json:
-            schema:
-              type: object
-              description: Objeto que representa los campos y sus valores que se desean actualizar en el producto.
-              example:
-                status: false
+        - name: pid
+          in: path
+          description: Codigo de identificacion del producto de tipo Mongo ObjectId.
+          schema:
+            type: string
+            example: 6451a619aaa91a4391bedfba
       responses:
         '200':
-          description: Producto creado con exito
+          description: Carrito
           content:
             application/json:
               schema:
@@ -330,7 +445,7 @@ paths:
                     type: string
                     example: 'success'
                   data: 
-                    $ref: '#components/schemas/Product'
+                    $ref: '#components/schemas/Cart'
         '400':
           description: Solicitud incorrecta
           content:
@@ -344,6 +459,101 @@ paths:
                   $ref: '#components/schemas/MongoErrors'
                 ClientError:
                   $ref: '#components/schemas/ClientErrors'
+        '401':
+          description: Error de autorización
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: error
+                    example: error
+                  message:
+                    type: string
+                    example: Authorization has not been sent!
+        '500':
+          description: Error interno en el servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  error:
+                    $ref: '#components/schemas/CommonErrors'
+    put:
+      summary: Actualizar producto en carrito.
+      description: Actualiza un producto del carrito seleccionado pasando por body la cantidad deseada de dicho producto. Requiere autenticacion.
+      tags:
+        - Cart
+      security:
+        - BearerToken: []
+      parameters:
+        - name: cid
+          in: path
+          description: Codigo de identificación del carrito de tipo Mongo ObjectId.
+          schema:
+            type: string
+            example: 644afdde5138593c6da796fa
+        - name: pid
+          in: path
+          description: Codigo de identificacion del producto de tipo Mongo ObjectId.
+          schema:
+            type: string
+            example: 6451a619aaa91a4391bedfba
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              type: object
+              description: La cantidad de ejemplares del producto.
+              example:
+                quantity: 4
+      responses:
+        '200':
+          description: Carrito actualizado con exito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: 'success'
+                  data: 
+                    $ref: '#components/schemas/cartExample'
+        '400':
+          description: Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Errors'
+              examples:
+                ZodError:
+                  $ref: '#components/schemas/ZodErrors'
+                MongoError:
+                  $ref: '#components/schemas/MongoErrors'
+                ClientError:
+                  $ref: '#components/schemas/ClientErrors'
+        '401':
+          description: Error de autorización
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: error
+                    example: error
+                  message:
+                    type: string
+                    example: Authorization has not been sent!
         '500':
           description: Error interno en el servidor.
           content:
@@ -358,18 +568,24 @@ paths:
                     $ref: '#components/schemas/CommonErrors'
     delete:
       summary: Borrar un producto.
-      description: Borra un producto en la DB. La ruta requiere autenticación y autorización.
+      description: Borra un producto del carrito seleccionado. La ruta requiere autenticación.
       tags:
-        - Product
+        - Cart
       security:
         - BearerToken: []
       parameters:
-        - name: pid
+        - name: cid
           in: path
-          description: Codigo de identificación de tipo Mongo id.
+          description: Codigo de identificación del carrito de tipo Mongo ObjectId.
           schema:
             type: string
             example: 644afdde5138593c6da796fa
+        - name: pid
+          in: path
+          description: Codigo de identificacion del producto de tipo Mongo ObjectId.
+          schema:
+            type: string
+            example: 6451a619aaa91a4391bedfba
       responses:
         '200':
           description: Producto borrado con exito
@@ -382,7 +598,7 @@ paths:
                     type: string
                     example: 'success'
                   data: 
-                    $ref: '#components/schemas/Product'
+                    $ref: '#components/schemas/cartExample'
         '400':
           description: Solicitud incorrecta
           content:
@@ -396,6 +612,20 @@ paths:
                   $ref: '#components/schemas/MongoErrors'
                 ClientError:
                   $ref: '#components/schemas/ClientErrors'
+        '401':
+          description: Error de autorización
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: error
+                    example: error
+                  message:
+                    type: string
+                    example: Authorization has not been sent!
         '500':
           description: Error interno en el servidor.
           content:

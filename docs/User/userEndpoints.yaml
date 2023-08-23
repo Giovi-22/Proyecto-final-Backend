@@ -6,7 +6,7 @@ paths:
       security:
         - BearerToken: []
       tags:
-        - Users
+        - User
       parameters:
         - name: uid
           in: path
@@ -45,7 +45,7 @@ paths:
     put:
       summary: Actualiza el usuario a partir de su uid
       tags:
-        - Users
+        - User
       parameters:
       - name: uid
         in: path
