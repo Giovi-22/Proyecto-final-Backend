@@ -33,14 +33,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#components/schemas/Errors'
-              examples:
-                ZodError:
-                  $ref: '#components/schemas/ZodErrors'
-                MongoError:
-                  $ref: '#components/schemas/MongoErrors'
-                ClientError:
-                  $ref: '#components/schemas/ClientErrors'
+              $ref: '#components/schemas/Errors'
         '401':
           description: Error de autorización
           content:
@@ -146,14 +139,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#components/schemas/Errors'
-              examples:
-                ZodError:
-                  $ref: '#components/schemas/ZodErrors'
-                MongoError:
-                  $ref: '#components/schemas/MongoErrors'
-                ClientError:
-                  $ref: '#components/schemas/Errors'
+              $ref: '#components/schemas/Errors'
         '401':
           description: Error de autorización
           content:
@@ -248,14 +234,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#components/schemas/Errors'
-              examples:
-                ZodError:
-                  $ref: '#components/schemas/ZodErrors'
-                MongoError:
-                  $ref: '#components/schemas/MongoErrors'
-                ClientError:
-                  $ref: '#components/schemas/Errors'
+              $ref: '#components/schemas/Errors'
         '500':
           description: Error interno en el servidor.
           content:
@@ -302,14 +281,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#components/schemas/Errors'
-              examples:
-                ZodError:
-                  $ref: '#components/schemas/ZodErrors'
-                MongoError:
-                  $ref: '#components/schemas/MongoErrors'
-                ClientError:
-                  $ref: '#components/schemas/ClientErrors'
+              $ref: '#components/schemas/Errors'
         '401':
           description: Error de autorización
           content:

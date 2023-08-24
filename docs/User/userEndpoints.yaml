@@ -1,8 +1,67 @@
 paths:
+  /api/users:
+    post:
+      summary: Crea un usuario
+      description: Crea un nuevo usuario. Requiere autenticación y autorización.
+      security:
+        - BearerToken: []
+      tags:
+        - User
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              $ref: '#components/schemas/newUser'
+      responses:
+        '201':
+          description: El usuario fue creado con éxito.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: success
+                    example: success
+                  data: 
+                    $ref: '#/components/schemas/User'
+        '400':
+          description: Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+              $ref: '#components/schemas/Errors'
+        '401':
+          description: Error de autorización
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  message:
+                    type: string
+                    example: Authorization has not been sent
+        '500':
+          description: Error interno en el servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  error:
+                    $ref: '#components/schemas/ServerErrors'
   /api/users/{uid}:
     get:
-      summary: Obtiene un usuario de la base de datos.
-      description: La ruta solo la puede usar un usuario autenticado. Se debe pasar el id del usuario como parámetro
+      summary: Obtiene un usuario
+      description: Obtiene un usuario de la base de datos. Se debe pasar el id del usuario como parámetro. Se requiere autenticación y autorización.
       security:
         - BearerToken: []
       tags:
@@ -17,7 +76,7 @@ paths:
             example: 647fd24ab16b39892de4c6ac
       responses:
         '200':
-          description: Los usuarios fueron obtenidos satisfactoriamente de la base de datos.
+          description: El usuario.
           content:
             application/json:
               schema:
@@ -26,9 +85,16 @@ paths:
                   status:
                     type: string
                     description: success
+                    example: success
                   data: 
                     $ref: '#/components/schemas/User'
         '400':
+          description: Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+              $ref: '#components/schemas/Errors'
+        '401':
           description: Error de autorización
           content:
             application/json:
@@ -37,25 +103,373 @@ paths:
                 properties:
                   status:
                     type: string
-                    description: error
+                    example: error
                   message:
                     type: string
+                    example: Authorization has not been sent
         '500':
           description: Error interno en el servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  error:
+                    $ref: '#components/schemas/ServerErrors'
     put:
-      summary: Actualiza el usuario a partir de su uid
+      summary: Actualizar usuario
+      description: Actualiza el usuario a partir de su uid. Se requiere autorización y autenticación.
       tags:
         - User
+      security:
+        - BearerToken: []
       parameters:
       - name: uid
         in: path
         required: true
         description: Ingresar el id del usuario que se desea actualizar
         schema:
-          $type: string
+          type: string
+          example: 647fd24ab16b39892de4c6ac
       requestBody:
+        description: El body es un objeto que contiene como key la propiedad del usuario que se desea actualizar y como value el valor de la propiedad.
         required: true
         content: 
           application/json:
             schema:
               $ref: '#components/requestBodies/updateUser'
+      responses:
+        '200':
+          description: Usuario actualizado con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: success
+                    example: success
+                  data: 
+                    $ref: '#/components/schemas/User'
+        '400':
+          description: Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+              $ref: '#components/schemas/Errors'
+        '401':
+          description: Error de autorización
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  message:
+                    type: string
+                    example: Authorization has not been sent
+        '500':
+          description: Error interno en el servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  error:
+                    $ref: '#components/schemas/ServerErrors'
+    delete:
+      summary: Borra un usuario
+      description: Borra un usuario a partir de su uid. Se requiere autorización y autenticación.
+      tags:
+        - User
+      security:
+        - BearerToken: []
+      parameters:
+      - name: uid
+        in: path
+        required: true
+        description: Ingresar el id del usuario que se desea borrar
+        schema:
+          type: string
+          example: 647fd24ab16b39892de4c6ac
+      responses:
+        '200':
+          description: Usuario borrado con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: success
+                    example: success
+                  message: 
+                    type: string
+                    example: The user was deleted successfully
+        '400':
+          description: Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+              $ref: '#components/schemas/Errors'
+        '401':
+          description: Error de autorización
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  message:
+                    type: string
+                    example: Authorization has not been sent
+        '500':
+          description: Error interno en el servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  error:
+                    $ref: '#components/schemas/ServerErrors'
+  /api/users/{uid}/documents:
+    post:
+      summary: Cargar documentos
+      description: Carga documentos del usuario. El usuario posee tres carpetas para almacenar sus documentos, Profiles, Producs y Documents. Requiere autenticación.
+      security:
+        - BearerToken: []
+      tags:
+        - User
+      consumes:
+        - multipart/form-data
+      parameters:
+        - in: formData
+          name: profile
+          type: file
+          description: Archivo que se va a almacenar en la carpeta profiles
+          example: foto1
+        - in: formData
+          name: product
+          type: file
+          description: Archivo que se va a almacenar en la carpeta products
+          example: foto-producto-b12
+        - in: formData
+          name: document
+          type: file
+          description: Archivo que se va a almacenar en la carpeta documents
+          example: dni.txt
+      responses:
+        '201':
+          description: Los documentos fueron cargados con éxito.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: success
+                    example: success
+                  message:
+                    type: string
+                    example: Uploaded file successfully
+                  data: 
+                    $ref: '#/components/schemas/userExample'
+        '400':
+          description: Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+              $ref: '#components/schemas/Errors'
+        '401':
+          description: Error de autorización
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  message:
+                    type: string
+                    example: Authorization has not been sent
+        '500':
+          description: Error interno en el servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  error:
+                    $ref: '#components/schemas/ServerErrors'
+  /api/users/list:
+    get:
+      summary: Obtiene una lista de usuarios
+      description: Obtiene una lista paginada de usuarios.Se pueden pasar filtros por query params. Se requiere autenticación y autorización.
+      security:
+        - BearerToken: []
+      tags:
+        - User
+      parameters:
+        - name: limit
+          in: query
+          description: La cantidad de usuarios que se desean por pagina.
+          schema:
+            type: number
+            example: 1
+        - name: sort
+          in: query
+          description: El orden que se desea, de mayor a menor o de menor a mayor.
+          schema:
+            type: number
+            description: los valores pueden ser 1 y -1
+            example: 1
+        - name: page
+          in: query
+          description: El numero de la página que se desea consultar
+          schema:
+            type: number
+            example: 3
+        - name: filter
+          in: query
+          description: El campo y el valor del usuario por el que se desea realizar la busqueda.
+          schema:
+            description: Este campo se pasa como un objeto, en donde la propiedad y su valor forman el filtro para realizar la búsqueda.
+            example:
+              firstName: Giovanni
+      responses:
+        '200':
+          description: El usuario.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: success
+                    example: success
+                  data: 
+                    $ref: '#/components/schemas/User'
+        '400':
+          description: Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+              $ref: '#components/schemas/Errors'
+        '401':
+          description: Error de autorización
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  message:
+                    type: string
+                    example: Authorization has not been sent
+        '500':
+          description: Error interno en el servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  error:
+                    $ref: '#components/schemas/ServerErrors'
+  /api/users/premium/{uid}:
+    post:
+      summary: Modificar el rol del usuario
+      description: Esta ruta permite cambiar el rol de un usuario. Se requiere autenticación y autorización
+      security:
+        - BearerToken: []
+      tags:
+        - User
+      parameters:
+        - in: path
+          name: uid
+          type: string
+          description: Id del usuario que se desea modificar.
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              type: object
+              properties:
+                role:
+                  type: string
+                  description: El nuevo rol que va a tener el usuario. de tipo Mongo ObjectId
+                  example: 64de071ed652ca954dcfbca2
+      responses:
+        '200':
+          description: El rol fue actualizado con éxito.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: success
+                    example: success
+                  message:
+                    type: string
+                    example: Role updated successfully
+                  data: 
+                    $ref: '#/components/schemas/userExample'
+        '400':
+          description: Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+              $ref: '#components/schemas/Errors'
+        '401':
+          description: Error de autorización
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  message:
+                    type: string
+                    example: Authorization has not been sent
+        '500':
+          description: Error interno en el servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  error:
+                    $ref: '#components/schemas/ServerErrors'

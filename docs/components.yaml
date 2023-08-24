@@ -131,72 +131,32 @@ components:
           type: number
           example: 3
     Errors:
-      type: object
-      properties:
-        status:
-          type: string
-          example: error
-        error:
-          type: object
-          oneOf:
-            - $ref: '#components/schemas/ZodErrors'
-            - $ref: '#components/schemas/MongoErrors'
-            - $ref: '#components/schemas/ClientErrors'
-    ZodErrors:
-      type: object
-      description: Errores producidos por la libreria Zod
-      properties:
-        name: 
-          type: string
-          example: ZodError
-          description: Error producido por Zod.
-        issues:
-          type: array
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-                example: invalid_type
-              expected:
-                type: string
-                example: string
-              received:
-                type: string
-                example: undefined
-              path:
-                type: array
-                example: email
-              message:
-                type: string
-                example: email is required
-    MongoErrors:
-      type: object
-      description: Errores producidos por Mongo
-      properties:
-        name:
-          type: string
-          description: Error producido por Mongo DB
-          example: MongoServerError
-        code: 
-          type: number
-          example: 11000
-        keyValue:
-          type: object
-          example:
-            {
-              email: alguien@prueba.com
-            }
-    ClientErrors:
-      type: object
-      description: Errores producidos por el cliente.
-      properties:
-        name:
-          type: string
-          description: Errores del usuario.
-        message:
-          type: string
-          example: Todos los campos deben ser completados
+      examples:
+        ZodErrors:
+          value:
+            name: ZodError
+            issues:
+              [
+                {
+                  code: invalid_type,
+                  expected: string,
+                  received: undefined,
+                  path: ["email"],
+                  message: email is required
+                }
+              ]
+        MongoErrors:
+          value:
+            name: MongoServerError
+            code: 11000
+            keyValue: 
+              {
+                email: alguien@prueba.com
+              }
+        ClientErrors:
+          value:
+            name: Bad Request
+            message: Todos los campos deben ser completados
     ServerErrors:
       type: object
       description: Errores producidos por el  servidor.
@@ -206,73 +166,85 @@ components:
           description: Errores internos del servidor
         message:
           type: string
-    User:
-     type: object
-     properties:
-       id:
-         type: string
-         description: Id autogenerado de mongo pero guardado en la entidad como string.
-       firstName: 
-         type: string
-         description: Nombre del usuario.
-       lastName:
-         type: string
-         description: Apellido del usuario.
-       email:
-         type: string
-         description: dirección de correo electrónico del usuario. Este campo es único en la base de datos.
-       age: 
-         type: number
-         description: Edad del usuario.
-       role:
-         type: ObjectId
-         description: Role del usuario para interactuar con la app. Por defecto el rol generado es user y solo puede ser modificado por un administrador o un usurio con los permisos necesarios.
-       cart:
-         type: ObjectId
-         description: Referencia a/los carritos de compra del usuario.
-       documents:
-         $ref: '#components/schemas/Documents'
-       isAdmin:
-         type: boolean
-         description: booleano para indicar si el usuario es admin. Por defecto false.
-       lastConnection:
-         type: string
-         description: Muestra la ultima conexion el usuario.s
-    userExample:
-      example:
-        id: "649aefb0b67e84a0e47317c3"
-        firstName: Antonella
-        lastName: Perez
-        email: antonellaP@prueba.com
-        age: 23
-        role: ObjectId("647fd20fb16b39892de4c6aa")
-        cart: ObjectId("64596eff0411af1b1e13b8e7")
+    Documents:
+      type: object
+      properties:
+        profiles:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                example: foto1
+              reference:
+                type: string
+                example: src/assets/profiles
+        products:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                example: producto1
+              reference:
+                type: string
+                example: src/assets/products
         documents:
-          {
-            profiles:
-            [
-              {
-                name: foto1,
-                reference: src/public/assets/profiles
-              }
-            ],
-            products:
-            [
-              {
-                name: product1,
-                reference: src/public/assets/products
-              }
-            ],
-            documents:
-            [
-              {
-                name: doc_1,
-                reference: src/public/assets/documents
-              }
-            ]
-          }
-        isAdmin: false
-        lastConnection: 12/08/2023
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                example: dni
+              reference:
+                type: string
+                example: src/assets/documents
+    Ticket:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 64a3a2460ef7dab677223abd
+        code:
+          type: string
+          example: LENOHFuBP7
+        purchase_datetime:
+          type: string
+          example: "2023-07-04T04:38:30.368+00:00"
+        amount:
+          type: number
+          example: 1652
+        purchaser:
+          type: string
+          example: alguien@prueba.com
+        products:
+          type: array
+          items:
+            $ref: '#components/schemas/productExample'
+    Role:
+      type: object
+      properties:
+        name:
+          type: string
+          example: client
+        permissions:
+          type: array
+          items:
+            type: string
+            example: createProduct
+    roleExample:
+      type: object
+      example:
+        id: 646f7c414a28a546443ce94f
+        name: client
+        permissions:
+          [
+            "createProduct",
+            "updateProduct"
+          ]
   requestBodies:
     LogIn:
       type: object
@@ -310,6 +282,10 @@ components:
         email: pablo@fulano.com
         password: pabloelfulano
         age: 35
+    updateUser:
+      example:
+        firstname: Laura
+        password: laura22_4
   securitySchemes:
     BearerToken:
       type: apiKey

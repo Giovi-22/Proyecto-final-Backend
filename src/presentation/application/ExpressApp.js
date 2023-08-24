@@ -7,6 +7,7 @@ import cors from 'cors';
 import path from 'path';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUiExpress from 'swagger-ui-express';
+import { SwaggerTheme } from 'swagger-themes';
 
 import { config } from '../../config/index.js';
 import productRouter from '../routes/productRouter.js';
@@ -16,6 +17,7 @@ import sessionsRouter from '../routes/sessionsRouter.js';
 import userRouter from '../routes/userRouter.js';
 import roleRouter from '../routes/roleRouter.js';
 import { errorHandler } from '../middlewares/errorHandler.js';
+
 
 
 
@@ -42,9 +44,12 @@ class ExpressApp{
     
 
     init(){
-
+        const theme = new SwaggerTheme('v3') 
+        const options = {
+            customCss: theme.getBuffer('dark'),
+        }
         const specs = swaggerJSDoc(this.swaggerOptions);
-        this.app.use('/apidocs',swaggerUiExpress.serve,swaggerUiExpress.setup(specs));
+        this.app.use('/apidocs',swaggerUiExpress.serve,swaggerUiExpress.setup(specs,options));
         this.app.use(express.json());
         this.app.use(express.urlencoded({extended:true}));
         this.app.use(cookieParser());

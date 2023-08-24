@@ -21,13 +21,14 @@ const fileTypes = [
     }
 ]
 
-userRouter.get('/list',auth,authorization('getList'),UserController.list);
-userRouter.get('/:uid',auth,authorization('getOne'),UserController.getOne);              
 userRouter.post('/',auth,authorization('create'),UserController.create);   
-userRouter.post('/premium/:uid',auth,authorization('changerole'),UserController.changeRole);
-userRouter.post('/:uid/documents',auth,uploadFiles("src/public/assets").fields(fileTypes),UserController.loadDocuments);
+userRouter.get('/:uid',auth,authorization('getOne'),UserController.getOne);
 userRouter.put('/:uid',auth,authorization('updateOne'),UserController.updateOne);
-userRouter.delete('/:uid',auth,authorization('deleteOne'),UserController.deleteOne);
+userRouter.delete('/:uid',auth,authorization('deleteOne'),UserController.deleteOne);              
+userRouter.post('/:uid/documents',auth,uploadFiles("src/public/assets").fields(fileTypes),UserController.loadDocuments);
+userRouter.get('/list',auth,authorization('getList'),UserController.list);
+userRouter.post('/premium/:uid',auth,authorization('changerole'),UserController.changeRole);
+
 
 
 export default userRouter;

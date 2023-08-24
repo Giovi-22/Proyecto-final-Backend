@@ -1,21 +1,21 @@
 paths:
-  /api/products/:
+  /api/roles:
     post:
-      summary: Agregar un producto a la DB.
-      description: La ruta permite agregar un producto a la base de datos. Se requiere autenticaciòn y autorizaciòn.
-      tags:
-        - Product
+      summary: Crea un role
+      description: La ruta permite crear un nuevo role. Requiere autenticación y autorización.
       security:
         - BearerToken: []
+      tags:
+        - Role
       requestBody:
         required: true
         content: 
           application/json:
             schema:
-              $ref: '#components/schemas/Product'
+              $ref: '#components/schemas/Role'
       responses:
         '201':
-          description: Producto creado con exito
+          description: Role creado con éxito.
           content:
             application/json:
               schema:
@@ -23,9 +23,10 @@ paths:
                 properties:
                   status:
                     type: string
-                    example: 'success'
+                    description: success
+                    example: success
                   data: 
-                    $ref: '#components/schemas/productExample'
+                    $ref: '#/components/schemas/roleExample'
         '400':
           description: Solicitud incorrecta
           content:
@@ -41,11 +42,10 @@ paths:
                 properties:
                   status:
                     type: string
-                    description: error
                     example: error
                   message:
                     type: string
-                    example: Authorization has not been sent!
+                    example: Authorization has not been sent
         '500':
           description: Error interno en el servidor.
           content:
@@ -58,85 +58,25 @@ paths:
                     example: error
                   error:
                     $ref: '#components/schemas/ServerErrors'
+  /api/roles/{rid}:
     get:
-      summary: Devuelve una paginación de productos.
-      description: La ruta devuelve una paginación de productos desde la DB. Se le pueden pasar filtros.
+      summary: Consulta un role
+      description: Consultar la información de un role. Se requiere autenticación y autorización.
+      security:
+        - BearerToken: []
       tags:
-        - Product
+        - Role
       parameters:
-        - name: limit
-          in: query
-          description: Cantidad de productos por pagina.
-          schema:
-            type: number
-            example: 5
-        - name: page
-          in: query
-          description: El numero de pagina que se desea consultar.
-          schema:
-            type: number
-            example: 3
-        - name: sort
-          in: query
-          description: Orden de los datos recibidos. -1 ordena de mayor a menor, 1 de menor a mayor.
-          schema:
-            type: number
-            example: 1
-        - name: filter
-          in: query
-          description: Campo del producto por el que se desea realizar la busqueda.
-          schema:
-            type: object
-            description: "El filtro se pasa en un objeto como key->value. {title: Cortante batman}"
-            example:
-              price: 345
-      responses:
-        '200':
-          description: Producto creado con exito
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: 'success'
-                  data: 
-                    $ref: '#components/schemas/productPagination'
-        '400':
-          description: Solicitud incorrecta
-          content:
-            application/json:
-              schema:
-              $ref: '#components/schemas/Errors'
-        '500':
-          description: Error interno en el servidor.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: error
-                  error:
-                    $ref: '#components/schemas/ServerErrors'
-  /api/products/{pid}:
-    get:
-      summary: Consultar un producto.
-      description: La ruta devuelve un producto pasando por parametro su id. 
-      tags:
-        - Product
-      parameters:
-        - name: pid
+        - name: rid
           in: path
-          description: Codigo de identificación de tipo Mongo id.
+          description: El id del role que se desea obtener.
+          required: true
           schema:
             type: string
-            example: 644afdde5138593c6da796fa
+            example: 646f7c414a28a546443ce94f
       responses:
         '200':
-          description: Producto creado con exito
+          description: El usuario.
           content:
             application/json:
               schema:
@@ -144,15 +84,29 @@ paths:
                 properties:
                   status:
                     type: string
-                    example: 'success'
+                    description: success
+                    example: success
                   data: 
-                    $ref: '#components/schemas/Product'
+                    $ref: '#/components/schemas/roleExample'
         '400':
           description: Solicitud incorrecta
           content:
             application/json:
               schema:
               $ref: '#components/schemas/Errors'
+        '401':
+          description: Error de autorización
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  message:
+                    type: string
+                    example: Authorization has not been sent
         '500':
           description: Error interno en el servidor.
           content:
@@ -166,31 +120,34 @@ paths:
                   error:
                     $ref: '#components/schemas/ServerErrors'
     put:
-      summary: Actualizar producto.
-      description: Actualiza un producto en la DB. La ruta requiere autenticación y autorización.
+      summary: Actualizar permisos
+      description: Agrega un permiso a la lista. Se requiere autorización y autenticación.
       tags:
-        - Product
+        - Role
       security:
         - BearerToken: []
       parameters:
-        - name: pid
-          in: path
-          description: Codigo de identificación de tipo Mongo id.
-          schema:
-            type: string
-            example: 644afdde5138593c6da796fa
+      - name: rid
+        in: path
+        required: true
+        description: Ingresar el id del role que se desea actualizar
+        schema:
+          type: string
+          example: 647fd24ab16b39892de4c6ac
       requestBody:
+        description: Pasar el permiso que se desea agregar
         required: true
         content: 
           application/json:
             schema:
               type: object
-              description: Objeto que representa los campos y sus valores que se desean actualizar en el producto.
-              example:
-                status: false
+              properties:
+                permission: 
+                  type: string
+                  example: deleteRole
       responses:
         '200':
-          description: Producto creado con exito
+          description: Usuario actualizado con éxito
           content:
             application/json:
               schema:
@@ -198,15 +155,29 @@ paths:
                 properties:
                   status:
                     type: string
-                    example: 'success'
+                    description: success
+                    example: success
                   data: 
-                    $ref: '#components/schemas/Product'
+                    $ref: '#/components/schemas/roleExample'
         '400':
           description: Solicitud incorrecta
           content:
             application/json:
               schema:
               $ref: '#components/schemas/Errors'
+        '401':
+          description: Error de autorización
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  message:
+                    type: string
+                    example: Authorization has not been sent
         '500':
           description: Error interno en el servidor.
           content:
@@ -220,22 +191,34 @@ paths:
                   error:
                     $ref: '#components/schemas/ServerErrors'
     delete:
-      summary: Borrar un producto.
-      description: Borra un producto en la DB. La ruta requiere autenticación y autorización.
+      summary: Borra un permiso
+      description: Borra un permiso de la lista de permisos. Se requiere autorización y autenticación.
       tags:
-        - Product
+        - Role
       security:
         - BearerToken: []
       parameters:
-        - name: pid
-          in: path
-          description: Codigo de identificación de tipo Mongo id.
-          schema:
-            type: string
-            example: 644afdde5138593c6da796fa
+      - name: rid
+        in: path
+        required: true
+        description: Ingresar el id del role del cual se quiere borrar un permiso.
+        schema:
+          type: string
+          example: 647fd24ab16b39892de4c6ac
+      requestBody:
+        description: Pasar el permiso que se desea borrar
+        required: true
+        content: 
+          application/json:
+            schema:
+              type: object
+              properties:
+                permission: 
+                  type: string
+                  example: getList
       responses:
         '200':
-          description: Producto borrado con exito
+          description: Permiso borrado
           content:
             application/json:
               schema:
@@ -243,15 +226,29 @@ paths:
                 properties:
                   status:
                     type: string
-                    example: 'success'
+                    description: success
+                    example: success
                   data: 
-                    $ref: '#components/schemas/Product'
+                    $ref: '#/components/schemas/roleExample'
         '400':
           description: Solicitud incorrecta
           content:
             application/json:
               schema:
               $ref: '#components/schemas/Errors'
+        '401':
+          description: Error de autorización
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  message:
+                    type: string
+                    example: Authorization has not been sent
         '500':
           description: Error interno en el servidor.
           content:
@@ -264,4 +261,4 @@ paths:
                     example: error
                   error:
                     $ref: '#components/schemas/ServerErrors'
-            
+  

@@ -9,7 +9,7 @@ class RoleController{
         {
             const roleM = new RoleManager();
             const newRole = await roleM.create(req.body);
-            res.status(201).send({status:'Role crated',data:newRole})
+            res.status(201).send({status:'success',data:newRole})
         } 
         catch (error) 
         {
@@ -23,7 +23,7 @@ class RoleController{
         {
             const roleM = new RoleManager();
             const role = await roleM.getOne(req.params.rid);
-            res.status(200).send({status:'succsess',data:role})
+            res.status(200).send({status:'success',data:role})
         } 
         catch (error) 
         {
@@ -38,7 +38,7 @@ class RoleController{
         {
             const roleM = new RoleManager();
             const updatedRole = await roleM.addPermission(req.params.rid,permission);
-            res.status(200).send({status:'succsess',data:updatedRole})
+            res.status(200).send({status:'success',data:updatedRole})
         } 
         catch (error) 
         {
@@ -53,7 +53,7 @@ class RoleController{
         {
             const roleM = new RoleManager();
             const updatedRole = await roleM.deletePermission(req.params.rid,permission);
-            res.status(200).send({status:'succsess',data:updatedRole})
+            res.status(200).send({status:'success',data:updatedRole})
         } 
         catch (error) 
         {

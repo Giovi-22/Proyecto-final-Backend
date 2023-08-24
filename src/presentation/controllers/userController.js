@@ -39,7 +39,6 @@ class UserController{
 
     static async getOne(req,res,next)
     {   
-        console.log("LOs paramas: ",req.params)
         const uid = req.params.uid;
         try
         {

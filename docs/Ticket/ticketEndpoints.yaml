@@ -1,0 +1,115 @@
+paths:
+  /api/tickets/{cid}:
+    post:
+      summary: Finalizar compra
+      description: Finaliza la compra creando un nuevo ticket y se lo envía por email al usuario. Requiere autenticación.
+      security:
+        - BearerToken: []
+      tags:
+        - Ticket
+      parameters:
+        - name: cid
+          in: path
+          description: Id del carrito que desea comprar.
+          required: true
+          schema:
+            type: string
+            example: 64597bb244dce8b5e534a42f
+      responses:
+        '200':
+          description: La compra se realizo con éxito.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: success
+                    example: success
+                  data: 
+                    $ref: '#/components/schemas/Ticket'
+        '400':
+          description: Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+              $ref: '#components/schemas/Errors'
+        '401':
+          description: Error de autorización
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  message:
+                    type: string
+                    example: Authorization has not been sent
+        '500':
+          description: Error interno en el servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  error:
+                    $ref: '#components/schemas/ServerErrors'
+  /api/tickets/{tid}:
+    get:
+      summary: Consultar una compra
+      description: El endpoint devuelve la informacion de una compra que se ha completado exitosamente. Se requiere autenticación.
+      tags:
+        - Ticket
+      security:
+        - BearerToken: []
+      parameters:
+        - name: tid
+          in: path
+          required: true
+          schema:
+            type: string
+            example: 64a3a2460ef7dab677223abd
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: 'success'
+                  data: 
+                    $ref: '#components/schemas/Ticket'
+          example:
+            $ref: '#components/schemas/userExample'
+        '401':
+          description: Error de autorización
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: error
+                  message:
+                    type: string
+        '500':
+          description: Error interno en el servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  error:
+                    $ref: '#components/schemas/ServerErrors'
