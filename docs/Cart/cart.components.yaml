@@ -1,0 +1,39 @@
+components:
+  schemas:
+    cartExample:
+      type: object
+      example:
+        id: 64596eff0411af1b1e13b8e7
+        products:
+          [
+            {
+              pid: 6451a619aaa91a4391bedfba,
+              quantity: 78
+            },
+            {
+              pid: "644f3f7e651b7007124da2b5",
+              quantity: 1
+            }
+          ]
+    Cart:
+      type: object
+      description: Carrito de compras. Tiene una propiedad id y un arreglo de productos.
+      properties:
+        id: 
+          type: string
+          example: 64596eff0411af1b1e13b8e7
+        products:
+          type: array
+          description: Array de los productos guardados en el carrito
+          items:
+            type: object
+            properties:
+              pid: 
+                type: string
+                description: Referencia a un producto de la base de datos. El dato es de tipo ObjectId.
+                example: 6451a619aaa91a4391bedfba
+              quantity: 
+                type: number
+                description: Cantidad de ejemplares en el carrito.
+                example: 5
+  

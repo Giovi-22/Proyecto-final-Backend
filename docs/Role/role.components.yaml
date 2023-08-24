@@ -1,0 +1,23 @@
+components:
+  schemas:
+    Role:
+      type: object
+      properties:
+        name:
+          type: string
+          example: client
+        permissions:
+          type: array
+          items:
+            type: string
+            example: createProduct
+    roleExample:
+      type: object
+      example:
+        id: 646f7c414a28a546443ce94f
+        name: client
+        permissions:
+          [
+            "createProduct",
+            "updateProduct"
+          ]

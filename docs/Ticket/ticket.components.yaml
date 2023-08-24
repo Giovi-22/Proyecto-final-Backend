@@ -1,0 +1,24 @@
+components:
+  schemas:
+    Ticket:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 64a3a2460ef7dab677223abd
+        code:
+          type: string
+          example: LENOHFuBP7
+        purchase_datetime:
+          type: string
+          example: "2023-07-04T04:38:30.368+00:00"
+        amount:
+          type: number
+          example: 1652
+        purchaser:
+          type: string
+          example: alguien@prueba.com
+        products:
+          type: array
+          items:
+            $ref: '#components/schemas/productExample'

@@ -1,0 +1,96 @@
+components:
+  schemas:
+    productExample:
+      type: object
+      example:
+        id: 644afdde5138593c6da796fa
+        title: Cortante Mujer maravilla
+        description: Incluye dos unidades,cortante y marcador. Tamaño 8cm
+        category: cortantes
+        price: 345
+        stock: 23
+        thumbnail:
+          [
+            "imagen1",
+            "imagen2"
+          ]
+        code: CB234
+        owner: admin@app.com
+        status: true
+    Product:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Titulo del producto.
+          example: Cortante Mujer maravilla
+        description:
+          type: string
+          description: Descripciòn del producto.
+          example: Incluye dos unidades,cortante y marcador. Tamaño 8cm
+        category:
+          type: string
+          description: Categoria del producto.
+          example: cortantes
+        price:
+          type: number
+          description: Precio del producto.
+          example: 630
+        stock:
+          type: number
+          description: Cantidad de productos disponibles.
+          example: 15
+        thumbnail:
+          type: array
+          description: Array de imagenes del producto.
+          example:
+            [
+              "imagen1",
+              "imagen2"
+            ]
+        code: 
+          type: string
+          description: Código de identificación del producto.
+          example: CB234
+        owner:
+          type: string
+          description: Propiedad que almacena el email del usuario que ha creado el producto.
+          example: admin@app.com
+        status:
+          type: boolean
+          description: El estado indica si el producto esta o no disponible.
+          example: true
+    productPagination:
+      type: object
+      properties:
+        products:
+          type: array
+          items:
+            $ref: '#components/schemas/Product'
+        totalDocs:
+          type: number
+          example: 18
+        limit: 
+          type: number
+          example: 4
+        totalPages: 
+          type: number
+          example: 3
+        page:
+          type: number
+          example: 2
+        pagingCounter:
+          type: number
+          example: 11
+        hasPrevPage:
+          type: boolean
+          example: true
+        hasNextPage:
+          type: boolean
+          example: true
+        prevPage:
+          type: number
+          example: 1
+        nextPage:
+          type: number
+          example: 3
