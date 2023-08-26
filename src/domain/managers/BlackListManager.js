@@ -10,7 +10,20 @@ class BlackListManager {
     }
 
     async add(token){
-        const result = await this.#blackListRepository.add(token);
+        return this.#blackListRepository.add(token);
+    }
+
+    async isOnBlackList(token){
+        console.log("el token")
+        const result =  await this.#blackListRepository.getOne(token);
+        if(result){
+            const isOnList = result.tokens.find(tk => tk === token)
+            if(!isOnList){
+                return false
+            }
+            return true
+        }
+        return false;
     }
 }
 

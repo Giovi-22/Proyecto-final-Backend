@@ -10,6 +10,7 @@ class SessionController{
         {
             const sessionM = new SessionManager();
             const accessToken = await sessionM.login(req.body);
+            req.session.token = accessToken;
             return res.status(200).cookie('user',accessToken,{maxAge:(60*1000)*10}).send({status:'success', message:'Login success',data:accessToken});
         } 
         catch (error)
@@ -33,12 +34,6 @@ class SessionController{
     {
         try
         {
-            const blackListM = new BlackListManager();
-            console.log("La session es: ",req.session)
-            console.log("la cookie de la sesion: ",req.session.cookie)
-            console.log("el id de la sesion: ",req.session.id)
-            console.log("El user es: ",req.user)
-            await blackListM.add(req.session.id)
             req.session.destroy((err)=>
             {
                 if(!err)
@@ -71,8 +66,16 @@ class SessionController{
     static async changePassword(req,res,next){
         try {
             const {password, confirm} = req.body;
+            const authHeader = req.headers.authorization;
+            const token = authHeader.split(' ')[1];
             const sessionM  = new SessionManager();
+            const blackListM = new BlackListManager();
+            const isOnBlacklist = await blackListM.isOnBlackList(token);
+            if(isOnBlacklist){
+                return res.status(401).send({status:'error',message:'The user does not have access to change the password'})
+            }
             const updatedUser = await sessionM.changePassword(password,confirm,req.user);
+            await blackListM.add(token)
             return res.status(200).send({status:"success",data:updatedUser,message:"Password updated successfully"});
         } catch (error) {
             return next(error);
