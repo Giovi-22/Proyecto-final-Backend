@@ -1,6 +1,6 @@
 
-import SessionManager from "../../domain/managers/SessionManager.js";
-
+import SessionManager from '../../domain/managers/SessionManager.js';
+import BlackListManager from '../../domain/managers/BlackListManager.js'
 class SessionController{
 
 
@@ -33,6 +33,12 @@ class SessionController{
     {
         try
         {
+            const blackListM = new BlackListManager();
+            console.log("La session es: ",req.session)
+            console.log("la cookie de la sesion: ",req.session.cookie)
+            console.log("el id de la sesion: ",req.session.id)
+            console.log("El user es: ",req.user)
+            await blackListM.add(req.session.id)
             req.session.destroy((err)=>
             {
                 if(!err)

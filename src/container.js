@@ -8,6 +8,7 @@ import UserMongooseRepository from "./data/repository/UserMongooseRepository.js"
 import TicketMongooseRepository from "./data/repository/TicketMongooseRepository.js";
 import CartManager from "./domain/managers/CartManager.js";
 import ProductMongooseRepository from "./data/repository/ProductMongooseRepository.js";
+import BlackListMongooseRepository from "./data/repository/BlackListMongooseRepository.js";
 
 
 const container = createContainer();
@@ -22,7 +23,7 @@ container.register('CartRepository', asClass(CartMongooseRepository),{lifetime: 
 container.register('ProductRepository', asClass(ProductMongooseRepository),{lifetime: Lifetime.SINGLETON});
 container.register('UserRepository', asClass(UserMongooseRepository),{lifetime: Lifetime.SINGLETON});
 container.register('TicketRepository', asClass(TicketMongooseRepository),{lifetime: Lifetime.SINGLETON});
-
+container.register('blackListRepository',asClass(BlackListMongooseRepository),{lifetime: Lifetime.SINGLETON});
 //----------------------MANAGERS--------------------------------------------------------
 container.register('cartManager',asClass(CartManager),{lifetime:Lifetime.SINGLETON});
 export default container;
