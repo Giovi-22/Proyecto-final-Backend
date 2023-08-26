@@ -10,7 +10,7 @@ class ProductManager
         this.#ProductRepository = container.resolve('ProductRepository');
     }
 
-    async add(product,user)
+    async create(product,user)
     {
         await productZodSchema.parseAsync(product);
         const codeExist = await this.#ProductRepository.findByFilter({code:{$eq:product.code}});
@@ -18,7 +18,8 @@ class ProductManager
         {
             throw new Error("The product's code already exist",{cause:'Bad Request'});
         }
-        const isPremium = user.role.name;
+        console.log("el rol del usuario es: ",user.role.name);
+        const isPremium = user.role.name.includes('premium');
         if(isPremium){
             product.owner = user.email;
         }

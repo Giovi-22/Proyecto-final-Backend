@@ -86,10 +86,9 @@ paths:
           in: query
           description: Campo del producto por el que se desea realizar la busqueda.
           schema:
-            type: object
+            type: string
             description: "El filtro se pasa en un objeto como key->value. {title: Cortante batman}"
-            example:
-              price: 345
+            example: '"price": 345'
       responses:
         '200':
           description: Producto creado con exito

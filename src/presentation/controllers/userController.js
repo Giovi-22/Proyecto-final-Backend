@@ -86,9 +86,6 @@ class UserController{
 
     static async changeRole(req,res,next){
         try {
-            const dto={
-                role: req.body.role
-            }
             const userM = new UserManager();
             const result = await userM.premiumUser(req.params.uid)
             return res.status(200).send({status:'success',message:'Role updated successfully',data:result});
@@ -101,6 +98,7 @@ class UserController{
     {
         try 
         {
+
             /* req.files -> contiene un objeto  en donde la key es el fieldname y el valor es un array con los archivos el archivo subidos:
             req.file = {
                         key                 value

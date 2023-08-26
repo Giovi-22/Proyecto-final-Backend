@@ -64,6 +64,8 @@ paths:
       description: El endpoint devuelve información del usuario que ha iniciado sesion en la aplicacion.
       tags:
         - Session
+      security:
+        - BearerToken: []
       responses:
         '200':
           content:
@@ -253,15 +255,24 @@ paths:
       description: La ruta permite restaurar la contraseña del usuario. Se requiere inicio de sesion.
       tags:
         - Session
+      security:
+        - BearerToken: []
       requestBody:
         required: true
         content: 
           application/json:
             schema:
-              $ref: '#components/requestBodies/LogIn'
+              type: object
+              properties:
+                password:
+                  type: string
+                  example: 12345678
+                confirm:
+                  type: string
+                  example: 12345678
       responses:
         '200':
-          description: Usuario creado con exito
+          description: Cambio de contraseña exitoso
           content:
             application/json:
               schema:

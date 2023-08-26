@@ -2,12 +2,12 @@
 import ProductManager from '../../domain/managers/ProductManager.js';
 class ProductController{
 
-    static addProduct = async (req,res,next)=>
+    static createProduct = async (req,res,next)=>
     {
             try
             {
                 const pManager = new ProductManager();
-                const newProduct = await pManager.add(req.body,req.user);
+                const newProduct = await pManager.create(req.body,req.user);
                 res.status(201).json({status:'success',data:newProduct});
             }
             catch (error)

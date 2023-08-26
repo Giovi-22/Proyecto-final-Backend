@@ -46,7 +46,6 @@ class RoleManager
             console.log(permission)
             const role = await this.getOne(rid);
             const result = role.permissions.filter(element => element !== permission);
-            console.log(result)
             role.permissions = [...result];
             const updatedRole = await this.#roleRepository.updatePermission(rid,role.permissions);
             return updatedRole;

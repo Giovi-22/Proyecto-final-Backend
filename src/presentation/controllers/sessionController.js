@@ -64,7 +64,7 @@ class SessionController{
 
     static async changePassword(req,res,next){
         try {
-            const {password, confirm, email} = req.body;
+            const {password, confirm} = req.body;
             const sessionM  = new SessionManager();
             const updatedUser = await sessionM.changePassword(password,confirm,req.user);
             return res.status(200).send({status:"success",data:updatedUser,message:"Password updated successfully"});

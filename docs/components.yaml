@@ -4,38 +4,46 @@ components:
       examples:
         ZodErrors:
           value:
-            name: ZodError
-            issues:
-              [
-                {
-                  code: invalid_type,
-                  expected: string,
-                  received: undefined,
-                  path: ["email"],
-                  message: email is required
-                }
-              ]
+            status: error
+            error:
+              name: ZodError
+              issues:
+                [
+                  {
+                    code: invalid_type,
+                    expected: string,
+                    received: undefined,
+                    path: ["email"],
+                    message: email is required
+                  }
+                ]
         MongoErrors:
           value:
-            name: MongoServerError
-            code: 11000
-            keyValue: 
-              {
-                email: alguien@prueba.com
-              }
+            status: error
+            error:
+              name: MongoServerError
+              code: 11000
+              keyValue: 
+                {
+                  email: alguien@prueba.com
+                }
         ClientErrors:
           value:
-            name: Bad Request
-            message: Todos los campos deben ser completados
+            status: error
+            error:
+              name: Bad Request
+              message: Todos los campos deben ser completados
     ServerErrors:
       type: object
       description: Errores producidos por el  servidor.
       properties:
         name:
           type: string
-          description: Errores internos del servidor
+          description: Errores internos del servidor.
+          example: CastError
         message:
           type: string
+          example: Cast to Number failed for value \"s95\" (type string) at path \"age\"
     Documents:
       type: object
       properties:

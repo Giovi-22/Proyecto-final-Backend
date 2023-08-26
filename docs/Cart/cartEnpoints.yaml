@@ -104,6 +104,8 @@ paths:
       description: Devuelve un carrito de la DB. Se requiere autenticación.
       tags:
         - Cart
+      security:
+        - BearerToken: []
       parameters:
         - name: cid
           in: path
@@ -370,7 +372,7 @@ paths:
                     example: error
                   error:
                     $ref: '#components/schemas/ServerErrors'
-  /api/carts/{cid}/product/{pid}:
+  /api/carts/{cid}/products/{pid}:
     post:
       summary: Agrega un producto al carrito
       description: La ruta agrega un producto al carrito con quantity = 1. Requiere autenticación.
