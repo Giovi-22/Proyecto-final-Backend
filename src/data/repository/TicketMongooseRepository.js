@@ -23,6 +23,9 @@ class TicketMongooseRepository{
     async findById(tid)
     {
         const ticket = await TicketModel.findById(tid).populate("products.pid");
+        if(!ticket){
+            throw new Error(`Ticket ${tid} not found`,{cause: 'Not found'})
+        }
         return new Ticket({
             id: ticket._id,
             code: ticket.code,

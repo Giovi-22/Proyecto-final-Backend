@@ -28,7 +28,7 @@ class UserMongooseRepository{
         const userDocument = await userModel.findOne(query).populate('role');
         if(!userDocument)
         {
-            throw new Error(`No se encuentra ${filter.field}: ${filter.value}`,{casuse:'Not Found'});
+            throw new Error(`Not found ${filter.field}: ${filter.value}`,{casuse:'Not Found'});
         }
         return new User({
             id:userDocument?._id,
@@ -50,7 +50,7 @@ class UserMongooseRepository{
         const user = await userModel.findById(uid).populate('role');
         if(!user)
         {
-            throw new Error(`El usuario con id ${uid} no existe`,{cause:'Not Found'});
+            throw new Error(`The user ${uid} not found`,{cause:'Not Found'});
         }
         return new User({
             id:user?._id,
@@ -97,7 +97,7 @@ class UserMongooseRepository{
         const result = await userModel.deleteOne({_id:uid});
         if(!result.deletedCount)
         {
-            throw new Error("No se pudo eliminar el usuario",{cause:'Not Found'});
+            throw new Error("Failed to delete user",{cause:'Not Found'});
         }
         return {
             message:"Usuario eliminado!",
@@ -109,7 +109,7 @@ class UserMongooseRepository{
         const userDocument = await userModel.findOneAndUpdate({_id:uid},data,{new:true}).populate('role');
         if(!userDocument)
         {
-            throw new Error(`No se encuentra el usuario ${uid}`,{cause:'Not Found'});
+            throw new Error(`The user ${uid} not found`,{cause:'Not Found'});
         }
         return new User({
             id:userDocument?._id,

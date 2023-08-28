@@ -40,7 +40,7 @@ class UserManager
     {
         if(!filter.field && !filter.value)
         {
-            throw new Error('Todos los campos deben ser completados',{cause:'Bad Request'});
+            throw new Error('All fields must be completed',{cause:'Bad Request'});
         }
         const result = await this.#UserRepository.findByFilter(filter);
         return result;

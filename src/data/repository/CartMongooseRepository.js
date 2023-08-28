@@ -18,7 +18,7 @@ class CartMongooseRepository{
         const cart = await cartModel.findOneAndUpdate({_id:cid},{$set:{products :data}},{new:true});
         if(!cart)
         {
-            throw new Error(`El carrito con id ${cid} no existe.`,{cause:'Not Found'});
+            throw new Error(`The cart ${cid} not found.`,{cause:'Not Found'});
         }
         return new Cart({
             id:cart._id,
@@ -31,7 +31,7 @@ class CartMongooseRepository{
         const carts = await cartModel.find({});
         if(!carts.length)
         {
-            throw new Error("No existen carritos en la base de datos",{cause:'Not Found'});
+            throw new Error("There are no carts in the database.",{cause:'Not Found'});
         }
         return carts.map(cart=>new Cart({
             id:cart.id,
@@ -44,7 +44,7 @@ class CartMongooseRepository{
         const cart = await cartModel.findById(cid);
         if(!cart)
         {
-            throw new Error(`El carrito con id ${cid} no existe.`,{cause:'Not Found'});
+            throw new Error(`The cart ${cid} not found.`,{cause:'Not Found'});
         }
         return new Cart({
             id:cart._id,
@@ -57,7 +57,7 @@ class CartMongooseRepository{
         const cart = await cartModel.findById(cid).populate("products.pid");
         if(!cart)
         {
-            throw new Error(`El carrito con id ${cid} no existe.`,{cause:'Not Found'});
+            throw new Error(`The cart ${cid} not found.`,{cause:'Not Found'});
         }
         return new Cart({
             id:cart._id,

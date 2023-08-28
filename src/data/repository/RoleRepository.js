@@ -18,7 +18,7 @@ class RoleRepository
     {
         const result = await roleModel.findById(rid);
         if(!result){
-            throw new Error(`No se pudo encontrar el rol con id ${rid}`,{cause:'Bad Request'});
+            throw new Error(`Role id ${rid} not found`,{cause:'Not Found'});
         }
         return new Role({
             id:result._id,
@@ -30,6 +30,9 @@ class RoleRepository
     async updatePermission(rid,data)
     {
         const result = await roleModel.findByIdAndUpdate(rid,{permissions:data},{new:true});
+        if(!result){
+            throw new Error(`Role ${rid} not found`,{cause: 'Not Found'})
+        }
         return new Role({
             id:result._id,
             name: result.name,

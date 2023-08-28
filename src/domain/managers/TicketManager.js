@@ -21,7 +21,7 @@ class TicketManager{
         let amount = 0;
 
         if(!cart.availableProducts.length){
-            throw new Error("No hay productos disponibles para comprar",{cause: "Bad Request"});
+            throw new Error("There are no products available to buy",{cause: "Bad Request"});
         }
 
         cart.availableProducts.forEach(product => {

@@ -40,7 +40,7 @@ class SessionController{
                 {
                     return res.status(200).send({status:'success',message:'Logout!'});
                 }
-                throw new Error(`logout failed!, Error: ${err}`);
+                throw new Error(`logout failed!, Error: ${err}`,{cause: 'Bad Request'});
             });
         }
         catch (error)

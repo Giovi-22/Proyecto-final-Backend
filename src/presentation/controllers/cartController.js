@@ -129,7 +129,7 @@ class CartController{
         try
         {
             const cartM = new CartManager();
-            const result = await cartM.deleteOne(cid,pid);
+            const result = await cartM.deleteOne(cid,pid,req.user);
             res.status(200).json({status:"success",data:result});
         }
         catch (error)

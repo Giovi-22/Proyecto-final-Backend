@@ -91,11 +91,15 @@ class CartManager{
         return this.#cartRepository.update(cid,cart.products);
     }
     
-    async deleteOne(cid,pid)
+    async deleteOne(cid,pid,user)
     {
         idValidation.parse(cid);
         idValidation.parse(pid);
         const result = await this.#cartRepository.findOne(cid);
+        const isOwnCart = user.cart.some(cart=> cart.toString() === cid);
+        if(!isOwnCart){
+            throw new Error(`The cart don't belong to the current user`,{cause: 'Bad Request'})
+        }
         const cartUpdated = result.products.filter(product=>product.pid.toString() !== pid);
         return this.#cartRepository.update(result.id,cartUpdated); 
     }

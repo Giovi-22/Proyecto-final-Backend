@@ -35,26 +35,31 @@ class ProductMongooseRepository{
         //Model.paginate([query],[options],[callback])
         const result = await productModel.paginate(filter,options);
         Object.assign(result,
-            {docs: result.docs.map(product => new Product({
-                id: product._id.toString(),
-                title: product.title,
-                description: product.description,
-                category: product.category,
-                price: product.price,
-                stock: product.stock,
-                thumbnail: product.thumbnail,
-                code: product.code,
-                status: product.status,
-                owner: product.owner,
-            })),
-            
-        });
+            {
+                docs: result.docs.map(product => new Product(
+                    {
+                        id: product._id.toString(),
+                        title: product.title,
+                        description: product.description,
+                        category: product.category,
+                        price: product.price,
+                        stock: product.stock,
+                        thumbnail: product.thumbnail,
+                        code: product.code,
+                        status: product.status,
+                        owner: product.owner,
+                    }
+                )),
+            });
         return result;
     }
     
     async findById(pid)
     {
         const product = await productModel.findById(pid);
+        if(!product){
+            throw new Error(`Product ${pid} not found`,{cause: 'Not Found'})
+        }
         return {
             id: (product._id).toString(),
             title: product.title,
@@ -72,6 +77,9 @@ class ProductMongooseRepository{
     async update(pid,data)
     {
         const productUpdated = await productModel.findOneAndUpdate({_id:pid},data,{new:true});
+        if(!productUpdated){
+            throw new Error(`Product ${pid} not found`,{cause:'Not Found'})
+        }
         return {
                 id: productUpdated._id,
                 title: productUpdated.title,

@@ -31,7 +31,7 @@ class RoleManager
             const result = role.permissions.find(element => element === permission);
             if(result)
             {
-               throw new Error('El permiso ya existe',{cuase:'Bad Request'}) 
+               throw new Error('The permission already exists',{cuase:'Bad Request'}) 
             }
             role.permissions.push(permission);
             const updatedRole = await this.#roleRepository.updatePermission(rid,role.permissions);
