@@ -107,6 +107,25 @@ paths:
                   message:
                     type: string
                     example: Authorization has not been sent
+        '404':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  error:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: Error
+                      message: 
+                        type: string
+                        example: Role id not found
         '500':
           description: Error interno en el servidor.
           content:
@@ -178,6 +197,25 @@ paths:
                   message:
                     type: string
                     example: Authorization has not been sent
+        '404':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  error:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: Error
+                      message: 
+                        type: string
+                        example: Role not found.
         '500':
           description: Error interno en el servidor.
           content:
@@ -249,6 +287,25 @@ paths:
                   message:
                     type: string
                     example: Authorization has not been sent
+        '404':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  error:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: Error
+                      message: 
+                        type: string
+                        example: Role id not found
         '500':
           description: Error interno en el servidor.
           content:

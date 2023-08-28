@@ -152,6 +152,25 @@ paths:
             application/json:
               schema:
               $ref: '#components/schemas/Errors'
+        '404':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  error:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: Error
+                      message: 
+                        type: string
+                        example: Product not found.
         '500':
           description: Error interno en el servidor.
           content:
@@ -206,6 +225,25 @@ paths:
             application/json:
               schema:
               $ref: '#components/schemas/Errors'
+        '404':
+         description: Bad Request
+         content:
+           application/json:
+             schema:
+               type: object
+               properties:
+                 status:
+                   type: string
+                   example: error
+                 error:
+                   type: object
+                   properties:
+                     name:
+                       type: string
+                       example: Error
+                     message: 
+                       type: string
+                       example: Product not found.
         '500':
           description: Error interno en el servidor.
           content:
@@ -251,6 +289,25 @@ paths:
             application/json:
               schema:
               $ref: '#components/schemas/Errors'
+        '404':
+         description: Bad Request
+         content:
+           application/json:
+             schema:
+               type: object
+               properties:
+                 status:
+                   type: string
+                   example: error
+                 error:
+                   type: object
+                   properties:
+                     name:
+                       type: string
+                       example: Error
+                     message: 
+                       type: string
+                       example: Product not found.
         '500':
           description: Error interno en el servidor.
           content:
