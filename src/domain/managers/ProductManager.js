@@ -18,7 +18,6 @@ class ProductManager
         {
             throw new Error("The product's code already exist",{cause:'Bad Request'});
         }
-        console.log("el rol del usuario es: ",user.role.name);
         const isPremium = user.role.name.includes('premium');
         if(isPremium){
             product.owner = user.email;

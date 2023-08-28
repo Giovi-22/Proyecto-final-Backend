@@ -10,6 +10,7 @@ class Product{
         this.thumbnail= props.thumbnail;
         this.code= props.code;
         this.owner = props.owner;
+        this.status = props.status;
     }
 }
 

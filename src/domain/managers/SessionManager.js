@@ -20,6 +20,7 @@ class SessionManager{
         {
             throw new Error('Login failed, invalid password!',{cause:'Bad Request'});
         }
+        await this.userM.updateOne(userDB.id.toString(),{lastConnection:new Date().toUTCString()})
         const userAccessToken = await jwtGenerator({...userDB,password:undefined})
         return userAccessToken;
     }

@@ -11,7 +11,8 @@ class User{
         this.role = props?.role,
         this.cart = props?.cart,
         this.documents = props.documents,
-        this.isAdmin = props.isAdmin
+        this.isAdmin = props.isAdmin,
+        this.lastConnection = props.lastConnection
     }
 }
 

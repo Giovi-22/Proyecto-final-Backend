@@ -63,8 +63,8 @@ components:
          example: false
        lastConnection:
          type: string
-         description: Muestra la ultima conexion el usuario.s
-         example: 2374/2023
+         description: Muestra la ultima conexion el usuario. La fecha esta en formato UTC
+         example: Sun, 27 Aug 2023 23:23:20 GMT
     userExample:
       example:
         id: "649aefb0b67e84a0e47317c3"
@@ -99,4 +99,4 @@ components:
             ]
           }
         isAdmin: false
-        lastConnection: 12/08/2023
+        lastConnection: Sun, 27 Aug 2023 23:23:20 GMT
