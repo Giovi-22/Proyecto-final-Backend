@@ -81,10 +81,11 @@ class CartManager{
         return this.#cartRepository.update(cid,data);
     }
 
-    async updateOne(cid,pid,quantity=1)
+    async updateOne(cid,pid,quantity=1,user)
     {
         idValidation.parse(cid);
         idValidation.parse(pid);
+        await this.#isOwnCart(cid,user);
         const cart = await this.#cartRepository.findOne(cid);
         const index = cart.products.findIndex(product => product.pid.toString()=== pid);
         Object.assign(cart.products.at(index),{quantity:quantity});
@@ -95,19 +96,28 @@ class CartManager{
     {
         idValidation.parse(cid);
         idValidation.parse(pid);
+        await this.#isOwnCart(cid,user);
         const result = await this.#cartRepository.findOne(cid);
-        const isOwnCart = user.cart.some(cart=> cart.toString() === cid);
-        if(!isOwnCart){
-            throw new Error(`The cart don't belong to the current user`,{cause: 'Bad Request'})
-        }
         const cartUpdated = result.products.filter(product=>product.pid.toString() !== pid);
         return this.#cartRepository.update(result.id,cartUpdated); 
     }
 
-    async deleteAll(cid)
+    async deleteAll(cid,user)
     {
         idValidation.parse(cid);
+        await this.#isOwnCart(cid,user);
         return this.#cartRepository.deletAll(cid);
+    }
+
+    async #isOwnCart(cid,user){
+        if(!user.cart.length){
+            throw new Error(`The user ${user.email} doesn't have a cart`)
+        }
+        const isOwnCart = user.cart.some(cart => cart.toString() === cid);
+        if(!isOwnCart){
+            throw new Error(`The cart don't belong to the current user`,{cause: 'Bad Request'})
+        }
+        return isOwnCart;
     }
 
 }

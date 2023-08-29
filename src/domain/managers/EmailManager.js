@@ -31,8 +31,6 @@ class EmailManager{
     async send(to,subject,data,templateHbs){
         try {
             const template = await this.#selectTemplate({...data},templateHbs);
-            console.log("a quien va enviado: ",to)
-            console.log("data: ",data)
             let email = await this.#transporter.sendMail(
             {
                 from:"giovannibarolin@gmail.com",

@@ -6,7 +6,6 @@ const ERRORS={
 }
 
 export const errorHandler = (err,req,res,next)=>{
-    console.log("el error es: ",err.name)
     if(err?.name?.includes('ZodError')){
         console.log("zon error: ",err.issues)
         return res.status(400).send(

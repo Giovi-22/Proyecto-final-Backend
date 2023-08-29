@@ -55,7 +55,7 @@ class CartController{
         try
         {
             const cartM = new CartManager();
-            const updatedCart = await cartM.updateOne(cid,pid,data.quantity);
+            const updatedCart = await cartM.updateOne(cid,pid,data.quantity,req.user);
             res.status(200).json({status:"success",data:updatedCart});
         }
         catch (error)
@@ -114,7 +114,7 @@ class CartController{
         try
         {
             const cartM = new CartManager();
-            const result = await cartM.deleteAll(cid);
+            const result = await cartM.deleteAll(cid,req.user);
             res.status(200).json({status:"success",data:result});
         }
         catch (error)

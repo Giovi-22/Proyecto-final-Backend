@@ -14,7 +14,6 @@ class TicketManager{
 
     async create(cid,userEmail){
         await idValidation.parseAsync(cid);
-        //const cartM = new CartManager();
         const productM = new ProductManager();
         const cart = await this.cartM.finishPurchase(cid);
         const code = await codeIdGenerator();
