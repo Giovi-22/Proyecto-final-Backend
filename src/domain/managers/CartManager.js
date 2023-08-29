@@ -1,23 +1,26 @@
-import container from "../../container.js";
-import Cart from "../entities/Cart.js";
-import { idValidation, updateCartValidation } from "../validations/validators.js";
-import ProductManager from "./ProductManager.js";
+import container from '../../container.js';
+import { idValidation, updateCartValidation } from '../validations/validators.js';
 
 
 class CartManager{
 
     #cartRepository;
     #productRepository;
+    #userManager;
 
     constructor()
     {
         this.#cartRepository= container.resolve('CartRepository');
         this.#productRepository = container.resolve('ProductRepository');
+        this.#userManager = container.resolve('UserManager');
     }
     
-    async createCart(cart)
+    async createCart(cart,user)
     {
-        const newCart = await this.#cartRepository.create(cart) ;
+        const newCart = await this.#cartRepository.create(cart);
+        const userDB = await this.#userManager.getById(user.id);
+        const userCart = [...userDB.cart,newCart.id]
+        await this.#userManager.updateOne(user.id,{cart:userCart})
         return newCart;
     }
 
@@ -25,8 +28,9 @@ class CartManager{
     {
         idValidation.parse(cid);
         idValidation.parse(pid);
+        await this.#isOwnCart(cid,user);
         const cart = await this.#cartRepository.findOne(cid);
-        //si el producto le pertenece al usuario premium, no lo agrega
+        //si el producto le pertenece al usuario premium, no lo agrega al carrito
         const dbProduct = await this.#productRepository.findById(pid);
         if(dbProduct.owner === user.email){
             throw new Error("Can't add your product to the cart",{cause:'Bad Request'})
@@ -48,20 +52,21 @@ class CartManager{
         return carts;
     }
 
-    async getOne(cid)
+    async getOne(cid,user)
     {
         idValidation.parse(cid);
+        await this.#isOwnCart(cid,user);
         const cart = await this.#cartRepository.findById(cid);
         return cart;
     }
 
-    async finishPurchase(cid){
+    async finishPurchase(cid,user){
         let purchaseDto ={
             availableProducts:[],
             unavailableProducs:[]
         };
-        const cart = await this.getOne(cid);
-
+        await this.#isOwnCart(cid,user);
+        const cart = await this.getOne(cid,user);
         for await (const product of cart.getProducts()){
             const isAvailable = product.product.status;
             if(product.quantity > product.product.stock || !isAvailable){
@@ -74,9 +79,10 @@ class CartManager{
         return purchaseDto;
     }
 
-    async updateAll(cid,data)
+    async updateAll(cid,data,user)
     {
         idValidation.parse(cid);
+        await this.#isOwnCart(cid,user);
         await updateCartValidation.parseAsync(data);
         return this.#cartRepository.update(cid,data);
     }
@@ -110,14 +116,20 @@ class CartManager{
     }
 
     async #isOwnCart(cid,user){
-        if(!user.cart.length){
-            throw new Error(`The user ${user.email} doesn't have a cart`)
-        }
-        const isOwnCart = user.cart.some(cart => cart.toString() === cid);
-        if(!isOwnCart){
-            throw new Error(`The cart don't belong to the current user`,{cause: 'Bad Request'})
-        }
-        return isOwnCart;
+        if(!user?.isAdmin)
+            {
+                if(!user.cart.length)
+                    {
+                        throw new Error(`The user ${user.email} doesn't have a cart`)
+                    }
+                const isOwnCart = user.cart.some(cart => cart.toString() === cid);
+                if(!isOwnCart)
+                    {
+                        throw new Error(`The cart don't belong to the current user`,{cause: 'Bad Request'})
+                    }
+                return isOwnCart;
+            }
+        return user.isAdmin;   
     }
 
 }

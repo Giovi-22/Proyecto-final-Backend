@@ -1,10 +1,13 @@
+
 paths:
   /api/carts:
     post:
-      summary: Crea un carrito vacio.
-      description: Crea el carrito con un array de productos vacio.
+      summary: Crea un carrito vacio. Solo un usuario registrado en la app puede crear un carrito.
+      description: Crea el carrito con un array de productos vacio. Requiere autenticación.
       tags:
         - Cart
+      security:
+        - BearerToken: []
       responses:
         '201':
           description: Carrito creado

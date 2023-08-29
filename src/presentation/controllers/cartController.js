@@ -8,7 +8,7 @@ class CartController{
         try
         {
             const cartM = new CartManager();
-            const newCart = await cartM.createCart({products:[]});
+            const newCart = await cartM.createCart({products:[]},req.user);
             res.status(201).json({status:"success",data:newCart});
         }
         catch (error)
@@ -39,7 +39,7 @@ class CartController{
         try
         {
             const cartM = new CartManager();
-            const updatedCart = await cartM.updateAll(cid,data);
+            const updatedCart = await cartM.updateAll(cid,data,req.user);
             res.status(200).json({status:"success",data:updatedCart});
         }
         catch (error)
@@ -84,7 +84,7 @@ class CartController{
         try
         {   
             const cartM = new CartManager();
-            const cart = await cartM.getOne(cid);
+            const cart = await cartM.getOne(cid,req.user);
             res.status(200).json({status:"success",data:cart});
         }
         catch (error)
@@ -99,7 +99,8 @@ class CartController{
         try
         {   
             const cartM = new CartManager();
-            const purchase = await cartM.finishPurchase(cid);  
+            console.log("EL usuario dentro de la ruta: ",req.user)
+            const purchase = await cartM.finishPurchase(cid,req.user);  
             res.status(200).json({status:"success",data:purchase});
         }
         catch (error)

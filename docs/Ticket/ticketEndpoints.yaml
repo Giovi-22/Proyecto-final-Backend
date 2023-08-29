@@ -2,7 +2,7 @@ paths:
   /api/tickets/{cid}:
     post:
       summary: Finalizar compra
-      description: Finaliza la compra creando un nuevo ticket y se lo envía por email al usuario. Requiere autenticación.
+      description: Finaliza la compra creando un nuevo ticket y se lo envía por email al usuario. Requiere autenticación. Atención! solo se puede comprar un carrito propio.
       security:
         - BearerToken: []
       tags:
@@ -10,7 +10,7 @@ paths:
       parameters:
         - name: cid
           in: path
-          description: Id del carrito que desea comprar.
+          description: Id del carrito que desea comprar. Solo se puede finalizar un carrito propio!
           required: true
           schema:
             type: string

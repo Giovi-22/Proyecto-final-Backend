@@ -11,7 +11,7 @@ class TicketController{
         {
             const ticketM = new TicketManager();
             const emailM = new EmailManager();
-            const newTicket = await ticketM.create(req.params.cid,req.user.email);
+            const newTicket = await ticketM.create(req.params.cid,req.user);
             const products = await ticketM.convertProductData(newTicket.getData());
             await emailM.send(newTicket.getData().purchaser,"Ticket created",{...newTicket.getData(),products},"purchase.hbs")
             res.status(200).send({status:'success',data:newTicket.getData()})

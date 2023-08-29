@@ -7,7 +7,7 @@ import { authorization } from "../middlewares/authorization.js";
 
 const cartRouter = Router();
 
-cartRouter.post('/',CartController.create);                         // <crea el carrito con un array products vacío>
+cartRouter.post('/',auth,CartController.create);                         // <crea el carrito con un array products vacío>
 cartRouter.get('/',auth,authorization('getCarts'),CartController.getAll);// <devuelve todos los carritos>
 cartRouter.get('/:cid',auth,CartController.get);                     // <devuelve el carrito seleccionado pasandole por params el cid>
 cartRouter.put('/:cid',auth,CartController.updateCart);                 // <actualiza el carrito pasando por body los productos con el siguiente formato: [{"pid":<valor>,"quantity":<valor>},...]>

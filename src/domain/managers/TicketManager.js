@@ -1,26 +1,25 @@
-import container from "../../container.js";
-import { codeIdGenerator } from "../../helpers/nanoidGenerator.js";
-import Ticket from "../entities/Ticket.js";
-import { idValidation } from "../validations/validators.js";
-import CartManager from "./CartManager.js";
-import ProductManager from "./ProductManager.js";
+import container from '../../container.js';
+import { codeIdGenerator } from '../../helpers/nanoidGenerator.js';
+import Ticket from '../entities/Ticket.js';
+import { idValidation } from '../validations/validators.js';
+import ProductManager from './ProductManager.js';
 class TicketManager{
 
 
     constructor(){
-        this.ticketRepository = container.resolve("TicketRepository");
+        this.ticketRepository = container.resolve('TicketRepository');
         this.cartM = container.resolve('cartManager');
     }
 
-    async create(cid,userEmail){
+    async create(cid,user){
         await idValidation.parseAsync(cid);
         const productM = new ProductManager();
-        const cart = await this.cartM.finishPurchase(cid);
+        const cart = await this.cartM.finishPurchase(cid,user);
         const code = await codeIdGenerator();
         let amount = 0;
 
         if(!cart.availableProducts.length){
-            throw new Error("There are no products available to buy",{cause: "Bad Request"});
+            throw new Error('There are no products available to buy',{cause: 'Bad Request'});
         }
 
         cart.availableProducts.forEach(product => {
@@ -30,7 +29,7 @@ class TicketManager{
         const newTicket = new Ticket({
             code: code,
             amount: amount,
-            purchaser: userEmail,
+            purchaser: user.email,
             products: cart.availableProducts.map(element =>({pid: element.product.id,quantity: element.quantity}))
         })
 
@@ -40,9 +39,9 @@ class TicketManager{
         }
 
         if(cart.unavailableProducs.length){
-        this.cartM.updateAll(cid,cart.unavailableProducs.map(element =>({pid:element.product.id,quantity:element.quantity})));
+        this.cartM.updateAll(cid,cart.unavailableProducs.map(element =>({pid:element.product.id,quantity:element.quantity})),user);
         }else{
-            await this.cartM.deleteAll(cid);
+            await this.cartM.deleteAll(cid,user);
         }
 
         return this.ticketRepository.create(newTicket);
