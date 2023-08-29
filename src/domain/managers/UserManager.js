@@ -65,8 +65,7 @@ class UserManager
     async deleteOne(uid)
     {
         await idValidation.parseAsync(uid);
-        const deletedUser = await this.#UserRepository.deleteOne(uid);
-        return deletedUser;
+        return this.#UserRepository.deleteOne(uid);
     }
 
     async changePassword(uid,password)

@@ -99,9 +99,8 @@ class UserMongooseRepository{
         {
             throw new Error("Failed to delete user",{cause:'Not Found'});
         }
-        return {
-            message:"Usuario eliminado!",
-            ...result};
+        return 'The user was deleted successfully';
+ 
     }
 
     async update(uid,data)

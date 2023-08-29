@@ -76,7 +76,7 @@ class UserController{
         {
             const userM = new UserManager();
             const result = await userM.deleteOne(uid);
-            return res.status(200).json({status:"success",message:result.message});
+            return res.status(200).json({status:"success",message:result});
         }
         catch (error)
         {
