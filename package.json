@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
+    "command": "node src/command.js",
     "test": "set NODE_OPTIONS=--experimental-vm-modules && jest src/tests/products/product.test.js"
   },
   "repository": {
@@ -23,6 +24,7 @@
   "dependencies": {
     "awilix": "^8.0.1",
     "bcrypt": "^5.1.0",
+    "commander": "^11.0.0",
     "connect-mongo": "^5.0.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
@@ -36,6 +38,7 @@
     "multer": "^1.4.5-lts.1",
     "nanoid": "^4.0.2",
     "nodemailer": "^6.9.3",
+    "shelljs": "^0.8.5",
     "swagger-jsdoc": "^6.2.8",
     "swagger-themes": "^1.2.30",
     "swagger-ui-express": "^5.0.0",

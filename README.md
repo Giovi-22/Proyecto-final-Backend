@@ -17,3 +17,9 @@ Esta aplicación está diseñada para respaldar las funciones esenciales de nues
 
 Para acceder a la documentación de nuestra API puede acceder al siguiente link:
     http://localhost:8083/apidocs/
+
+## Comandos de inicio
+``````Shell
+npm run command -- addUser -e admin@admin.com -fn admin -ln admin -p 12345678 -a 34 -ia true
+
+``````

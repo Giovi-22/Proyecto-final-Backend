@@ -1,5 +1,6 @@
 import container from '../../container.js';
 import { idValidation, updateCartValidation } from '../validations/validators.js';
+import UserManager from './UserManager.js';
 
 
 class CartManager{
@@ -12,7 +13,7 @@ class CartManager{
     {
         this.#cartRepository= container.resolve('CartRepository');
         this.#productRepository = container.resolve('ProductRepository');
-        this.#userManager = container.resolve('UserManager');
+        this.#userManager = new UserManager()
     }
     
     async createCart(cart,user)

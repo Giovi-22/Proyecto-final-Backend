@@ -9,7 +9,7 @@ import TicketMongooseRepository from './data/repository/TicketMongooseRepository
 import ProductMongooseRepository from './data/repository/ProductMongooseRepository.js';
 import BlackListMongooseRepository from './data/repository/BlackListMongooseRepository.js';
 import CartManager from './domain/managers/CartManager.js';
-import UserManager from './domain/managers/UserManager.js'
+
 
 
 
@@ -28,6 +28,5 @@ container.register('TicketRepository', asClass(TicketMongooseRepository),{lifeti
 container.register('blackListRepository',asClass(BlackListMongooseRepository),{lifetime: Lifetime.SINGLETON});
 //----------------------MANAGERS--------------------------------------------------------
 container.register('cartManager',asClass(CartManager),{lifetime:Lifetime.SINGLETON});
-container.register('UserManager',asClass(UserManager),{lifetime:Lifetime.SINGLETON});
 export default container;
 
