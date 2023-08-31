@@ -32,7 +32,38 @@ Para acceder a la documentación de nuestra API puede acceder al siguiente link:
     http://localhost:8083/apidocs/
 
 ## Comandos de inicio
+
+#### -- addUser
+``
+npm run command --addUser
+``
+
+Se utiliza para crear un usuario administrador en la aplicación. 
+Es necesario crear el administrador pasando los siguientes parámetros al comando:
+
+    -e, --email < email del usuario >
+    -fn, --firstName < nombre del usuario>
+    -ln, --lastName < apellido del usuario >
+    -p, --password < password del usuario >
+    -a, --age < edad del usuario >
+    -ia, --isAdmin < si se coloca este parámetro el usuario se crea como administrador>
+
+Ejemplo:
 ``````Shell
-npm run command -- addUser -e admin@admin.com -fn admin -ln admin -p 12345678 -a 34 -ia true
+npm run command -- addUser -e admin@admin.com -fn admin -ln admin -p 12345678 -a 34 -ia
 
 ``````
+
+#### -- setAdmin
+``
+npm run command -- setAdmin
+``
+
+Permite asignar el permiso de administrador a un usuario existente.
+Se debe pasar al comando el email del usuario como parámetro.
+
+Ejemplo:
+
+``
+npm run command -- setAdmin -e usuario_x@prueba.com
+``
