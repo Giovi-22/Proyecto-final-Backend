@@ -307,7 +307,7 @@ paths:
   /api/users/{uid}/documents:
     post:
       summary: Cargar documentos
-      description: Carga documentos del usuario. El usuario posee tres carpetas para almacenar sus documentos, Profiles, Producs y Documents. Requiere autenticación.
+      description: Carga documentos del usuario. El usuario posee tres carpetas para almacenar sus documentos, Profiles, Producs y Documents.Puede subir hasta 3 archivos por carpeta en cada petición. Requiere autenticación.
       security:
         - BearerToken: []
       tags:

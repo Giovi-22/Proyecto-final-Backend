@@ -9,7 +9,7 @@ const userRouter = Router();
 const fileTypes = [
     {
         name:'profiles',
-        maxCount: 1,
+        maxCount: 3,
     },
     {
         name:'products',
@@ -17,7 +17,7 @@ const fileTypes = [
     },
     {
         name:'documents',
-        maxCount: 4
+        maxCount: 3
     }
 ]
 
