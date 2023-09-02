@@ -1,7 +1,9 @@
 import { describe, beforeAll, afterAll, expect } from '@jest/globals'
+
 import supertest from 'supertest';
-import { initSupertestServer } from '../index.test';
-import _ from 'mongoose-paginate-v2';
+
+import { initSupertestServer } from '../../index.test';
+
 
 let JWT;
 

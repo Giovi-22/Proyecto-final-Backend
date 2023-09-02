@@ -1,9 +1,10 @@
 import { describe, beforeAll, afterAll, expect } from '@jest/globals'
-import UserMongooseRepository from "../data/repository/UserMongooseRepository.js";
-import User from "../domain/entities/User.js";
-import { generateUser } from "../helpers/fakers.js";
 import mongoose from "mongoose";
-import { initSupertestServer } from './index.test.js';
+
+import UserMongooseRepository from "../../data/repository/UserMongooseRepository.js";
+import User from "../../domain/entities/User.js";
+import { generateUser } from "../../helpers/fakers.js";
+import { initSupertestServer } from '../index.test.js';
 
 describe("Testing user Mongoose Repository",()=>{
 
@@ -25,7 +26,6 @@ describe("Testing user Mongoose Repository",()=>{
 
     test("El repository debe ser una instancia de UserMongooseRepository",function(){
         expect(userRepository instanceof UserMongooseRepository).toBeTruthy;
-        console.log("El user repository",userRepository)
     });
     test("El repository debe poder crear un usuario",async function(){
         const result = await userRepository.create(user)

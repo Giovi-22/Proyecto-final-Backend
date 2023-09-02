@@ -20,6 +20,9 @@ class CartManager{
     {
         const newCart = await this.#cartRepository.create(cart);
         const userDB = await this.#userManager.getById(user.id);
+        if(!userDB.cart){
+            return this.#userManager.updateOne(user.id,{cart:newCart.id})
+        }
         const userCart = [...userDB.cart,newCart.id]
         await this.#userManager.updateOne(user.id,{cart:userCart})
         return newCart;
