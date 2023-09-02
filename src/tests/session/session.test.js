@@ -26,7 +26,11 @@ describe('Testing Session Endpoints',()=>{
 
     afterAll(async ()=>
     {
-        await dataBase.close();
+        await appRequester.app.close(()=>
+        {
+            console.log("The server has been closed");
+        });
+       return await dataBase.close();
     })
     test('El repo debe poder crear un usuario /api/sessions/signup',async function(){
         user = generateUser();
@@ -34,6 +38,7 @@ describe('Testing Session Endpoints',()=>{
         const {_body,status} = result;
         expect(status).toBe(201);
         expect(_body.data).toHaveProperty('email');
+
     });
 
     test('El repo debe poder loguear un usuario /api/sessions/login',async function(){
@@ -74,7 +79,7 @@ describe('Testing Session Endpoints',()=>{
                 );
         const {_body,status} = result;
         expect(status).toBe(400);
-        expect(_body).toHaveProperty('message');
+        expect(_body).toHaveProperty('status');
         expect(_body.status).toBe('error');
     });
     

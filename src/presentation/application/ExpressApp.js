@@ -81,9 +81,9 @@ class ExpressApp{
         return this.app;
     }
 
-    close()
+    async close()
     {
-        this.#server.close(()=>console.log('The app has been closed'))
+        await this.#server.close(()=>console.log('The app has been closed'))
     }
 
     build(){
@@ -93,6 +93,11 @@ class ExpressApp{
         this.app.use('/api/sessions',sessionsRouter);
         this.app.use('/api/users',userRouter)
         this.app.use('/api/roles',roleRouter);
+        this.app.get('/api/close-server',async (req,res)=>{
+            const result = await this.close();
+            console.log("El resultado es: ",result);
+            return result;
+        })
         this.app.use(errorHandler);
     }
 

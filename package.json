@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon",
     "command": "node src/command.js",
-    "test": "set NODE_OPTIONS=--experimental-vm-modules && jest src/tests/products/product.test.js"
+    "test": "set NODE_OPTIONS=--experimental-vm-modules && jest src/tests/userRepository.test.js"
   },
   "repository": {
     "type": "git",

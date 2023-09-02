@@ -1,96 +1,78 @@
-import chai from "chai";
-
-import { config } from "../config/index.js";
-import DbFactory from "../data/factories/dbFactory.js";
+import { describe, beforeAll, afterAll, expect } from '@jest/globals'
 import UserMongooseRepository from "../data/repository/UserMongooseRepository.js";
 import User from "../domain/entities/User.js";
 import { generateUser } from "../helpers/fakers.js";
 import mongoose from "mongoose";
-
-const expect = chai.expect;
-
-const db = DbFactory.create(config.dbType);
-
+import { initSupertestServer } from './index.test.js';
 
 describe("Testing user Mongoose Repository",()=>{
-    before(function(){
-        db.init(config.dbUri)
-        this.userRepository = new UserMongooseRepository();
-        this.user = new User(generateUser());
-        this.currentUser = {};
-    });
-    after(function(){
-        db.close();
+
+        let dataBase;
+        let userRepository;
+        let currentUser;
+        let user;
+
+    beforeAll(async function(){
+        const {db} = await initSupertestServer();
+        userRepository = new UserMongooseRepository();
+        user = new User(generateUser());
+        dataBase = db;
     });
 
-    beforeEach(function(){
-
-    });
-    it("El repository debe ser una instancia de UserMongooseRepository",function(){
-        expect(this.userRepository instanceof UserMongooseRepository).to.be.ok;
-    });
-    it("El repository debe devolver un arreglo",function(){
-            const filter = {page:1,limit:5};
-            return this.userRepository.Paginate(filter)
-            .then(result => {
-                expect(Array.isArray(result.docs)).to.be.equals(true);
-            });
-
+    afterAll(async function(){
+       return await dataBase.close();
     });
 
-    it("El limite de paginate debe ser igual al limite proporcionado",function(){
-        const filter = {page:1,limit:5};
-        return this.userRepository.Paginate(filter)
-        .then(result => {
-            expect(result.limit).to.be.equals(filter.limit) 
-        });
+    test("El repository debe ser una instancia de UserMongooseRepository",function(){
+        expect(userRepository instanceof UserMongooseRepository).toBeTruthy;
+        console.log("El user repository",userRepository)
+    });
+    test("El repository debe poder crear un usuario",async function(){
+        const result = await userRepository.create(user)
+        expect(result.firstName).toBe(user.firstName);
+        expect(result.lastName).toBe(user.lastName);
+        expect(result.email).toBe(user.email);
+        expect(result.id instanceof mongoose.Schema.Types.ObjectId).toBeTruthy;
+        currentUser = result;
     });
 
-    it("Error: el limite de paginate no corresponde al limite proporcionado",function(){
-        const filter = {page:1,limit:6};
-        return this.userRepository.Paginate(filter)
-        .then(result => {
-            expect(result.limit).to.be.not.equals(5) 
-        });
+    test("El repository debe devolver un usuario",async function(){
+        const result = await userRepository.findById(currentUser.id);
+        expect(result).toBeInstanceOf(User);
+        expect(result.id).toStrictEqual(currentUser.id);
+        expect(result.age).toBeGreaterThan(0);
+        expect(result.age).toBe(currentUser.age);
     });
 
-    it("El repository debe poder crear un usuario",function(){
-        return this.userRepository.create(this.user)
-        .then(result => {
-            expect(result.firstName).to.be.equals(this.user.firstName);
-            expect(result.lastName).to.be.equals(this.user.lastName);
-            expect(result.email).to.be.equals(this.user.email);
-            expect(result.id instanceof mongoose.Schema.Types.ObjectId);
-            this.currentUser = result;
-        });
-    });
-
-    it("El repository debe devolver un usuario",function(){
-        return this.userRepository.findById(this.currentUser.id)
-        .then((result)=>{
-            expect(result instanceof User).to.be.ok;
-            expect(result.id.toString()).to.be.equal(this.currentUser.id.toString());
-            expect(result.age).to.be.greaterThan(0);
-            expect(result.age).to.be.equal(this.currentUser.age);
-        })
-    });
-
-    it("El repository debe poder actualizar un usuario",function(){
+    test("El repository debe poder actualizar un usuario",async function(){
         // data = { field: value}
-        const data={age:34,firstName:"mena"}
-        return this.userRepository.update(this.currentUser.id,data)
-        .then(result => {
-            expect(result.age).to.be.equal(data.age);
-            expect(result.firstName).to.be.equal(data.firstName)
-        });
+        const data={age:34,firstName:"polola"}
+        const result = await userRepository.update(currentUser.id,data)
+        expect(result.age).toBe(data.age);
+        expect(result.firstName).toBe(data.firstName)
     });
 
-    it("El repository debe poder borrar un usuario",function(){
-        return this.userRepository.deleteOne(this.currentUser.id)
-        .then(result => {
-            expect(result.message).to.be.equal("Usuario eliminado!");
-            expect(result.deletedCount).to.be.equal(1);
-        });
+    test("El repository debe poder borrar un usuario",async function(){
+        const result = await userRepository.deleteOne(currentUser.id)
+        expect(result).toBe("The user was deleted successfully");
+    });
+
+    test("El repository debe devolver un arreglo",async function(){
+            const filter = {page:1,limit:5};
+            const result = await userRepository.Paginate(filter);
+            expect(result.docs).toBeInstanceOf(Array)
+    });
+
+    test("El limite de paginate debe ser igual al limite proporcionado",async function(){
+        const filter = {page:1,limit:5};
+        const result = await userRepository.Paginate(filter)
+        expect(result.limit).toBe(filter.limit) 
+    });
+
+    test("Error: el limite de paginate no corresponde al limite proporcionado",async function(){
+        const filter = {page:1,limit:6};
+        const result = await userRepository.Paginate(filter);
+        expect(result.limit).not.toBe(5) 
     });
 
 });

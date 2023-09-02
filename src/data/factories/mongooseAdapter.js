@@ -14,7 +14,7 @@ class MongooseAdapter{
     }
 
     async close(){
-        await this.connection.disconnect();
+            return await this.connection.disconnect();
     }
 }
 

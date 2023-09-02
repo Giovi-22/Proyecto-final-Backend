@@ -26,7 +26,11 @@ describe('Testing User Endpoints',()=>{
 
     afterAll(async ()=>
     {
-        await dataBase.close();
+        await appRequester.app.close(()=>
+        {
+            console.log("The server has been closed");
+        });
+       return await dataBase.close();
     })
 //-----------------SUCCESS TESTS--------------------------------------------------
     test('Loguear administrador /api/sessions/login',async function(){

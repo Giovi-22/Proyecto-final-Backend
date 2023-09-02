@@ -12,10 +12,10 @@ export const initSupertestServer = async()=>
     const app = AppFactory.create('express');
     
     await db.init(config.dbUriTests);
-
+    
     app.init();
     app.build();
-    //app.listen();
+    
     return {
         db,
         app
