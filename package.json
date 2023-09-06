@@ -4,7 +4,8 @@
   "description": "Proyecto final del curso de backend realizado en Coderhouse",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon",
+    "start": "node src/index.js",
+    "dev":"nodemon",
     "command": "node src/command.js",
     "unit-tests": "set NODE_OPTIONS=--experimental-vm-modules && jest src/tests/unitTests",
     "integration-tests": "set NODE_OPTIONS=--experimental-vm-modules && jest src/tests/integrationTests",

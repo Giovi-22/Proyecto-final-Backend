@@ -95,7 +95,7 @@ class ExpressApp{
     }
 
     listen(){
-        this.#server = this.app.listen(config.port,()=>console.log(`Servidor escuchando en el puerto ${config.port}`));
+        this.#server = this.app.listen(config.port || 3000,()=>console.log(`Servidor escuchando en el puerto ${config.port}`));
     }
 
 }
