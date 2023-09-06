@@ -120,7 +120,7 @@ class CartManager{
     }
 
     async #isOwnCart(cid,user){
-        if(!user?.isAdmin)
+        if(!user.isAdmin)
             {
                 if(!user.cart.length)
                     {
@@ -133,7 +133,7 @@ class CartManager{
                     }
                 return isOwnCart;
             }
-        return user.isAdmin;   
+        return false;   
     }
 
 }

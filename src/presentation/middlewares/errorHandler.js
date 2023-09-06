@@ -7,7 +7,6 @@ const ERRORS={
 
 export const errorHandler = (err,req,res,next)=>{
     if(err?.name?.includes('ZodError')){
-        console.log("zon error: ",err.issues)
         return res.status(400).send(
             {
                 status:'error',
@@ -19,7 +18,6 @@ export const errorHandler = (err,req,res,next)=>{
             });
     }
     if(err?.name?.includes('Mongo')){
-        console.log('MongoServer error: ',err)
         return res.status(400).send(
             {
                 status:'error',

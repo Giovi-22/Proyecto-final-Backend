@@ -1,5 +1,5 @@
-import { Command } from "commander";
-import UserManager from "../../domain/managers/UserManager.js";
+import { Command } from 'commander';
+import UserManager from '../../domain/managers/UserManager.js';
 
 const setAdmin = new Command('setAdmin');
 
@@ -17,7 +17,6 @@ setAdmin
         if(updatedUser)
         {
             console.log('User updated successfully');
-            console.log(updatedUser);
         }
     });
 

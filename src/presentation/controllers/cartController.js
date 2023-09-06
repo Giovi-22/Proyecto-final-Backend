@@ -99,7 +99,6 @@ class CartController{
         try
         {   
             const cartM = new CartManager();
-            console.log("EL usuario dentro de la ruta: ",req.user)
             const purchase = await cartM.finishPurchase(cid,req.user);  
             res.status(200).json({status:"success",data:purchase});
         }

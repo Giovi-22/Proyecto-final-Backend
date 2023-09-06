@@ -12,9 +12,9 @@ class TicketController{
             const ticketM = new TicketManager();
             const emailM = new EmailManager();
             const newTicket = await ticketM.create(req.params.cid,req.user);
-            const products = await ticketM.convertProductData(newTicket.getData());
-            await emailM.send(newTicket.getData().purchaser,"Ticket created",{...newTicket.getData(),products},"purchase.hbs")
-            res.status(200).send({status:'success',data:newTicket.getData()})
+            const products = await ticketM.convertProductData(newTicket);
+            await emailM.send(newTicket.purchaser,"Ticket created",{...newTicket,products},"purchase.hbs")
+            res.status(200).send({status:'success',data:newTicket})
         } 
         catch (error) 
         {
@@ -28,7 +28,7 @@ class TicketController{
         {
             const ticketM = new TicketManager();
             const ticket = await ticketM.getOne(req.params.tid)
-            res.status(200).send({status:'succsess',data:ticket.getData()})
+            res.status(200).send({status:'succsess',data:ticket})
         } 
         catch (error) 
         {

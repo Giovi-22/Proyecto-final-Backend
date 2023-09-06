@@ -6,7 +6,7 @@ class TicketMongooseRepository{
 
     async create(ticket)
     {
-        const newTicket= await TicketModel.create(ticket.getData());
+        const newTicket= await TicketModel.create(ticket);
         await TicketModel.populate(newTicket,"products.pid");
 
         return new Ticket({

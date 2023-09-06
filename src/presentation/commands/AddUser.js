@@ -18,7 +18,6 @@ AddUser
             ...env,
             age: +env.age,
         };
-        console.log(payload)
         const userM = new UserManager();
         const user = await userM.create(payload);
 

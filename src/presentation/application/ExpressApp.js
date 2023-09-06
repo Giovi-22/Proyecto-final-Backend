@@ -95,7 +95,6 @@ class ExpressApp{
         this.app.use('/api/roles',roleRouter);
         this.app.get('/api/close-server',async (req,res)=>{
             const result = await this.close();
-            console.log("El resultado es: ",result);
             return result;
         })
         this.app.use(errorHandler);

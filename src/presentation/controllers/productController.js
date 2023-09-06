@@ -12,7 +12,6 @@ class ProductController{
             }
             catch (error)
             {
-                console.log("el error es: ",error)
                 next(error);
             }
     }

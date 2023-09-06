@@ -15,7 +15,7 @@ class CartMongooseRepository{
 
     async update(cid,data)
     {
-        const cart = await cartModel.findOneAndUpdate({_id:cid},{$set:{products :data}},{new:true});
+        const cart = await cartModel.findOneAndUpdate({_id:cid},{$set:{products:data}},{new:true});
         if(!cart)
         {
             throw new Error(`The cart ${cid} not found.`,{cause:'Not Found'});

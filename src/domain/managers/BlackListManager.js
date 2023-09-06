@@ -1,4 +1,4 @@
-import container from "../../container.js";
+import container from '../../container.js';
 
 
 class BlackListManager {
@@ -14,7 +14,6 @@ class BlackListManager {
     }
 
     async isOnBlackList(token){
-        console.log("el token")
         const result =  await this.#blackListRepository.getOne(token);
         if(result){
             const isOnList = result.tokens.find(tk => tk === token)

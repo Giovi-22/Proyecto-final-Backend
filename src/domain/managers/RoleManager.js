@@ -1,5 +1,5 @@
-import container from "../../container.js";
-import { idValidation } from "../validations/validators.js";
+import container from '../../container.js';
+import { idValidation } from '../validations/validators.js';
 
 class RoleManager
 {
@@ -43,7 +43,6 @@ class RoleManager
     {
         {   
             idValidation.parse(rid);
-            console.log(permission)
             const role = await this.getOne(rid);
             const result = role.permissions.filter(element => element !== permission);
             role.permissions = [...result];

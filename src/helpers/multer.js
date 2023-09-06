@@ -8,7 +8,6 @@ const storage = multer.diskStorage(
         
         destination: function(req, file, cb)
         {
-            console.log("lo que llega es: ",req)
                 switch(file.fieldname){
                     case 'profiles': 
                         cb(null,path.resolve(`${dirName}/profiles`));
