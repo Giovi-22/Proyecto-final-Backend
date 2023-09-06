@@ -28,9 +28,9 @@ Descargado el proyecto, abrir la consola de comandos, ingresar a la carpeta prin
     * $ npm run dev - para correr la aplicación.
 ## Documentación
 
-Para acceder a la documentación de nuestra API puede acceder al siguiente link:
-    http://localhost:8083/apidocs/
+Para acceder a la documentación de la api:
 
+    url-server/apidocs/
 ## Comandos de inicio
 
 #### -- addUser
