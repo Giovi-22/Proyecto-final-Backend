@@ -18,12 +18,6 @@ import userRouter from '../routes/userRouter.js';
 import roleRouter from '../routes/roleRouter.js';
 import { errorHandler } from '../middlewares/errorHandler.js';
 
-
-
-
-
-
-
 class ExpressApp{
     
     #viewPath = path.resolve('src/presentation/views');

@@ -1,5 +1,4 @@
-import ExpressApp from "../application/expressApp.js";
-
+import ExpressApp from '../application/ExpressApp.js'
 class AppFactory{
 
     static create(appType='express'){
