@@ -2,13 +2,14 @@ import container from '../../container.js';
 import { codeIdGenerator } from '../../helpers/nanoidGenerator.js';
 import Ticket from '../entities/Ticket.js';
 import { idValidation } from '../validations/validators.js';
+import CartManager from './CartManager.js';
 import ProductManager from './ProductManager.js';
 class TicketManager{
 
 
     constructor(){
         this.ticketRepository = container.resolve('TicketRepository');
-        this.cartM = container.resolve('cartManager');
+        this.cartM = new CartManager();
     }
 
     async create(cid,user){

@@ -32,6 +32,7 @@ class UserManager
 
     async getList(filters)
     {
+        console.log("dentro del manager")
         const result = await this.#UserRepository.Paginate(filters);
         return result;
     }

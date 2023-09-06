@@ -9,10 +9,12 @@ const auth = async (req,res,next)=>{
     }
     const token = authHeader.split(' ')[1];
     const credential = await jwtVerificator(token);
+    console.log("Dentro de auth")
+    console.log("El usuario: ",credential.user)
     req.user = credential.user;
     next();
-    
     } catch (error) {
+        console.log("Error en auth",error)
         next(error)
     }
     

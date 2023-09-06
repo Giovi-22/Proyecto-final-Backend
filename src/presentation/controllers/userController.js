@@ -27,6 +27,7 @@ class UserController{
         
         try
         {
+            console.log("Dentro del controller")
             const userM = new UserManager();
             const result = await userM.getList(options);
             return res.status(200).json({status:"success",data:result.docs, ...result, docs:undefined });
@@ -42,7 +43,6 @@ class UserController{
         const uid = req.params.uid;
         try
         {
-            console.log("El uid es: ",uid)
             const userM = new UserManager();
             const user = await userM.getById(uid);
             return res.status(200).json({status:"success",data:user});
