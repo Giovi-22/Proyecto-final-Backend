@@ -4,6 +4,7 @@ class UserController{
 
     static async create(req,res,next)
     {
+        console.log("dentro de create")
         const newUser = req.body;
         try
         {
@@ -20,6 +21,7 @@ class UserController{
 
     static async list(req,res,next)
     {
+        console.log("dentro de list")
         const options = {
             ...req.query,
             query: JSON.parse(`{${req.query?.filter ?? ""}}`)
@@ -43,6 +45,7 @@ class UserController{
         const uid = req.params.uid;
         try
         {
+            console.log("dentro de getOne")
             const userM = new UserManager();
             const user = await userM.getById(uid);
             return res.status(200).json({status:"success",data:user});
@@ -55,6 +58,7 @@ class UserController{
 
     static async updateOne(req,res,next)
     {
+        console.log("dentro de updateOne")
         const uid = req.params.uid;
         const data = req.body;
         try
@@ -71,6 +75,7 @@ class UserController{
 
     static async deleteOne(req,res,next)
     {
+        console.log("dentro de deleteOne")
         const uid = req.params.uid;
         try
         {
@@ -86,6 +91,7 @@ class UserController{
 
     static async changeRole(req,res,next){
         try {
+            console.log("dentro de change role")
             const userM = new UserManager();
             const result = await userM.premiumUser(req.params.uid)
             return res.status(200).send({status:'success',message:'Role updated successfully',data:result});
@@ -96,6 +102,7 @@ class UserController{
 
     static async loadDocuments(req,res,next)
     {
+        console.log("dentro de load documents")
         try 
         {
 
