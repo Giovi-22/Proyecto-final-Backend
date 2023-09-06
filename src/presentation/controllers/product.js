@@ -1,6 +1,6 @@
 
 import ProductManager from '../../domain/managers/ProductManager.js';
-class ProductController{
+class ProductC{
 
     static createProduct = async (req,res,next)=>
     {
@@ -85,4 +85,4 @@ class ProductController{
 
 }
 
-export default ProductController;
+export default ProductC;
