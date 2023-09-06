@@ -1,4 +1,4 @@
-/*import { Router } from "express";
+import { Router } from "express";
 
 import ProductController from "../controllers/ProductController.js";
 import auth from "../middlewares/auth.js";
@@ -13,4 +13,3 @@ productRouter.put('/:pid',auth,authorization('updateProduct'),ProductController.
 productRouter.delete('/:pid',auth,authorization('deleteProduct'),ProductController.deleteProduct);            // <establece el campo "status = false" del producto seleccionado por pid>
 
 export default productRouter;
-*/
