@@ -1,0 +1,456 @@
+{
+	"info": {
+		"_postman_id": "4e666336-bf86-416b-bdc7-d8f957a8d7e8",
+		"name": "CART",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21069563"
+	},
+	"item": [
+		{
+			"name": "get all",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN_JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER_URL}}/api/carts/",
+					"host": [
+						"{{SERVER_URL}}"
+					],
+					"path": [
+						"api",
+						"carts",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/carts/:cid",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN_JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER_URL}}/api/carts/{{CURRENT_CART_ID}}",
+					"host": [
+						"{{SERVER_URL}}"
+					],
+					"path": [
+						"api",
+						"carts",
+						"{{CURRENT_CART_ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear carrito",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status code 201\"] = responseCode.code === 201\r",
+							"var jsonData = JSON.parse(responseBody)\r",
+							"pm.environment.set(\"CURRENT_CART_ID\",jsonData.data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN_JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER_URL}}/api/carts/",
+					"host": [
+						"{{SERVER_URL}}"
+					],
+					"path": [
+						"api",
+						"carts",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/carts/:cid/prouct/:pid",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN_JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER_URL}}/api/carts/{{CURRENT_CART_ID}}/product/644f3f7e651b7007124da2b5",
+					"host": [
+						"{{SERVER_URL}}"
+					],
+					"path": [
+						"api",
+						"carts",
+						"{{CURRENT_CART_ID}}",
+						"product",
+						"644f3f7e651b7007124da2b5"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "/api/carts/:cid/prouct/:pid",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{SERVER_URL}}/api/carts/645f824d38f49a3c90967471/product/64f488b677b40b3b59ec3795",
+							"host": [
+								"{{SERVER_URL}}"
+							],
+							"path": [
+								"api",
+								"carts",
+								"645f824d38f49a3c90967471",
+								"product",
+								"64f488b677b40b3b59ec3795"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "362"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"16a-uTz8kBiFK7Y7a8M4p0J4GSDil7E\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 07 Sep 2023 01:34:24 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"id\": \"645f824d38f49a3c90967471\",\n        \"products\": [\n            {\n                \"pid\": \"644f0d1054cb79bacd52ab7e\",\n                \"quantity\": 7\n            },\n            {\n                \"pid\": \"644f3f7e651b7007124da2b5\",\n                \"quantity\": 2\n            },\n            {\n                \"pid\": \"6453df2ec823f56ce42c27a8\",\n                \"quantity\": 3\n            },\n            {\n                \"pid\": \"644f0e8954cb79bacd52ab88\",\n                \"quantity\": 1\n            },\n            {\n                \"pid\": \"6451a5d3aaa91a4391bedfb1\",\n                \"quantity\": 1\n            },\n            {\n                \"pid\": \"64f488b677b40b3b59ec3795\",\n                \"quantity\": 1\n            }\n        ]\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "api/carts/:cid",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN_JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n{\r\n    \"pid\":\"644f0d1054cb79bacd52ab7e\",\r\n    \"quantity\":3\r\n},\r\n{\r\n    \"pid\":\"644f3f7e651b7007124da2b5\",\r\n    \"quantity\":2\r\n}\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER_URL}}/api/carts/{{CURRENT_CART_ID}}",
+					"host": [
+						"{{SERVER_URL}}"
+					],
+					"path": [
+						"api",
+						"carts",
+						"{{CURRENT_CART_ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api/carts/:cid/products/:pid",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN_JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"quantity\":4\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER_URL}}/api/carts/{{CURRENT_CART_ID}}/product/644f0d1054cb79bacd52ab7e",
+					"host": [
+						"{{SERVER_URL}}"
+					],
+					"path": [
+						"api",
+						"carts",
+						"{{CURRENT_CART_ID}}",
+						"product",
+						"644f0d1054cb79bacd52ab7e"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete All",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN_JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER_URL}}/api/carts/{{CURRENT_CART_ID}}",
+					"host": [
+						"{{SERVER_URL}}"
+					],
+					"path": [
+						"api",
+						"carts",
+						"{{CURRENT_CART_ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api/carts/:cid/products/:pid",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN_JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER_URL}}/api/carts/{{CURRENT_CART_ID}}/products/644f3f7e651b7007124da2b5",
+					"host": [
+						"{{SERVER_URL}}"
+					],
+					"path": [
+						"api",
+						"carts",
+						"{{CURRENT_CART_ID}}",
+						"products",
+						"644f3f7e651b7007124da2b5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Purchase/available products",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN_JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER_URL}}/api/carts/{{CURRENT_CART_ID}}/purchase",
+					"host": [
+						"{{SERVER_URL}}"
+					],
+					"path": [
+						"api",
+						"carts",
+						"{{CURRENT_CART_ID}}",
+						"purchase"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Purchase/available products",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{SERVER_URL}}/api/carts/645f824d38f49a3c90967471/purchase",
+							"host": [
+								"{{SERVER_URL}}"
+							],
+							"path": [
+								"api",
+								"carts",
+								"645f824d38f49a3c90967471",
+								"purchase"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "1797"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"705-t0zHW1Z1Bz5ATaKB4nAhVPn6Y0A\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 07 Sep 2023 01:35:00 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"availableProducts\": [\n            {\n                \"product\": {\n                    \"id\": \"644f3f7e651b7007124da2b5\",\n                    \"title\": \"Cortante Cara Zorro\",\n                    \"description\": \"Incluye dos unidades,cortante y marcador. Tamaño a elección\",\n                    \"category\": \"cortantes\",\n                    \"price\": 452,\n                    \"thumbnail\": [],\n                    \"stock\": 3,\n                    \"code\": \"CB56\",\n                    \"status\": true\n                },\n                \"quantity\": 2\n            },\n            {\n                \"product\": {\n                    \"id\": \"64f488b677b40b3b59ec3795\",\n                    \"title\": \"Cortante Barquito\",\n                    \"description\": \"Incluye dos unidades,cortante y marcador. Tamaño 8cm\",\n                    \"category\": \"cortantes\",\n                    \"price\": 630,\n                    \"thumbnail\": [],\n                    \"stock\": 15,\n                    \"code\": \"CB132\",\n                    \"status\": true\n                },\n                \"quantity\": 1\n            },\n            {\n                \"product\": {\n                    \"id\": \"644f0d4854cb79bacd52ab80\",\n                    \"title\": \"Cortante Escudo Capitan América\",\n                    \"description\": \"Incluye dos unidades,cortante y marcador. Tamaño a elección\",\n                    \"category\": \"cortantes\",\n                    \"price\": 366,\n                    \"thumbnail\": [],\n                    \"stock\": 10,\n                    \"code\": \"CB12\",\n                    \"status\": true\n                },\n                \"quantity\": 1\n            }\n        ],\n        \"unavailableProducs\": [\n            {\n                \"product\": {\n                    \"id\": \"644f0d1054cb79bacd52ab7e\",\n                    \"title\": \"Cortante Batman\",\n                    \"description\": \"Incluye dos unidades, cortante y marcador. Tamaño a elección\",\n                    \"category\": \"cortantes\",\n                    \"price\": 366,\n                    \"thumbnail\": [],\n                    \"stock\": 3,\n                    \"code\": \"CB14\",\n                    \"status\": true\n                },\n                \"quantity\": 7\n            },\n            {\n                \"product\": {\n                    \"id\": \"6453df2ec823f56ce42c27a8\",\n                    \"title\": \"Bajo\",\n                    \"description\": \"Acústico\",\n                    \"category\": \"Instrumento\",\n                    \"price\": 4200,\n                    \"thumbnail\": [],\n                    \"stock\": 0,\n                    \"code\": \"CB453\",\n                    \"status\": true\n                },\n                \"quantity\": 3\n            },\n            {\n                \"product\": {\n                    \"id\": \"644f0e8954cb79bacd52ab88\",\n                    \"title\": \"Cortante Gorro Papá Noel\",\n                    \"description\": \"Incluye dos unidades,cortante y marcador. Tamaño en 8cm\",\n                    \"category\": \"cortantes\",\n                    \"price\": 475,\n                    \"thumbnail\": [],\n                    \"stock\": 0,\n                    \"code\": \"CB19\",\n                    \"status\": true\n                },\n                \"quantity\": 1\n            },\n            {\n                \"product\": {\n                    \"id\": \"6451a5d3aaa91a4391bedfb1\",\n                    \"title\": \"Cortante Cactus con flor\",\n                    \"description\": \"Incluye dos unidades,cortante y marcador. Tamaño 8cm\",\n                    \"category\": \"cortantes\",\n                    \"price\": 475,\n                    \"thumbnail\": [],\n                    \"stock\": 0,\n                    \"code\": \"CB20\",\n                    \"status\": true\n                },\n                \"quantity\": 1\n            }\n        ]\n    }\n}"
+				}
+			]
+		}
+	]
+}

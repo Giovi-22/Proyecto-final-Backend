@@ -1,0 +1,205 @@
+{
+	"info": {
+		"_postman_id": "a85db868-a513-4f46-8c5d-dce6469a4a37",
+		"name": "TICKET",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21069563"
+	},
+	"item": [
+		{
+			"name": "createTicket",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status code 201\"] = responseCode.code === 201\r",
+							"var jsonData = JSON.parse(responseBody)\r",
+							"pm.environment.set(\"CURRENT_TICKET_ID\",jsonData.data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN_JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER_URL}}/api/tickets/{{CURRENT_CART_ID}}",
+					"host": [
+						"{{SERVER_URL}}"
+					],
+					"path": [
+						"api",
+						"tickets",
+						"{{CURRENT_CART_ID}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "createTicket",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{SERVER_URL}}/api/tickets/645f824d38f49a3c90967471",
+							"host": [
+								"{{SERVER_URL}}"
+							],
+							"path": [
+								"api",
+								"tickets",
+								"645f824d38f49a3c90967471"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "1127"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"467-EoHz+IE7WuKhJAsG8mkbeJUqEQ0\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 07 Sep 2023 01:35:43 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"id\": \"64f928ec995c4715ef1888af\",\n        \"code\": \"3jiYUvm9vw\",\n        \"purchase_datetime\": \"2023-09-07T01:35:40.601Z\",\n        \"amount\": 1900,\n        \"purchaser\": \"giovannibarolin@gmail.com\",\n        \"products\": [\n            {\n                \"pid\": {\n                    \"owner\": \"admin\",\n                    \"_id\": \"644f3f7e651b7007124da2b5\",\n                    \"title\": \"Cortante Cara Zorro\",\n                    \"description\": \"Incluye dos unidades,cortante y marcador. Tamaño a elección\",\n                    \"price\": 452,\n                    \"thumbnail\": [],\n                    \"stock\": 1,\n                    \"code\": \"CB56\",\n                    \"status\": true,\n                    \"category\": \"cortantes\",\n                    \"__v\": 0\n                },\n                \"quantity\": 2,\n                \"_id\": \"64f928ec995c4715ef1888b0\"\n            },\n            {\n                \"pid\": {\n                    \"_id\": \"64f488b677b40b3b59ec3795\",\n                    \"title\": \"Cortante Barquito\",\n                    \"description\": \"Incluye dos unidades,cortante y marcador. Tamaño 8cm\",\n                    \"price\": 630,\n                    \"thumbnail\": [],\n                    \"stock\": 14,\n                    \"code\": \"CB132\",\n                    \"status\": true,\n                    \"category\": \"cortantes\",\n                    \"owner\": \"admin\",\n                    \"__v\": 0\n                },\n                \"quantity\": 1,\n                \"_id\": \"64f928ec995c4715ef1888b1\"\n            },\n            {\n                \"pid\": {\n                    \"owner\": \"admin\",\n                    \"_id\": \"644f0d4854cb79bacd52ab80\",\n                    \"title\": \"Cortante Escudo Capitan América\",\n                    \"description\": \"Incluye dos unidades,cortante y marcador. Tamaño a elección\",\n                    \"price\": 366,\n                    \"thumbnail\": [],\n                    \"stock\": 9,\n                    \"code\": \"CB12\",\n                    \"status\": true,\n                    \"category\": \"cortantes\",\n                    \"__v\": 0\n                },\n                \"quantity\": 1,\n                \"_id\": \"64f928ec995c4715ef1888b2\"\n            }\n        ]\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Get ticket",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN_JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER_URL}}/api/tickets/{{CURRENT_TICKET_ID}}",
+					"host": [
+						"{{SERVER_URL}}"
+					],
+					"path": [
+						"api",
+						"tickets",
+						"{{CURRENT_TICKET_ID}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get ticket",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SERVER_URL}}/api/tickets/64f928ec995c4715ef1888af",
+							"host": [
+								"{{SERVER_URL}}"
+							],
+							"path": [
+								"api",
+								"tickets",
+								"64f928ec995c4715ef1888af"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "1128"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"468-DynOYzWH3DRJOTrJ60v/x9kdRFQ\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 07 Sep 2023 01:36:01 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"succsess\",\n    \"data\": {\n        \"id\": \"64f928ec995c4715ef1888af\",\n        \"code\": \"3jiYUvm9vw\",\n        \"purchase_datetime\": \"2023-09-07T01:35:40.601Z\",\n        \"amount\": 1900,\n        \"purchaser\": \"giovannibarolin@gmail.com\",\n        \"products\": [\n            {\n                \"pid\": {\n                    \"owner\": \"admin\",\n                    \"_id\": \"644f3f7e651b7007124da2b5\",\n                    \"title\": \"Cortante Cara Zorro\",\n                    \"description\": \"Incluye dos unidades,cortante y marcador. Tamaño a elección\",\n                    \"price\": 452,\n                    \"thumbnail\": [],\n                    \"stock\": 1,\n                    \"code\": \"CB56\",\n                    \"status\": true,\n                    \"category\": \"cortantes\",\n                    \"__v\": 0\n                },\n                \"quantity\": 2,\n                \"_id\": \"64f928ec995c4715ef1888b0\"\n            },\n            {\n                \"pid\": {\n                    \"_id\": \"64f488b677b40b3b59ec3795\",\n                    \"title\": \"Cortante Barquito\",\n                    \"description\": \"Incluye dos unidades,cortante y marcador. Tamaño 8cm\",\n                    \"price\": 630,\n                    \"thumbnail\": [],\n                    \"stock\": 14,\n                    \"code\": \"CB132\",\n                    \"status\": true,\n                    \"category\": \"cortantes\",\n                    \"owner\": \"admin\",\n                    \"__v\": 0\n                },\n                \"quantity\": 1,\n                \"_id\": \"64f928ec995c4715ef1888b1\"\n            },\n            {\n                \"pid\": {\n                    \"owner\": \"admin\",\n                    \"_id\": \"644f0d4854cb79bacd52ab80\",\n                    \"title\": \"Cortante Escudo Capitan América\",\n                    \"description\": \"Incluye dos unidades,cortante y marcador. Tamaño a elección\",\n                    \"price\": 366,\n                    \"thumbnail\": [],\n                    \"stock\": 9,\n                    \"code\": \"CB12\",\n                    \"status\": true,\n                    \"category\": \"cortantes\",\n                    \"__v\": 0\n                },\n                \"quantity\": 1,\n                \"_id\": \"64f928ec995c4715ef1888b2\"\n            }\n        ]\n    }\n}"
+				}
+			]
+		}
+	]
+}

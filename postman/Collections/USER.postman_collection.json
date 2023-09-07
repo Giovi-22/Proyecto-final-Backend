@@ -1,0 +1,621 @@
+{
+	"info": {
+		"_postman_id": "fc8a381d-c2c7-4351-958b-6b4c3f0560c9",
+		"name": "USER",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21069563"
+	},
+	"item": [
+		{
+			"name": "new User",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN_JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\":\"German\",\r\n    \"lastName\":\"Casas\",\r\n    \"email\":\"german-casas@hotmail.com\",\r\n    \"password\": \"123456789\",\r\n     \"age\":21\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER_URL}}/api/users/",
+					"host": [
+						"{{SERVER_URL}}"
+					],
+					"path": [
+						"api",
+						"users",
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "new User",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\":\"German\",\r\n    \"lastName\":\"Casas\",\r\n    \"email\":\"german-casas@hotmail.com\",\r\n    \"password\": \"123456789\",\r\n     \"age\":21\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER_URL}}/api/users/",
+							"host": [
+								"{{SERVER_URL}}"
+							],
+							"path": [
+								"api",
+								"users",
+								""
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "284"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"11c-JzfOlhCrR0THCeNOAl3RiCV06zw\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 07 Sep 2023 00:55:08 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"id\": \"64f91f6cc5ead298f7569cbc\",\n        \"firstName\": \"German\",\n        \"lastName\": \"Casas\",\n        \"email\": \"german-casas@hotmail.com\",\n        \"age\": 21,\n        \"role\": \"647fd20fb16b39892de4c6aa\",\n        \"cart\": [],\n        \"documents\": {\n            \"profiles\": [],\n            \"products\": [],\n            \"documents\": []\n        },\n        \"isAdmin\": false,\n        \"lastConnection\": null\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Get list",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN_JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER_URL}}/api/users/list/?limit=3&sort=1",
+					"host": [
+						"{{SERVER_URL}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"list",
+						""
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "3"
+						},
+						{
+							"key": "sort",
+							"value": "1"
+						},
+						{
+							"key": "page",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "filter",
+							"value": "\"firstName\":\"Horacio\"",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get with filters",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SERVER_URL}}/api/users/list/?limit=3&sort=1",
+							"host": [
+								"{{SERVER_URL}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"list",
+								""
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "3"
+								},
+								{
+									"key": "sort",
+									"value": "1"
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "filter",
+									"value": "\"firstName\":\"Horacio\"",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "3660"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"e4c-/2QaAF7y2W1Y80PVBvtCqUyLQto\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 07 Sep 2023 00:55:31 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"success\",\n    \"data\": [\n        {\n            \"id\": \"64629adb90f9efe2e398cfe4\",\n            \"firstName\": \"Giovanni\",\n            \"lastName\": \"Barolin\",\n            \"email\": \"giovibarolin@hotmail.com\",\n            \"age\": 34,\n            \"role\": \"646f7c414a28a546443ce94f\",\n            \"cart\": [],\n            \"documents\": {\n                \"profiles\": [\n                    {\n                        \"name\": \"IMG_20210322_232208142.jpg\",\n                        \"reference\": \"/app/src/public/assets/profiles\",\n                        \"_id\": \"64f91030b0120533cc647eb6\"\n                    }\n                ],\n                \"products\": [],\n                \"documents\": [\n                    {\n                        \"name\": \"dni.txt\",\n                        \"reference\": \"/app/src/public/assets/documents\",\n                        \"_id\": \"64f91030b0120533cc647eb7\"\n                    }\n                ]\n            },\n            \"isAdmin\": true,\n            \"lastConnection\": \"Thu, 07 Sep 2023 00:55:02 GMT\"\n        },\n        {\n            \"id\": \"647fd24ab16b39892de4c6ac\",\n            \"firstName\": \"Jessica\",\n            \"lastName\": \"Cruz\",\n            \"email\": \"jessica_cruz@prueba.com.ar\",\n            \"age\": 45,\n            \"role\": \"64de071ed652ca954dcfbca2\",\n            \"cart\": [\n                \"64ed38cbe86edce465facb12\",\n                \"64ed3be6809a577504e04f78\"\n            ],\n            \"documents\": {\n                \"profiles\": [\n                    {\n                        \"name\": \"WhatsApp Image 2022-08-26 at 23.22.44.jpeg\",\n                        \"reference\": \"G:\\\\GIOVI\\\\CURSO PROGRAMACION\\\\BACKEND\\\\CODER HOUSE\\\\PROYECTO FINAL\\\\src\\\\public\\\\assets\\\\profiles\",\n                        \"_id\": \"64e189f1f76a85d8aff63519\"\n                    }\n                ],\n                \"products\": [\n                    {\n                        \"name\": \"81XngUBB+4L._SL1500_.jpg\",\n                        \"reference\": \"G:\\\\GIOVI\\\\CURSO PROGRAMACION\\\\BACKEND\\\\CODER HOUSE\\\\PROYECTO FINAL\\\\src\\\\public\\\\assets\\\\products\",\n                        \"_id\": \"64e189f1f76a85d8aff6351a\"\n                    }\n                ],\n                \"documents\": [\n                    {\n                        \"name\": \"dni.txt\",\n                        \"reference\": \"G:\\\\GIOVI\\\\CURSO PROGRAMACION\\\\BACKEND\\\\CODER HOUSE\\\\PROYECTO FINAL\\\\src\\\\public\\\\assets\\\\documents\",\n                        \"_id\": \"64e189f1f76a85d8aff6351b\"\n                    },\n                    {\n                        \"name\": \"account.txt\",\n                        \"reference\": \"G:\\\\GIOVI\\\\CURSO PROGRAMACION\\\\BACKEND\\\\CODER HOUSE\\\\PROYECTO FINAL\\\\src\\\\public\\\\assets\\\\documents\",\n                        \"_id\": \"64e189f1f76a85d8aff6351c\"\n                    },\n                    {\n                        \"name\": \"address.txt\",\n                        \"reference\": \"G:\\\\GIOVI\\\\CURSO PROGRAMACION\\\\BACKEND\\\\CODER HOUSE\\\\PROYECTO FINAL\\\\src\\\\public\\\\assets\\\\documents\",\n                        \"_id\": \"64e189f1f76a85d8aff6351d\"\n                    }\n                ]\n            },\n            \"isAdmin\": false,\n            \"lastConnection\": \"Wed, 06 Sep 2023 21:32:49 GMT\"\n        },\n        {\n            \"id\": \"64d58ac05da0bd4ddd99d0b2\",\n            \"firstName\": \"Giovanni\",\n            \"lastName\": \"Barolin\",\n            \"email\": \"giovannibarolin@gmail.com\",\n            \"age\": 34,\n            \"role\": \"64de071ed652ca954dcfbca2\",\n            \"cart\": [\n                \"645f824d38f49a3c90967471\"\n            ],\n            \"documents\": {\n                \"profiles\": [\n                    {\n                        \"name\": \"IMG_20210129_195436237.jpg\",\n                        \"reference\": \"G:\\\\GIOVI\\\\CURSO PROGRAMACION\\\\BACKEND\\\\CODER HOUSE\\\\PROYECTO FINAL\\\\src\\\\public\\\\assets\\\\profiles\",\n                        \"_id\": \"64e0585b8a86e88810c811e8\"\n                    },\n                    {\n                        \"name\": \"IMG_20210129_195436237.jpg\",\n                        \"reference\": \"G:\\\\GIOVI\\\\CURSO PROGRAMACION\\\\BACKEND\\\\CODER HOUSE\\\\PROYECTO FINAL\\\\src\\\\public\\\\assets\\\\profiles\",\n                        \"_id\": \"64e13f9c0547cca5de3d7fc1\"\n                    },\n                    {\n                        \"name\": \"WhatsApp Image 2022-08-26 at 23.22.44.jpeg\",\n                        \"reference\": \"G:\\\\GIOVI\\\\CURSO PROGRAMACION\\\\BACKEND\\\\CODER HOUSE\\\\PROYECTO FINAL\\\\src\\\\public\\\\assets\\\\profiles\",\n                        \"_id\": \"64e140f0f4b03afa2b0218ec\"\n                    }\n                ],\n                \"products\": [\n                    {\n                        \"name\": \"$145.png\",\n                        \"reference\": \"G:\\\\GIOVI\\\\CURSO PROGRAMACION\\\\BACKEND\\\\CODER HOUSE\\\\PROYECTO FINAL\\\\src\\\\public\\\\assets\\\\products\",\n                        \"_id\": \"64e13f9c0547cca5de3d7fc2\"\n                    },\n                    {\n                        \"name\": \"81XngUBB+4L._SL1500_.jpg\",\n                        \"reference\": \"G:\\\\GIOVI\\\\CURSO PROGRAMACION\\\\BACKEND\\\\CODER HOUSE\\\\PROYECTO FINAL\\\\src\\\\public\\\\assets\\\\products\",\n                        \"_id\": \"64e1418644db34bd104bbe84\"\n                    }\n                ],\n                \"documents\": [\n                    {\n                        \"name\": \"certificado nacido vivo nico 2.jpeg\",\n                        \"reference\": \"G:\\\\GIOVI\\\\CURSO PROGRAMACION\\\\BACKEND\\\\CODER HOUSE\\\\PROYECTO FINAL\\\\src\\\\public\\\\assets\\\\documents\",\n                        \"_id\": \"64e14143f4b03afa2b021900\"\n                    },\n                    {\n                        \"name\": \"account.txt\",\n                        \"reference\": \"G:\\\\GIOVI\\\\CURSO PROGRAMACION\\\\BACKEND\\\\CODER HOUSE\\\\PROYECTO FINAL\\\\src\\\\public\\\\assets\\\\documents\",\n                        \"_id\": \"64e14dc67c260c2629dc7df2\"\n                    },\n                    {\n                        \"name\": \"address.txt\",\n                        \"reference\": \"G:\\\\GIOVI\\\\CURSO PROGRAMACION\\\\BACKEND\\\\CODER HOUSE\\\\PROYECTO FINAL\\\\src\\\\public\\\\assets\\\\documents\",\n                        \"_id\": \"64e16a831aeb132ff27f456a\"\n                    }\n                ]\n            },\n            \"isAdmin\": false,\n            \"lastConnection\": \"Wed, 06 Sep 2023 23:50:56 GMT\"\n        }\n    ],\n    \"totalDocs\": 9,\n    \"limit\": 3,\n    \"totalPages\": 3,\n    \"page\": null,\n    \"pagingCounter\": null,\n    \"hasPrevPage\": false,\n    \"hasNextPage\": false,\n    \"prevPage\": null,\n    \"nextPage\": null\n}"
+				}
+			]
+		},
+		{
+			"name": "Find by uid",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN_JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER_URL}}/api/users/64d58ac05da0bd4ddd99d0b2",
+					"host": [
+						"{{SERVER_URL}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"64d58ac05da0bd4ddd99d0b2"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Find by uid",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SERVER_URL}}/api/users/64d58ac05da0bd4ddd99d0b2",
+							"host": [
+								"{{SERVER_URL}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"64d58ac05da0bd4ddd99d0b2"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "1883"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"75b-HVYA0lKiUkoa/OTpkNN0FPMC5Nc\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 07 Sep 2023 00:56:14 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"id\": \"64d58ac05da0bd4ddd99d0b2\",\n        \"firstName\": \"Giovanni\",\n        \"lastName\": \"Barolin\",\n        \"email\": \"giovannibarolin@gmail.com\",\n        \"age\": 34,\n        \"role\": {\n            \"_id\": \"64de071ed652ca954dcfbca2\",\n            \"name\": \"premium\",\n            \"permissions\": [\n                \"addProduct\",\n                \"deleteProduct\",\n                \"updateProduct\"\n            ],\n            \"__v\": 0\n        },\n        \"cart\": [\n            \"645f824d38f49a3c90967471\"\n        ],\n        \"documents\": {\n            \"profiles\": [\n                {\n                    \"name\": \"IMG_20210129_195436237.jpg\",\n                    \"reference\": \"G:\\\\GIOVI\\\\CURSO PROGRAMACION\\\\BACKEND\\\\CODER HOUSE\\\\PROYECTO FINAL\\\\src\\\\public\\\\assets\\\\profiles\",\n                    \"_id\": \"64e0585b8a86e88810c811e8\"\n                },\n                {\n                    \"name\": \"IMG_20210129_195436237.jpg\",\n                    \"reference\": \"G:\\\\GIOVI\\\\CURSO PROGRAMACION\\\\BACKEND\\\\CODER HOUSE\\\\PROYECTO FINAL\\\\src\\\\public\\\\assets\\\\profiles\",\n                    \"_id\": \"64e13f9c0547cca5de3d7fc1\"\n                },\n                {\n                    \"name\": \"WhatsApp Image 2022-08-26 at 23.22.44.jpeg\",\n                    \"reference\": \"G:\\\\GIOVI\\\\CURSO PROGRAMACION\\\\BACKEND\\\\CODER HOUSE\\\\PROYECTO FINAL\\\\src\\\\public\\\\assets\\\\profiles\",\n                    \"_id\": \"64e140f0f4b03afa2b0218ec\"\n                }\n            ],\n            \"products\": [\n                {\n                    \"name\": \"$145.png\",\n                    \"reference\": \"G:\\\\GIOVI\\\\CURSO PROGRAMACION\\\\BACKEND\\\\CODER HOUSE\\\\PROYECTO FINAL\\\\src\\\\public\\\\assets\\\\products\",\n                    \"_id\": \"64e13f9c0547cca5de3d7fc2\"\n                },\n                {\n                    \"name\": \"81XngUBB+4L._SL1500_.jpg\",\n                    \"reference\": \"G:\\\\GIOVI\\\\CURSO PROGRAMACION\\\\BACKEND\\\\CODER HOUSE\\\\PROYECTO FINAL\\\\src\\\\public\\\\assets\\\\products\",\n                    \"_id\": \"64e1418644db34bd104bbe84\"\n                }\n            ],\n            \"documents\": [\n                {\n                    \"name\": \"certificado nacido vivo nico 2.jpeg\",\n                    \"reference\": \"G:\\\\GIOVI\\\\CURSO PROGRAMACION\\\\BACKEND\\\\CODER HOUSE\\\\PROYECTO FINAL\\\\src\\\\public\\\\assets\\\\documents\",\n                    \"_id\": \"64e14143f4b03afa2b021900\"\n                },\n                {\n                    \"name\": \"account.txt\",\n                    \"reference\": \"G:\\\\GIOVI\\\\CURSO PROGRAMACION\\\\BACKEND\\\\CODER HOUSE\\\\PROYECTO FINAL\\\\src\\\\public\\\\assets\\\\documents\",\n                    \"_id\": \"64e14dc67c260c2629dc7df2\"\n                },\n                {\n                    \"name\": \"address.txt\",\n                    \"reference\": \"G:\\\\GIOVI\\\\CURSO PROGRAMACION\\\\BACKEND\\\\CODER HOUSE\\\\PROYECTO FINAL\\\\src\\\\public\\\\assets\\\\documents\",\n                    \"_id\": \"64e16a831aeb132ff27f456a\"\n                }\n            ]\n        },\n        \"isAdmin\": false,\n        \"lastConnection\": \"Wed, 06 Sep 2023 23:50:56 GMT\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "update user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN_JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"age\":46\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER_URL}}/api/users/64d58ac05da0bd4ddd99d0b2",
+					"host": [
+						"{{SERVER_URL}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"64d58ac05da0bd4ddd99d0b2"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "update user",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"age\":46\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER_URL}}/api/users/64d58ac05da0bd4ddd99d0b2",
+							"host": [
+								"{{SERVER_URL}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"64d58ac05da0bd4ddd99d0b2"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "1883"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"75b-N4e5MBF3w+vj2IRxCdWuS8gMHu0\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 07 Sep 2023 00:56:37 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"id\": \"64d58ac05da0bd4ddd99d0b2\",\n        \"firstName\": \"Giovanni\",\n        \"lastName\": \"Barolin\",\n        \"email\": \"giovannibarolin@gmail.com\",\n        \"age\": 46,\n        \"role\": {\n            \"_id\": \"64de071ed652ca954dcfbca2\",\n            \"name\": \"premium\",\n            \"permissions\": [\n                \"addProduct\",\n                \"deleteProduct\",\n                \"updateProduct\"\n            ],\n            \"__v\": 0\n        },\n        \"cart\": [\n            \"645f824d38f49a3c90967471\"\n        ],\n        \"documents\": {\n            \"profiles\": [\n                {\n                    \"name\": \"IMG_20210129_195436237.jpg\",\n                    \"reference\": \"G:\\\\GIOVI\\\\CURSO PROGRAMACION\\\\BACKEND\\\\CODER HOUSE\\\\PROYECTO FINAL\\\\src\\\\public\\\\assets\\\\profiles\",\n                    \"_id\": \"64e0585b8a86e88810c811e8\"\n                },\n                {\n                    \"name\": \"IMG_20210129_195436237.jpg\",\n                    \"reference\": \"G:\\\\GIOVI\\\\CURSO PROGRAMACION\\\\BACKEND\\\\CODER HOUSE\\\\PROYECTO FINAL\\\\src\\\\public\\\\assets\\\\profiles\",\n                    \"_id\": \"64e13f9c0547cca5de3d7fc1\"\n                },\n                {\n                    \"name\": \"WhatsApp Image 2022-08-26 at 23.22.44.jpeg\",\n                    \"reference\": \"G:\\\\GIOVI\\\\CURSO PROGRAMACION\\\\BACKEND\\\\CODER HOUSE\\\\PROYECTO FINAL\\\\src\\\\public\\\\assets\\\\profiles\",\n                    \"_id\": \"64e140f0f4b03afa2b0218ec\"\n                }\n            ],\n            \"products\": [\n                {\n                    \"name\": \"$145.png\",\n                    \"reference\": \"G:\\\\GIOVI\\\\CURSO PROGRAMACION\\\\BACKEND\\\\CODER HOUSE\\\\PROYECTO FINAL\\\\src\\\\public\\\\assets\\\\products\",\n                    \"_id\": \"64e13f9c0547cca5de3d7fc2\"\n                },\n                {\n                    \"name\": \"81XngUBB+4L._SL1500_.jpg\",\n                    \"reference\": \"G:\\\\GIOVI\\\\CURSO PROGRAMACION\\\\BACKEND\\\\CODER HOUSE\\\\PROYECTO FINAL\\\\src\\\\public\\\\assets\\\\products\",\n                    \"_id\": \"64e1418644db34bd104bbe84\"\n                }\n            ],\n            \"documents\": [\n                {\n                    \"name\": \"certificado nacido vivo nico 2.jpeg\",\n                    \"reference\": \"G:\\\\GIOVI\\\\CURSO PROGRAMACION\\\\BACKEND\\\\CODER HOUSE\\\\PROYECTO FINAL\\\\src\\\\public\\\\assets\\\\documents\",\n                    \"_id\": \"64e14143f4b03afa2b021900\"\n                },\n                {\n                    \"name\": \"account.txt\",\n                    \"reference\": \"G:\\\\GIOVI\\\\CURSO PROGRAMACION\\\\BACKEND\\\\CODER HOUSE\\\\PROYECTO FINAL\\\\src\\\\public\\\\assets\\\\documents\",\n                    \"_id\": \"64e14dc67c260c2629dc7df2\"\n                },\n                {\n                    \"name\": \"address.txt\",\n                    \"reference\": \"G:\\\\GIOVI\\\\CURSO PROGRAMACION\\\\BACKEND\\\\CODER HOUSE\\\\PROYECTO FINAL\\\\src\\\\public\\\\assets\\\\documents\",\n                    \"_id\": \"64e16a831aeb132ff27f456a\"\n                }\n            ]\n        },\n        \"isAdmin\": false,\n        \"lastConnection\": \"Wed, 06 Sep 2023 23:50:56 GMT\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "delete user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN_JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER_URL}}/api/users/649de716b05d9b82577cd23c",
+					"host": [
+						"{{SERVER_URL}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"649de716b05d9b82577cd23c"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload file",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN_JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "profiles",
+							"type": "file",
+							"src": "/C:/Users/Giovi/Pictures/IMG_20210322_232208142.jpg"
+						},
+						{
+							"key": "products",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "documents",
+							"type": "file",
+							"src": "/G:/GIOVI/CURSO PROGRAMACION/BACKEND/CODER HOUSE/dni.txt"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{SERVER_URL}}/api/users/{{CURRENT_USER_ID}}/documents",
+					"host": [
+						"{{SERVER_URL}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"{{CURRENT_USER_ID}}",
+						"documents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "changeRole",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN_JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER_URL}}/api/users/premium/64d58ac05da0bd4ddd99d0b2",
+					"host": [
+						"{{SERVER_URL}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"premium",
+						"64d58ac05da0bd4ddd99d0b2"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "changeRole",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{SERVER_URL}}/api/users/premium/64d58ac05da0bd4ddd99d0b2",
+							"host": [
+								"{{SERVER_URL}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"premium",
+								"64d58ac05da0bd4ddd99d0b2"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "x-powered-by",
+							"value": "Express"
+						},
+						{
+							"key": "vary",
+							"value": "Origin"
+						},
+						{
+							"key": "access-control-allow-credentials",
+							"value": "true"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "content-length",
+							"value": "103"
+						},
+						{
+							"key": "etag",
+							"value": "W/\"67-3E8KhtDzZKhFdj5eMJR66dF8xGc\""
+						},
+						{
+							"key": "date",
+							"value": "Thu, 07 Sep 2023 00:05:05 GMT"
+						},
+						{
+							"key": "server",
+							"value": "railway"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"error\",\n    \"error\": {\n        \"name\": \"Error\",\n        \"message\": \"Error: User does not have permissions to access\"\n    }\n}"
+				}
+			]
+		}
+	]
+}

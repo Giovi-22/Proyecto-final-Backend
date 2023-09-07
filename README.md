@@ -33,6 +33,8 @@ Para acceder a la documentación de la api:
 
 https://proyecto-final-backend.up.railway.app/apidocs/
 
+En el proyecto se encuentra una carpeta llamada postman. Dentro de esta, estan disponibles los archivos .json que pertenecen a una colección de todos los endpoints de la app, para poder ser utilizados en Postman.
+
 # NOTAS
 Solamente usuarios registrados en la app tienen acceso a generar un carrito de compras. 
 

@@ -1,0 +1,535 @@
+{
+	"info": {
+		"_postman_id": "97658513-a27d-46f1-873e-57a4747db287",
+		"name": "SESSION",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21069563"
+	},
+	"item": [
+		{
+			"name": "Admin-Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status code 201\"] = responseCode.code === 201\r",
+							"var jsonData = JSON.parse(responseBody)\r",
+							"pm.environment.set(\"TOKEN_JWT\",jsonData.data);\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"giovibarolin@hotmail.com\",\r\n    \"password\": \"giovi\" \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER_URL}}/api/sessions/login",
+					"host": [
+						"{{SERVER_URL}}"
+					],
+					"path": [
+						"api",
+						"sessions",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login-User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status code 200\"] = responseCode.code === 200\r",
+							"var jsonData = JSON.parse(responseBody)\r",
+							"pm.environment.set(\"TOKEN_JWT\",jsonData.data);\r",
+							"if(jsonData.data){\r",
+							"    console.log(\"El token es: \",`Bearer ${jsonData.data}`)\r",
+							"    pm.sendRequest({\r",
+							"        url: `http://localhost:8083/api/sessions/current`,\r",
+							"        method: 'GET',\r",
+							"        headers:{\r",
+							"            \"Content-Type\":'Application/json',\r",
+							"            \"Authorization\": `Bearer ${jsonData.data}`\r",
+							"        }\r",
+							"    },function(response){\r",
+							"        pm.test('El status code debe ser 200', function () {\r",
+							"        pm.response.to.have.status(200);\r",
+							"        console.log(\"los datos son: \",response)\r",
+							"  });\r",
+							"    })\r",
+							"}\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    //\"email\":\"giovannibarolin@gmail.com\",\r\n    //\"password\": \"123456789\" \r\n    \"email\":\"pame_b@prueba.com.ar\",\r\n    \"password\":\"12345678\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER_URL}}/api/sessions/login",
+					"host": [
+						"{{SERVER_URL}}"
+					],
+					"path": [
+						"api",
+						"sessions",
+						"login"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Login-User",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    //\"email\":\"giovannibarolin@gmail.com\",\r\n    //\"password\": \"123456789\" \r\n    \"email\":\"pame_b@prueba.com.ar\",\r\n    \"password\":\"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER_URL}}/api/sessions/login",
+							"host": [
+								"{{SERVER_URL}}"
+							],
+							"path": [
+								"api",
+								"sessions",
+								"login"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "user=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjRmOTBkNzhiMDEyMDUzM2NjNjQ3ZWFlIiwiZmlyc3ROYW1lIjoiUGFtZWxhIiwibGFzdE5hbWUiOiJCb2xvbmlvIiwiZW1haWwiOiJwYW1lX2JAcHJ1ZWJhLmNvbS5hciIsImFnZSI6NDUsInJvbGUiOnsiX2lkIjoiNjQ3ZmQyMGZiMTZiMzk4OTJkZTRjNmFhIiwibmFtZSI6InVzZXIiLCJwZXJtaXNzaW9ucyI6W10sIl9fdiI6MH0sImNhcnQiOlsiNjRmOTEzYzJiMDEyMDUzM2NjNjQ3ZWUzIiwiNjRmOTE2MzE3ZDJkZmVjNDViZjg2NTA4Il0sImRvY3VtZW50cyI6eyJwcm9maWxlcyI6W3sibmFtZSI6IklNR18yMDIxMDMyMl8yMzIyMDgxNDIuanBnIiwicmVmZXJlbmNlIjoiL2FwcC9zcmMvcHVibGljL2Fzc2V0cy9wcm9maWxlcyIsIl9pZCI6IjY0ZjkxMzhiYjAxMjA1MzNjYzY0N2VkOCJ9XSwicHJvZHVjdHMiOltdLCJkb2N1bWVudHMiOlt7Im5hbWUiOiJkbmkudHh0IiwicmVmZXJlbmNlIjoiL2FwcC9zcmMvcHVibGljL2Fzc2V0cy9kb2N1bWVudHMiLCJfaWQiOiI2NGY5MTM4YmIwMTIwNTMzY2M2NDdlZDkifSx7Im5hbWUiOiJhZGRyZXNzLnR4dCIsInJlZmVyZW5jZSI6Ii9hcHAvc3JjL3B1YmxpYy9hc3NldHMvZG9jdW1lbnRzIiwiX2lkIjoiNjRmOTEzOGJiMDEyMDUzM2NjNjQ3ZWRhIn1dfSwiaXNBZG1pbiI6ZmFsc2UsImxhc3RDb25uZWN0aW9uIjoiVGh1LCAwNyBTZXAgMjAyMyAwMDo0ODoyNSBHTVQifSwiaWF0IjoxNjk0MDQ3ODA1LCJleHAiOjE2OTQwNDg0MDV9.O30-l1y67wJMnT-bJFrf0MRH2-E6OyK52RfBBMkstqU; Max-Age=600; Path=/; Expires=Thu, 07 Sep 2023 01:00:05 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "1125"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"465-FZQ9cs82s+/A0kLJiG2twQrpvV8\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 07 Sep 2023 00:50:05 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"success\",\n    \"message\": \"Login success\",\n    \"data\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjRmOTBkNzhiMDEyMDUzM2NjNjQ3ZWFlIiwiZmlyc3ROYW1lIjoiUGFtZWxhIiwibGFzdE5hbWUiOiJCb2xvbmlvIiwiZW1haWwiOiJwYW1lX2JAcHJ1ZWJhLmNvbS5hciIsImFnZSI6NDUsInJvbGUiOnsiX2lkIjoiNjQ3ZmQyMGZiMTZiMzk4OTJkZTRjNmFhIiwibmFtZSI6InVzZXIiLCJwZXJtaXNzaW9ucyI6W10sIl9fdiI6MH0sImNhcnQiOlsiNjRmOTEzYzJiMDEyMDUzM2NjNjQ3ZWUzIiwiNjRmOTE2MzE3ZDJkZmVjNDViZjg2NTA4Il0sImRvY3VtZW50cyI6eyJwcm9maWxlcyI6W3sibmFtZSI6IklNR18yMDIxMDMyMl8yMzIyMDgxNDIuanBnIiwicmVmZXJlbmNlIjoiL2FwcC9zcmMvcHVibGljL2Fzc2V0cy9wcm9maWxlcyIsIl9pZCI6IjY0ZjkxMzhiYjAxMjA1MzNjYzY0N2VkOCJ9XSwicHJvZHVjdHMiOltdLCJkb2N1bWVudHMiOlt7Im5hbWUiOiJkbmkudHh0IiwicmVmZXJlbmNlIjoiL2FwcC9zcmMvcHVibGljL2Fzc2V0cy9kb2N1bWVudHMiLCJfaWQiOiI2NGY5MTM4YmIwMTIwNTMzY2M2NDdlZDkifSx7Im5hbWUiOiJhZGRyZXNzLnR4dCIsInJlZmVyZW5jZSI6Ii9hcHAvc3JjL3B1YmxpYy9hc3NldHMvZG9jdW1lbnRzIiwiX2lkIjoiNjRmOTEzOGJiMDEyMDUzM2NjNjQ3ZWRhIn1dfSwiaXNBZG1pbiI6ZmFsc2UsImxhc3RDb25uZWN0aW9uIjoiVGh1LCAwNyBTZXAgMjAyMyAwMDo0ODoyNSBHTVQifSwiaWF0IjoxNjk0MDQ3ODA1LCJleHAiOjE2OTQwNDg0MDV9.O30-l1y67wJMnT-bJFrf0MRH2-E6OyK52RfBBMkstqU\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Logout",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status code 200\"] = responseCode.code === 200\r",
+							"pm.environment.set(\"TOKEN_JWT\",\"\");\r",
+							"pm.environment.set(\"CURRENT_USER_ID\",\"\");\r",
+							"pm.environment.set(\"CURRENT_CART_ID\",\"\");\r",
+							"pm.environment.set(\"CURRENT_TICKET_ID\",\"\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER_URL}}/api/sessions/logout",
+					"host": [
+						"{{SERVER_URL}}"
+					],
+					"path": [
+						"api",
+						"sessions",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\":\"Horacio\",\r\n    \"lastName\":\"Marchetti\",\r\n    \"email\":\"horacio_m@hotmail.com\",\r\n    \"password\": \"horacio\",\r\n     \"age\":46\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER_URL}}/api/sessions/signup",
+					"host": [
+						"{{SERVER_URL}}"
+					],
+					"path": [
+						"api",
+						"sessions",
+						"signup"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "signup",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\":\"Horacio\",\r\n    \"lastName\":\"Marchetti\",\r\n    \"email\":\"horacio_m@hotmail.com\",\r\n    \"password\": \"horacio\",\r\n     \"age\":46\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER_URL}}/api/sessions/signup",
+							"host": [
+								"{{SERVER_URL}}"
+							],
+							"path": [
+								"api",
+								"sessions",
+								"signup"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "286"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"11e-pO5iSPqEvGcT1qvRB6nB8F4vAAQ\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 07 Sep 2023 00:51:46 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"id\": \"64f91ea2c5ead298f7569cb2\",\n        \"firstName\": \"Horacio\",\n        \"lastName\": \"Marchetti\",\n        \"email\": \"horacio_m@hotmail.com\",\n        \"age\": 46,\n        \"role\": \"647fd20fb16b39892de4c6aa\",\n        \"cart\": [],\n        \"documents\": {\n            \"profiles\": [],\n            \"products\": [],\n            \"documents\": []\n        },\n        \"isAdmin\": false,\n        \"lastConnection\": null\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "current",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"tests[\"Status code 200\"] = responseCode.code === 200\r",
+							"var jsonData = JSON.parse(responseBody)\r",
+							"pm.environment.set(\"CURRENT_USER_ID\",jsonData.data.id);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN_JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER_URL}}/api/sessions/current",
+					"host": [
+						"{{SERVER_URL}}"
+					],
+					"path": [
+						"api",
+						"sessions",
+						"current"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": null,
+							"disabled": true
+						},
+						{
+							"key": "sort",
+							"value": null,
+							"disabled": true
+						},
+						{
+							"key": "filter",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "current",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SERVER_URL}}/api/sessions/current",
+							"host": [
+								"{{SERVER_URL}}"
+							],
+							"path": [
+								"api",
+								"sessions",
+								"current"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "filter",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "726"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"2d6-JNaTxR8RfqWh2sRfzyPqxUISP6g\""
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 07 Sep 2023 00:50:58 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"id\": \"64f90d78b0120533cc647eae\",\n        \"firstName\": \"Pamela\",\n        \"lastName\": \"Bolonio\",\n        \"email\": \"pame_b@prueba.com.ar\",\n        \"age\": 45,\n        \"role\": {\n            \"_id\": \"647fd20fb16b39892de4c6aa\",\n            \"name\": \"user\",\n            \"permissions\": [],\n            \"__v\": 0\n        },\n        \"cart\": [\n            \"64f913c2b0120533cc647ee3\",\n            \"64f916317d2dfec45bf86508\"\n        ],\n        \"documents\": {\n            \"profiles\": [\n                {\n                    \"name\": \"IMG_20210322_232208142.jpg\",\n                    \"reference\": \"/app/src/public/assets/profiles\",\n                    \"_id\": \"64f9138bb0120533cc647ed8\"\n                }\n            ],\n            \"products\": [],\n            \"documents\": [\n                {\n                    \"name\": \"dni.txt\",\n                    \"reference\": \"/app/src/public/assets/documents\",\n                    \"_id\": \"64f9138bb0120533cc647ed9\"\n                },\n                {\n                    \"name\": \"address.txt\",\n                    \"reference\": \"/app/src/public/assets/documents\",\n                    \"_id\": \"64f9138bb0120533cc647eda\"\n                }\n            ]\n        },\n        \"isAdmin\": false,\n        \"lastConnection\": \"Thu, 07 Sep 2023 00:48:25 GMT\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "forgotPassword",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"giovannibarolin@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER_URL}}/api/sessions/forgotpassword",
+					"host": [
+						"{{SERVER_URL}}"
+					],
+					"path": [
+						"api",
+						"sessions",
+						"forgotpassword"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "changePassword",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN_JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"password\":\"12345679\",\r\n    \"confirm\":\"12345679\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER_URL}}/api/sessions/changepassword",
+					"host": [
+						"{{SERVER_URL}}"
+					],
+					"path": [
+						"api",
+						"sessions",
+						"changepassword"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

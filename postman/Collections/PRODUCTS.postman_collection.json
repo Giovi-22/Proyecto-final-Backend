@@ -1,0 +1,169 @@
+{
+	"info": {
+		"_postman_id": "65e43924-386a-4930-9b5e-2692f380cca2",
+		"name": "PRODUCTS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21069563"
+	},
+	"item": [
+		{
+			"name": "api/products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER_URL}}/api/products?limit=2&page=1&sort=1&filter=\"category\":\"cortantes\"",
+					"host": [
+						"{{SERVER_URL}}"
+					],
+					"path": [
+						"api",
+						"products"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "2"
+						},
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "sort",
+							"value": "1"
+						},
+						{
+							"key": "filter",
+							"value": "\"category\":\"cortantes\""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api/products/id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER_URL}}/api/products/644afdde5138593c6da796fa",
+					"host": [
+						"{{SERVER_URL}}"
+					],
+					"path": [
+						"api",
+						"products",
+						"644afdde5138593c6da796fa"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create product",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN_JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Cortante Mujer maravilla\",\r\n    \"description\": \"Incluye dos unidades,cortante y marcador. Tamaño 8cm\",\r\n    \"price\": 630,\r\n    \"thumbnail\": [],\r\n    \"code\": \"CB125\",\r\n    \"stock\": 12,\r\n    \"status\": true,\r\n    \"category\":\"cortantes\"\r\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER_URL}}/api/products",
+					"host": [
+						"{{SERVER_URL}}"
+					],
+					"path": [
+						"api",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api/products/:pid",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN_JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"status\":false\r\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER_URL}}/api/products/646bb52ee5c9bced4eb1c6ae",
+					"host": [
+						"{{SERVER_URL}}"
+					],
+					"path": [
+						"api",
+						"products",
+						"646bb52ee5c9bced4eb1c6ae"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete product",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN_JWT}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER_URL}}/api/products/646bb52ee5c9bced4eb1c6ae",
+					"host": [
+						"{{SERVER_URL}}"
+					],
+					"path": [
+						"api",
+						"products",
+						"646bb52ee5c9bced4eb1c6ae"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
