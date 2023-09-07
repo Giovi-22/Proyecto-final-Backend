@@ -37,7 +37,7 @@ Solamente usuarios registrados en la app tienen acceso a generar un carrito de c
 
 Solamente el administrador o el usuario que creo el carrito puede agregar, actualizar, borrar productos de este.
 
-Una vez finalizado el carrito a travéz del endpoint
+Una vez finalizado el carrito a través del endpoint
 
     url-server/api/carts/:cid/purchase
 
@@ -55,6 +55,7 @@ El flujo de compra sería:
 
 Al finalizar el proceso de compra,  se manda un email al usuario con los detalles del ticket.
 
+![Ticket generado](https://github.com/Giovi-22/Proyecto-final-Backend/assets/98109747/bbfeaa55-ac35-4e4a-8fd8-37ac507e3a72)
 
 
 ## Comandos de inicio
