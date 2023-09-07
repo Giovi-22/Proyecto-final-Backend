@@ -89,12 +89,16 @@ class ExpressApp{
         this.app.use('/api/sessions',sessionsRouter);
         this.app.use('/api/tickets',ticketRouter);
         this.app.use('/api/users',userRouter);
-        /*
         this.app.use('/',(req,res)=>
         {
-            res.send('<h2>El servidor esta funcionando!</h2>')
+            res.send(
+                `
+                <h2>El servidor se encuentra funcionado correctamente</h2>
+                <a href=https://proyecto-final-backend.up.railway.app/apidocs>Documentacion</a>
+                <h4>https://proyecto-final-backend.up.railway.app<h4>
+                `
+                )
         })
-        */
         this.app.use(errorHandler);
     }
 
