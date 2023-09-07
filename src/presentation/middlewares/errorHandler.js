@@ -6,8 +6,6 @@ const ERRORS={
 }
 
 export const errorHandler = (err,req,res,next)=>{
-    console.log("la ruta es: ",req.url),
-    console.log("El error: ",err)
     if(err?.name?.includes('ZodError')){
         return res.status(400).send(
             {

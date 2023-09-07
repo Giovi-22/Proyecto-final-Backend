@@ -18,16 +18,7 @@ class UserManager
         await userZodSchema.parseAsync(user);
         const newUser = {...user,password: await hashPassword(user.password)};
         const result = await this.#UserRepository.create(newUser);
-        return {
-            id: result?._id,
-            firstName: result?.firstName,
-            lastName: result?.lastName,
-            age: result?.age,
-            email: result?.email,
-            cart: result?.cart,
-            role: result?.role,
-            isAdmin: result?.isAdmin
-        }
+        return result;
     }
 
     async getList(filters)
@@ -116,6 +107,10 @@ class UserManager
         }
         const updatedUser = await this.updateOne(uid,{role:"64de071ed652ca954dcfbca2"});
         return updatedUser;
+    }
+
+    async inactiveUsers(){
+
     }
 
 }

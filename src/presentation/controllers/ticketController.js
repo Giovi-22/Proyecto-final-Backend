@@ -14,7 +14,7 @@ class TicketController{
             const newTicket = await ticketM.create(req.params.cid,req.user);
             const products = await ticketM.convertProductData(newTicket);
             await emailM.send(newTicket.purchaser,"Ticket created",{...newTicket,products},"purchase.hbs")
-            res.status(200).send({status:'success',data:newTicket})
+            res.status(201).send({status:'success',data:newTicket})
         } 
         catch (error) 
         {

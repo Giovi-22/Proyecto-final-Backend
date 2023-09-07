@@ -60,6 +60,7 @@ class CartManager{
     {
         idValidation.parse(cid);
         await this.#isOwnCart(cid,user);
+
         const cart = await this.#cartRepository.findById(cid);
         return cart;
     }
@@ -122,11 +123,12 @@ class CartManager{
     async #isOwnCart(cid,user){
         if(!user.isAdmin)
             {
-                if(!user.cart.length)
+                const userDb = await this.#userManager.getById(user.id)
+                if(!userDb.cart.length)
                     {
-                        throw new Error(`The user ${user.email} doesn't have a cart`)
+                        throw new Error(`The user ${userDb.email} doesn't have a cart`)
                     }
-                const isOwnCart = user.cart.some(cart => cart.toString() === cid);
+                const isOwnCart = userDb.cart.some(cart => cart.toString() === cid);
                 if(!isOwnCart)
                     {
                         throw new Error(`The cart don't belong to the current user`,{cause: 'Bad Request'})

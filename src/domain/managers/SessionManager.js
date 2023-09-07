@@ -44,9 +44,6 @@ class SessionManager{
 
 async changePassword(password, confirmedPassword, user){
     
-    //to do: si el cambio de password se realizo correctamente, poner el token en una blacklist
-    // para que no pueda volver a usarse hasta que expire.
-
     if(password !== confirmedPassword){
         throw new Error('The password and confirmedPassword do not match',{cause:'Bad Request'});
     }
