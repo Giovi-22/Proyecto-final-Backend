@@ -6,6 +6,7 @@
 
 Esta aplicación está diseñada para respaldar las funciones esenciales de nuestro e-commerce, como la gestión de productos, pedidos, usuarios y más. Está construida utilizando Node js y Express como framework y se integra con una base de datos MongoDB para proporcionar una solución completa y eficiente para nuestra tienda en línea.
 
+https://proyecto-final-backend.up.railway.app
 ## Características
 
     - Gestión de productos
@@ -30,7 +31,7 @@ Descargado el proyecto, abrir la consola de comandos, ingresar a la carpeta prin
 
 Para acceder a la documentación de la api:
 
-    url-server/apidocs/
+https://proyecto-final-backend.up.railway.app/apidocs/
 
 # NOTAS
 Solamente usuarios registrados en la app tienen acceso a generar un carrito de compras. 
@@ -39,7 +40,7 @@ Solamente el administrador o el usuario que creo el carrito puede agregar, actua
 
 Una vez finalizado el carrito a través del endpoint
 
-    url-server/api/carts/:cid/purchase
+    https://proyecto-final-backend.up.railway.app/api/carts/:cid/purchase
 
 se genera una respuesta que contiene un arreglo con los productos disponibles y no disponibles antes de realizar la compra.
 
@@ -47,11 +48,11 @@ Si el usuario  desea finalizar la compra, solo se incluirán los productos que e
 
 El flujo de compra sería:
 
-    url-server/api/carts/               - crear el carrito
-    url-server/api/carts/:cid/:pid      - agregar un producto al carrito
-    url-sever/api/carts:cid             - agregar varios productos al carrito.(ver documentacion!)
-    url-server/api/carts/:cid/purchase  - finalizar el carrito. (productos diponibles y no disponibles)
-    url-server/api/tickets/:cid         - Generara el ticket pasando el id del carrito que se desea comprar
+    https://proyecto-final-backend.up.railway.app/api/carts/               - crear el carrito
+    https://proyecto-final-backend.up.railway.app/api/carts/:cid/:pid      - agregar un producto al carrito
+    https://proyecto-final-backend.up.railway.app/api/carts:cid             - agregar varios productos al carrito.(ver documentacion!)
+    https://proyecto-final-backend.up.railway.app/api/carts/:cid/purchase  - finalizar el carrito. (productos diponibles y no disponibles)
+    https://proyecto-final-backend.up.railway.app/api/tickets/:cid         - Generara el ticket pasando el id del carrito que se desea comprar
 
 Al finalizar el proceso de compra,  se manda un email al usuario con los detalles del ticket.
 
