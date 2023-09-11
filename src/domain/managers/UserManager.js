@@ -111,18 +111,32 @@ class UserManager
         return updatedUser;
     }
 
-    async inactiveUsers(uid){
+    async inactiveUsers(){
         const currentDate = new Date().getTime();
         const milisXDay = 1000*60*60*24;
-        const user = await this.getById(uid);
-        if(user.status){
-            const diff = currentDate - new Date(user.lastConnection).getTime();
-            const daysPasst = diff/milisXDay;
-            if(daysPasst > 2){
-                return await this.updateOne(uid,{status:false});
+        const result = await this.getList({status:true},{});
+        const users = result.docs;
+        const deletedUsers = [];
+
+        if(!users.length)
+        {
+            throw new Error("Users don't found",{cause:'Not Found'})
+        }
+
+        for await (const user of users)
+        {
+            if(user.status && !user.isAdmin)
+            {
+                const diff = currentDate - new Date(user.lastConnection).getTime();
+                const daysPasst = diff/milisXDay;
+                if(daysPasst > 2)
+                {
+                    const updatedUser = await this.updateOne(user.id.toString(),{status:false});
+                    deletedUsers.push(updatedUser.email);
+                }
             }
         }
-        return;
+    return deletedUsers;
     }
 
 }

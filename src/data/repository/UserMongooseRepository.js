@@ -78,7 +78,6 @@ class UserMongooseRepository{
             pagination: filters.pagination ?? true
         }
         const result = await userModel.paginate(query,options);
-        console.log(" Los usuarios: ",result)
         return {
             ...result,
             docs:result.docs.map(user =>new User(

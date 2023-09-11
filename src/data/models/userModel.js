@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema({
             }]
         },
     lastConnection:{type:String,default:null},
-    status: {type:mongoose.Schema.Types.Boolean,require:true,default: true}
+    status: {type:mongoose.Schema.Types.Boolean,require:true,default: true, index:true}
 })
 
 userSchema.plugin(mongoosePaginate);
