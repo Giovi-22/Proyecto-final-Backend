@@ -69,14 +69,16 @@ class UserMongooseRepository{
         })
     }
 
-    async Paginate(filters)
+    async Paginate(query,filters)
     {
         const options = {
-            page:filters?.page,
-            limit: filters?.limit,
-            sort:filters?.sort
+            page:filters.page,
+            limit: filters.limit,
+            sort:filters.sort,
+            pagination: filters.pagination ?? true
         }
-        const result = await userModel.paginate(filters?.query,options);
+        const result = await userModel.paginate(query,options);
+        console.log(" Los usuarios: ",result)
         return {
             ...result,
             docs:result.docs.map(user =>new User(

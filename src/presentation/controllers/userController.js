@@ -22,13 +22,13 @@ class UserController{
     {
         const options = {
             ...req.query,
-            query: JSON.parse(`{${req.query?.filter ?? ""}}`)
         }
-        
+        const query = JSON.parse(`{${req.query?.filter ?? ""}}`);
+
         try
         {
             const userM = new UserManager();
-            const result = await userM.getList(options);
+            const result = await userM.getList(query,options);
             return res.status(200).json({status:"success",data:result.docs, ...result, docs:undefined });
         }
         catch (error)

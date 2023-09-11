@@ -21,10 +21,12 @@ class UserManager
         return result;
     }
 
-    async getList(filters)
+    async getList(query,filters)
     {
-        console.log("dentro del manager")
-        const result = await this.#UserRepository.Paginate(filters);
+        if(Object.keys(filters).length === 0){
+            filters.pagination=false;
+        }
+        const result = await this.#UserRepository.Paginate(query,filters);
         return result;
     }
 
