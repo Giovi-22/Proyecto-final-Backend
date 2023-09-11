@@ -109,8 +109,18 @@ class UserManager
         return updatedUser;
     }
 
-    async inactiveUsers(){
-
+    async inactiveUsers(uid){
+        const currentDate = new Date().getTime();
+        const milisXDay = 1000*60*60*24;
+        const user = await this.getById(uid);
+        if(user.status){
+            const diff = currentDate - new Date(user.lastConnection).getTime();
+            const daysPasst = diff/milisXDay;
+            if(daysPasst > 2){
+                return await this.updateOne(uid,{status:false});
+            }
+        }
+        return;
     }
 
 }

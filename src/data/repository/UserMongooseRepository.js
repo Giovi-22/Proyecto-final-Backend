@@ -17,7 +17,8 @@ class UserMongooseRepository{
             cart: newUser?.cart,
             documents: newUser?.documents,
             isAdmin: newUser?.isAdmin,
-            lastConnection : newUser?.lastConnection
+            lastConnection : newUser?.lastConnection,
+            status: newUser?.status
         })
     }
 
@@ -41,7 +42,8 @@ class UserMongooseRepository{
             role: userDocument?.role,
             documents: userDocument?.documents,
             isAdmin: userDocument?.isAdmin,
-            lastConnection : userDocument?.lastConnection
+            lastConnection : userDocument?.lastConnection,
+            status: userDocument?.status
         })
     }
 
@@ -62,7 +64,8 @@ class UserMongooseRepository{
             cart: user.cart,
             documents: user?.documents,
             isAdmin: user.isAdmin,
-            lastConnection : user?.lastConnection
+            lastConnection : user?.lastConnection,
+            status: user?.status
         })
     }
 
@@ -87,7 +90,8 @@ class UserMongooseRepository{
                     cart:user?.cart,
                     documents: user?.documents,
                     isAdmin: user?.isAdmin,
-                    lastConnection : user?.lastConnection
+                    lastConnection : user?.lastConnection,
+                    status: user?.status
                 }))
         }
     }
@@ -120,7 +124,8 @@ class UserMongooseRepository{
             cart: userDocument?.cart,
             documents: userDocument?.documents,
             isAdmin: userDocument?.isAdmin,
-            lastConnection : userDocument?.lastConnection
+            lastConnection : userDocument?.lastConnection,
+            status: userDocument?.status
         })
     }
 }

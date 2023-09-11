@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import mongoosePaginate from "mongoose-paginate-v2";
+import { boolean } from "zod";
 
 const userCollection = 'users';
 
@@ -27,7 +28,8 @@ const userSchema = new mongoose.Schema({
                 reference:{type:String,default:null}
             }]
         },
-    lastConnection:{type:String,default:null}
+    lastConnection:{type:String,default:null},
+    status: {type:mongoose.Schema.Types.Boolean,require:true,default: true}
 })
 
 userSchema.plugin(mongoosePaginate);
