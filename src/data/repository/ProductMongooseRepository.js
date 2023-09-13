@@ -34,6 +34,7 @@ class ProductMongooseRepository{
         }
         //Model.paginate([query],[options],[callback])
         const result = await productModel.paginate(filter,options);
+        console.log("Los productos son: ",result)
         Object.assign(result,
             {
                 docs: result.docs.map(product => new Product(
