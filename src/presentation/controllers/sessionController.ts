@@ -1,10 +1,12 @@
 
-import SessionManager from "../../domain/managers/SessionManager.js";
+import { NextFunction, Response } from "express";
+import SessionManager from "../../domain/managers/SessionManager";
+import { IRequest } from "../../shared/interfaces/custom.interfaces.js";
 
 class SessionController{
 
 
-    static async login(req,res,next)
+    static async login(req:IRequest,res:Response,next:NextFunction)
     {
         try
         {
@@ -14,22 +16,22 @@ class SessionController{
         } 
         catch (error)
         {
-            next(error);
+            return next(error);
         }
     }
 
-    static async current(req,res,next)
+    static async current(req:IRequest,res:Response,next:NextFunction)
     {
         try 
         {
-            res.status(200).send({status:'success',payload:req.user});
+           return res.status(200).send({status:'success',payload:req.user});
         }
         catch (error)
         {
-            next(error);
+           return next(error);
         }
     }
-    static async logout(req,res,next)
+    static async logout(req:IRequest,res:Response,next:NextFunction)
     {
         try
         {
@@ -44,25 +46,25 @@ class SessionController{
         }
         catch (error)
         {
-            next(error);
+           return next(error);
         }
     }
 
-    static async signup(req,res,next)
+    static async signup(req:IRequest,res:Response,next:NextFunction)
     {
         try
         {
             const sessionM = new SessionManager();
             const newUser = await sessionM.signup(req.body);
-            res.status(201).send({status:'success',data:newUser});
+            return res.status(201).send({status:'success',data:newUser});
         }
         catch (error)
         {
-            next(error);
+            return next(error);
         }
     }
 
-    static async forgotPassword(req,res,next){
+    static async forgotPassword(req:IRequest,res:Response,next:NextFunction){
         try {
             const serverUrl = `${req.protocol}://${req.get('host')}`;
             const sessionM = new SessionManager();
@@ -73,15 +75,15 @@ class SessionController{
         }
     }
 
-    static async changePassword(req,res,next){
+    static async changePassword(_req:IRequest,res:Response,next:NextFunction){
         try {
-            res.render('restorePassword');
+            return res.render('restorePassword');
         } catch (error) {
             return next(error);
         } 
     }
 
-    static async restorePassword(req,res,next){
+    static async restorePassword(req:IRequest,res:Response,next:NextFunction){
         try {
             const {password, confirm, token} = req.body;
             const sessionM  = new SessionManager();
