@@ -1,4 +1,4 @@
-import { config } from './config/index.js';
+import { config } from './config/index';
 import AppFactory from './presentation/factories/AppFactory';
 import DbFactory from './data/factories/dbFactory';
 

@@ -1,7 +1,7 @@
 import container from '../../container';
-import { IPaginationFilters } from '../../shared/Interfaces/IShared';
 import { IProduct } from '../entities/Product/IProduct';
 import { idValidation, productUpdateSchema, productZodSchema } from '../validations/validators';
+import { IPaginationFilters } from '../../shared/interfaces/IShared';
 
 class ProductManager
 {

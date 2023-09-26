@@ -1,4 +1,4 @@
-import MongooseAdapter from "./mongooseAdapter.js";
+import MongooseAdapter from "./mongooseAdapter";
 
 class DbFactory{
 

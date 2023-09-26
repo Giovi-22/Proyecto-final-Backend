@@ -1,8 +1,9 @@
-import { NextFunction, Request, Response } from "express";
-import { jwtVerificator } from "../../shared/jsonwebtoken.js";
+import { NextFunction, Response } from 'express'
+import { jwtVerificator } from "../../shared/jsonwebtoken";
+import { IRequest } from '../../shared/interfaces/custom.interfaces';
 
 
-const auth = async (req:Request,res:Response,next:NextFunction)=>{
+const auth = async (req:IRequest,_res:Response,next:NextFunction)=>{
 
     try {
     const authHeader = req.headers?.authorization;
@@ -12,7 +13,8 @@ const auth = async (req:Request,res:Response,next:NextFunction)=>{
     const token = authHeader.split(' ')[1];
 
     const credential = await jwtVerificator(token);
-    req.user = credential.user;
+    console.log("Las credenciales: ",credential)
+    //req.user = credential.user;
     next();
     
     } catch (error) {

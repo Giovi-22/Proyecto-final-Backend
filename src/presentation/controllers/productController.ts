@@ -1,10 +1,11 @@
 
-import ProductManager from '../../domain/managers/ProductManager.js';
+import ProductManager from '../../domain/managers/ProductManager';
 import { Request, Response, NextFunction} from 'express';
-import { IPaginationFilters } from '../../shared/Interfaces/IShared.js';
+import { IRequest } from '../../shared/interfaces/custom.interfaces';
+import { IPaginationFilters } from '../../shared/interfaces/IShared';
 class ProductController{
 
-    static addProduct = async (req:Request,res:Response,next:NextFunction)=>
+    static addProduct = async (req:IRequest,res:Response,next:NextFunction)=>
     {
             try
             {

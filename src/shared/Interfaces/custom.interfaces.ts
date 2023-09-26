@@ -9,3 +9,7 @@ declare global{
         }
     }
 }
+
+export interface IRequest extends Request{
+    user:Partial<IUser>
+}

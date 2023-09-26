@@ -9,7 +9,7 @@ export const jwtGenerator = async(user:IUser)=>
 
 export const jwtVerificator = async (token:string)=>
 {   
-    const result = jwt.verify(config.jwtKey,(err,credential)=>{
+    const result = jwt.verify(token,config.jwtKey,(err,credential)=>{
         if(err)
         {
             throw new Error("Bad Request Authentication error, invalid o expired jwt");

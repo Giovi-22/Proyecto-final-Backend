@@ -6,8 +6,8 @@ import { engine } from 'express-handlebars';
 import cors from 'cors';
 import path from 'path';
 
-import { config } from '../../config/index.js';
-import productRouter from '../routes/productRouter.js';
+import { config } from '../../config/index';
+import productRouter from '../routes/productRouter';
 /*
 import cartRouter from '../routes/cartRouter.js';
 import ticketRouter from '../routes/ticketRouter.js';

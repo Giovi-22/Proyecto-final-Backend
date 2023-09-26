@@ -1,9 +1,10 @@
 import { NextFunction } from "connect";
-import { Request, Response } from "express";
+import { Response } from "express";
+import { IRequest } from "../../shared/interfaces/custom.interfaces";
 
 export function authorization(permission:string){
 
-    return (req:Request,res:Response,next:NextFunction)=>
+    return (req:IRequest,_res:Response,next:NextFunction)=>
     {
         try 
         {

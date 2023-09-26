@@ -1,7 +1,7 @@
-import { IProduct } from "../../domain/entities/Product/IProduct.js";
-import Product from "../../domain/entities/Product/Product.js";
-import { IFilter, IPaginationFilters } from "../../shared/Interfaces/IShared.js";
+import { IProduct } from "../../domain/entities/Product/IProduct";
+import Product from "../../domain/entities/Product/Product";
 import { productModel } from "../models/productModel";
+import { IFilter } from '../../shared/interfaces/IShared';
 
 class ProductMongooseRepository{
 

@@ -1,4 +1,4 @@
-import mongoose, { Types } from "mongoose";
+import mongoose from "mongoose";
 import mongoosePaginate from "mongoose-paginate-v2";
 import { IProduct } from "../../domain/entities/Product/IProduct";
 

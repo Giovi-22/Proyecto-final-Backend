@@ -1,5 +1,4 @@
-import { ConnectionOptions } from "mongodb";
-import mongoose, { Connection } from "mongoose";
+import mongoose from "mongoose";
 
 class MongooseAdapter{
 
