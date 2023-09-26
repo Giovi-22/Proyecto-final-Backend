@@ -6,7 +6,7 @@ import { Lifetime, asClass, createContainer } from "awilix";
 //import RoleRepository from "./data/repository/RoleRepository.js";
 //import CartMongooseRepository from "./data/repository/CartMongooseRepository.js";
 import ProductMongooseRepository from "./data/repository/ProductMongooseRepository";
-//import UserMongooseRepository from "./data/repository/UserMongooseRepository.js";
+import UserMongooseRepository from "./data/repository/UserMongooseRepository";
 //import TicketMongooseRepository from "./data/repository/TicketMongooseRepository.js";
 //import CartManager from "./domain/managers/CartManager.js";
 
@@ -26,7 +26,7 @@ container.register(
         //RoleRepository: asClass(RoleMongooseRepository,{lifetime:Lifetime.SINGLETON}),
         //CartRepository: asClass(CartMongooseRepository,{lifetime:Lifetime.SINGLETON}),
         ProductRepository: asClass(ProductMongooseRepository,{lifetime:Lifetime.SINGLETON}),
-        //UserRepository: asClass(UserMongooseRepository,{lifetime:Lifetime.SINGLETON}),
+        UserRepository: asClass(UserMongooseRepository,{lifetime:Lifetime.SINGLETON}),
         //TicketRepository: asClass(TicketMongooseRepository,{lifetime:Lifetime.SINGLETON}),
     }
 )

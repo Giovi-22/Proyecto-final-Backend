@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
 import mongoosePaginate from "mongoose-paginate-v2";
+import { IUser } from '../../domain/entities/User/IUser';
 
 const userCollection = 'users';
 
-const userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema<IUser>({
     firstName: {type:String,require:true},
     lastName: {type:String,require:true},
     age: {type:Number,require:true},
@@ -15,4 +16,4 @@ const userSchema = new mongoose.Schema({
 })
 
 userSchema.plugin(mongoosePaginate);
-export const userModel = mongoose.model(userCollection,userSchema);
+export const userModel = mongoose.model<IUser>(userCollection,userSchema);

@@ -8,3 +8,7 @@ export interface IFilter{
     field:string,
     value:string
 }
+
+export interface QueryFilter{
+    [field:string]:string
+}
