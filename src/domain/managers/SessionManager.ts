@@ -42,13 +42,13 @@ class SessionManager{
         return result;
 }
 
-async changePassword(password, confirmedPassword, token){
+async changePassword(password:string, confirmedPassword:string, token:string){
     
     //to do: si el cambio de password se realizo correctamente, poner el token en una blacklist
     // para que no pueda volver a usarse hasta que expire.
 
     if(password !== confirmedPassword){
-        throw new Error("Change password failed, the password and confirmedPassword do not match",{cause:'Bad Request'});
+        throw new CustomErrors("Change password failed, the password and confirmedPassword do not match",{cause:'Bad Request'});
     }
     const credential = await jwtVerificator(token);
     const user = await this.#userM.findByFilter({field:"email",value:credential.user.email});

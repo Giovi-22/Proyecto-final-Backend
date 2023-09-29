@@ -6,29 +6,25 @@ import path from 'path';
 import { config } from '../../config/index.js';
 
 
-
-
-
 class EmailManager{
 
-    #smtpConfig;
-    #transporter;
+    #transporter!:nodemailer.Transporter;
     constructor(){
         this.#init();
     }
     #init(){
-        this.#smtpConfig={
+
+        this.#transporter = nodemailer.createTransport({
             service:'gmail',
             port:587,
             auth:{
                 user:'giovannibarolin@gmail.com',
                 pass: config.emailKey
             }
-        }
-        this.#transporter = nodemailer.createTransport(this.#smtpConfig);
+        });
     }
 
-    async send(to,subject,data,templateHbs){
+    async send(to:string,subject:string,data,templateHbs){
         try {
             const template = await this.#selectTemplate({...data},templateHbs);
             console.log("a quien va enviado: ",to)
