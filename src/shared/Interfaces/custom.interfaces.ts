@@ -1,16 +1,27 @@
 import { Request } from "express"
-import { IUser } from "../../domain/entities/User/IUser"
+
+import { IRole } from "../../domain/entities/Role/IRole";
 
 
 declare global{
     namespace Express{
         interface Request{
-            user: Partial<IUser>
+            user:{
+                id:string,
+                email: string,
+                role: IRole | null,
+                isAdmin: boolean
+            }
         }
     }
 }
 
 export interface IRequest extends Request{
-    user:Partial<IUser>
+    user:{
+        id:string,
+        email: string,
+        role: IRole | null,
+        isAdmin: boolean
+    }
 }
 

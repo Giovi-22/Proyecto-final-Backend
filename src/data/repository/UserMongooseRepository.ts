@@ -5,7 +5,6 @@ import CustomErrors from '../../shared/CustomErrors';
 import { IFilter, QueryFilter } from "../../shared/interfaces/IShared";
 
 
-
 class UserMongooseRepository{
 
     async create(user:IUser)
@@ -28,7 +27,9 @@ class UserMongooseRepository{
     {
         let query:QueryFilter = {};
         query[filter.field]=filter.value;
+        console.log("la query es: ",query)
         const userDocument = await userModel.findOne(query).populate('role');
+
         if(!userDocument)
         {
             throw new CustomErrors(`No se encuentra ${filter.field}: ${filter.value}`,{cause:'Not Found'});
@@ -44,6 +45,7 @@ class UserMongooseRepository{
             role: userDocument?.role,
             isAdmin:userDocument.isAdmin
         })
+
     }
 
     async findById(uid:string)

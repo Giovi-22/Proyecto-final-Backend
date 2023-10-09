@@ -40,8 +40,9 @@ class UserManager
     }
 */
 
-    async findByFilter(filter:IFilter)
+    async findByFilter(filter:IFilter):Promise<IUser>
     {
+        console.log("el filtro: ",filter)
         if(!filter.field && !filter.value)
         {
             throw new CustomErrors('All fields must be completed',{cause:'Bad Request'});

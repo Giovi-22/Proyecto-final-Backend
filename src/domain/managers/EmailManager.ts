@@ -3,7 +3,8 @@ import fs from 'fs/promises'
 import Handlebars from 'handlebars';
 import path from 'path';
 
-import { config } from '../../config/index.js';
+import { config } from '../../config/index';
+import { IUser } from '../entities/User/IUser';
 
 
 class EmailManager{
@@ -24,7 +25,7 @@ class EmailManager{
         });
     }
 
-    async send(to:string,subject:string,data,templateHbs){
+    async send(to:string,subject:string,data:{user:IUser,jwt:string,url:string},templateHbs:string){
         try {
             const template = await this.#selectTemplate({...data},templateHbs);
             console.log("a quien va enviado: ",to)
@@ -45,7 +46,7 @@ class EmailManager{
         
     }
 
-    async #selectTemplate(data,templateHbs){
+    async #selectTemplate(data:{user:IUser,jwt:string,url:string},templateHbs:string){
         const templateDir = path.resolve('src/presentation/views/templates');
         const source = (await fs.readFile(`${templateDir}/${templateHbs}`)).toString();
         const template = Handlebars.compile(source);

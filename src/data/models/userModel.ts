@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Model } from "mongoose";
 import mongoosePaginate from "mongoose-paginate-v2";
 import { IUser } from '../../domain/entities/User/IUser';
 
@@ -11,9 +11,9 @@ const userSchema = new mongoose.Schema<IUser>({
     email: {type:String,require:true,unique:true},  
     password: {type:String,require:true},
     cart: [{type:mongoose.Schema.Types.ObjectId,ref:'carts',default:null}],
-    role: {type:mongoose.Schema.Types.ObjectId,ref:'roles',default:null},
+    role: {type:mongoose.Schema.Types.ObjectId,default:null},
     isAdmin: {type:mongoose.Schema.Types.Boolean,default:false}
 })
 
 userSchema.plugin(mongoosePaginate);
-export const userModel = mongoose.model<IUser>(userCollection,userSchema);
+export const userModel:Model<IUser> = mongoose.model<IUser>(userCollection,userSchema);

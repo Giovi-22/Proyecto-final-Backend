@@ -1,3 +1,5 @@
+
+import { HydratedDocument } from "mongoose";
 import { IRole } from "../Role/IRole";
 import { IUser } from "./IUser";
 
@@ -8,7 +10,7 @@ class User{
         email: string;
         age: number;
         password: string;
-        role: IRole;
+        role: HydratedDocument<IRole>['_id'];
         cart: string;
         isAdmin: boolean;
 

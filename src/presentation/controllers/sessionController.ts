@@ -1,7 +1,7 @@
 
 import { NextFunction, Response } from "express";
 import SessionManager from "../../domain/managers/SessionManager";
-import { IRequest } from "../../shared/interfaces/custom.interfaces.js";
+import { IRequest } from "../../shared/Interfaces/custom.interfaces.js";
 
 class SessionController{
 
@@ -11,6 +11,7 @@ class SessionController{
         try
         {
             const sessionM = new SessionManager();
+            console.log("Los datos son: ",req.body)
             const accessToken = await sessionM.login(req.body);
             return res.cookie('user',accessToken,{maxAge:(60*1000)*10}).send({message:'Login success',data:accessToken});
         } 

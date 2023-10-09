@@ -1,12 +1,15 @@
 import { NextFunction, Response } from 'express'
 import { jwtVerificator } from "../../shared/jsonwebtoken";
-import { IRequest } from '../../shared/interfaces/custom.interfaces';
+import { IRequest } from '../../shared/Interfaces/custom.interfaces';
+
 
 
 const auth = async (req:IRequest,_res:Response,next:NextFunction)=>{
 
     try {
+        
     const authHeader = req.headers?.authorization;
+    console.log("La autorizacion es: ",authHeader)
     if(!authHeader){
         throw new Error('Bad Request, authorization has not been sent');
     }
