@@ -1,6 +1,6 @@
 import { NextFunction } from "connect";
 import { Response } from "express";
-import { IRequest } from "../../shared/interfaces/custom.interfaces";
+import { IRequest } from "../../shared/Interfaces/custom.interfaces";
 
 
 export function authorization(permission:string){
