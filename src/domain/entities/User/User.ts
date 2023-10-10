@@ -1,5 +1,5 @@
 
-import { HydratedDocument } from "mongoose";
+//import { HydratedDocument } from "mongoose";
 import { IRole } from "../Role/IRole";
 import { IUser } from "./IUser";
 
@@ -10,7 +10,7 @@ class User{
         email: string;
         age: number;
         password: string;
-        role: HydratedDocument<IRole>['_id'];
+        role: IRole;
         cart: string;
         isAdmin: boolean;
 

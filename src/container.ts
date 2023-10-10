@@ -3,7 +3,7 @@ import { Lifetime, asClass, createContainer } from "awilix";
 //import UserMongooseDAO from "./data/daos/userMongooseDAO.js";
 //import ProductMongooseDAO from "./data/daos/productMongooseDAO.js";
 //import CartMongooseDAO from "./data/daos/cartMongooseDAO.js";
-//import RoleRepository from "./data/repository/RoleRepository.js";
+import RoleMongooseRepository from "./data/repository/RoleMongooseRepository";
 //import CartMongooseRepository from "./data/repository/CartMongooseRepository.js";
 import ProductMongooseRepository from "./data/repository/ProductMongooseRepository";
 import UserMongooseRepository from "./data/repository/UserMongooseRepository";
@@ -23,7 +23,7 @@ container.register({
 //-----------------------REPOSITORIES-------------------------------------------------
 container.register(
     {
-        //RoleRepository: asClass(RoleMongooseRepository,{lifetime:Lifetime.SINGLETON}),
+        RoleRepository: asClass(RoleMongooseRepository,{lifetime:Lifetime.SINGLETON}),
         //CartRepository: asClass(CartMongooseRepository,{lifetime:Lifetime.SINGLETON}),
         ProductRepository: asClass(ProductMongooseRepository,{lifetime:Lifetime.SINGLETON}),
         UserRepository: asClass(UserMongooseRepository,{lifetime:Lifetime.SINGLETON}),

@@ -1,4 +1,4 @@
-import mongoose, {Model} from 'mongoose'
+import mongoose from 'mongoose'
 import { IRole } from '../../domain/entities/Role/IRole';
 
 const rolesCollection = 'roles';
@@ -10,4 +10,4 @@ const roleSchema = new mongoose.Schema<IRole>({
 })
 
 
-export const roleModel:Model<IRole> = mongoose.model(rolesCollection,roleSchema);
+export const roleModel = mongoose.model<IRole>(rolesCollection,roleSchema);

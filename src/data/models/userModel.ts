@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema<IUser>({
     email: {type:String,require:true,unique:true},  
     password: {type:String,require:true},
     cart: [{type:mongoose.Schema.Types.ObjectId,ref:'carts',default:null}],
-    role: {type:mongoose.Schema.Types.ObjectId,default:null},
+    role: {type:mongoose.Schema.Types.ObjectId,default:null,ref:'roles'},
     isAdmin: {type:mongoose.Schema.Types.Boolean,default:false}
 })
 

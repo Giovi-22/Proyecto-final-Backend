@@ -1,9 +1,11 @@
 
-import RoleManager from "../../domain/managers/RoleManager.js";
+import { NextFunction, Response } from "express";
+import RoleManager from "../../domain/managers/RoleManager";
+import { IRequest } from "../../shared/Interfaces/custom.interfaces.js";
 
 class RoleController{
 
-    static async create(req,res,next)
+    static async create(req:IRequest,res:Response,next:NextFunction)
     {
         try 
         {
@@ -17,7 +19,7 @@ class RoleController{
         }
     }
 
-    static async getOne(req,res,next)
+    static async getOne(req:IRequest,res:Response,next:NextFunction)
     {
         try 
         {
@@ -31,7 +33,7 @@ class RoleController{
         }
     }
 
-    static async updatePermissions(req,res,next)
+    static async updatePermissions(req:IRequest,res:Response,next:NextFunction)
     {
         const permission = req.body?.permission;
         try 
@@ -46,7 +48,7 @@ class RoleController{
         }
     }
 
-    static async deletePermission(req,res,next)
+    static async deletePermission(req:IRequest,res:Response,next:NextFunction)
     {
         const permission = req.body?.permission;
         try 

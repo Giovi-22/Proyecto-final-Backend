@@ -5,6 +5,17 @@ import TestManager from "../../domain/managers/Test/TestManager";
 
 class TestController{
 
+    static async newData(req:IRequest,res:Response,next:NextFunction){
+        try {
+            const testM = new TestManager();
+            console.log("test running");
+            await testM.addNewTest(req.body);
+            res.send('<h2>Test is running</h2>');
+        } catch (error) {
+            next(error);
+        }
+    }
+
     static async testGet(req:IRequest,res:Response,next:NextFunction){
         try {
             const testM = new TestManager();
