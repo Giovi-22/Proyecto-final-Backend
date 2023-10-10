@@ -2,7 +2,7 @@
 import { IRole } from "../../domain/entities/Role/IRole";
 import Role from "../../domain/entities/Role/Role";
 import CustomErrors from "../../shared/CustomErrors";
-import { roleModel } from "../models/roleModel.js";
+import { roleModel } from "../models/roleModel";
 
 class RoleMongooseRepository
 {
