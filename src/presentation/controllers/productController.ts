@@ -2,7 +2,7 @@
 import ProductManager from '../../domain/managers/ProductManager';
 import { Request, Response, NextFunction} from 'express';
 import { IRequest } from '../../shared/Interfaces/custom.interfaces';
-import { IPaginationFilters } from '../../shared/interfaces/IShared';
+import { IPaginationFilters } from '../../shared/Interfaces/IShared';
 class ProductController{
 
     static addProduct = async (req:IRequest,res:Response,next:NextFunction)=>

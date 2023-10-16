@@ -2,7 +2,7 @@ import { IUser } from "../../domain/entities/User/IUser";
 import User from "../../domain/entities/User/User";
 import { userModel } from "../models/userModel";
 import CustomErrors from '../../shared/CustomErrors';
-import { IFilter, QueryFilter } from "../../shared/interfaces/IShared";
+import { IFilter, QueryFilter } from "../../shared/Interfaces/IShared";
 
 
 class UserMongooseRepository{

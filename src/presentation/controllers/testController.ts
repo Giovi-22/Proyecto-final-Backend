@@ -27,6 +27,40 @@ class TestController{
             next(error);
         }
     }
+
+    static async getCart(req:IRequest,res:Response,next:NextFunction){
+        try {
+            const testM = new TestManager();
+            const result = await testM.getCart(req.body.cid);
+            console.log('El resultado es: ',result)
+            res.send(result);
+        } catch (error) {
+           next(error); 
+        }
+    }
+    static async updateCart(req:IRequest,res:Response,next:NextFunction){
+        try {
+            console.log("El cart id es: ",req.params.cid)
+            const testM = new TestManager();
+            const result = await testM.updateCart(req.params.cid,req.body);
+            console.log('El resultado es: ',result)
+            res.send(result);
+        } catch (error) {
+           next(error); 
+        }
+    }
+
+    static async findById(req:IRequest,res:Response,next:NextFunction){
+        try {
+            console.log("El cart id es: ",req.params.cid)
+            const testM = new TestManager();
+            const result = await testM.findById(req.params.cid);
+            console.log('El resultado es: ',result)
+            res.send(result);
+        } catch (error) {
+           next(error); 
+        }
+    }
 }
 
 export default TestController;

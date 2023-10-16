@@ -1,7 +1,7 @@
 import container from '../../container';
 import CustomErrors from '../../shared/CustomErrors';
 import { hashPassword } from '../../shared/bcrypt';
-import { IFilter } from '../../shared/interfaces/IShared';
+import { IFilter } from '../../shared/Interfaces/IShared';
 import { IUser } from '../entities/User/IUser';
 import { idValidation, userZodSchema } from '../validations/validators';
 

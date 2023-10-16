@@ -1,4 +1,7 @@
 import mongoose from "mongoose";
+import { ICartModel } from "./ICartModel";
+import { productModel } from "../productModel";
+
 
 const cartCollection = 'carts';
 
@@ -8,7 +11,7 @@ const cartSchema = new mongoose.Schema({
             {
                 pid:{
                     type:mongoose.Schema.Types.ObjectId,
-                    ref:'products'      //coleccion a la que hace referencia el campo pid
+                    ref: productModel
                 },
                 quantity: Number
         }
@@ -17,4 +20,4 @@ const cartSchema = new mongoose.Schema({
     },
 })
 
-export const cartModel = mongoose.model(cartCollection,cartSchema);
+export const cartModel = mongoose.model<ICartModel>(cartCollection,cartSchema);

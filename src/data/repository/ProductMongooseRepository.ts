@@ -1,7 +1,7 @@
 import { IProduct } from "../../domain/entities/Product/IProduct";
 import Product from "../../domain/entities/Product/Product";
 import { productModel } from "../models/productModel";
-import { IFilter } from '../../shared/interfaces/IShared';
+import { IFilter } from '../../shared/Interfaces/IShared';
 
 class ProductMongooseRepository{
 

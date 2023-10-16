@@ -1,10 +1,17 @@
-import Cart from "../../domain/entities/Cart.js";
-import { cartModel } from "../models/cartModel.js"
+//import { Types } from "mongoose";
+import Cart from "../../domain/entities/Cart/Cart";
+import { ICart } from "../../domain/entities/Cart/ICart";
+import Product from "../../domain/entities/Product/Product";
+import CustomErrors from "../../shared/CustomErrors";
+//import { ICartModel } from "../models/Cart/ICartModel";
+import { cartModel } from "../models/Cart/cartModel"
+
+
 
 
 class CartMongooseRepository{
 
-    async create(newCart)
+    async create(newCart:ICart)
     {
         const cart = await cartModel.create(newCart);
         return new Cart({
@@ -13,12 +20,12 @@ class CartMongooseRepository{
         });
     }
 
-    async update(cid,data)
+    async update(cid:string,data:ICart)
     {
         const cart = await cartModel.findOneAndUpdate({_id:cid},{$set:{products :data}},{new:true});
         if(!cart)
         {
-            throw new Error(`El carrito con id ${cid} no existe.`,{cause:'Not Found'});
+            throw new CustomErrors(`El carrito con id ${cid} no existe.`,{cause:'Not Found'});
         }
         return new Cart({
             id:cart._id,
@@ -31,7 +38,7 @@ class CartMongooseRepository{
         const carts = await cartModel.find({});
         if(!carts.length)
         {
-            throw new Error("No existen carritos en la base de datos",{cause:'Not Found'});
+            throw new CustomErrors("No existen carritos en la base de datos",{cause:'Not Found'});
         }
         return carts.map(cart=>new Cart({
             id:cart.id,
@@ -39,12 +46,12 @@ class CartMongooseRepository{
         }));
     }
 
-    async findOne(cid)
+    async findOne(cid:string)
     {
         const cart = await cartModel.findById(cid);
         if(!cart)
         {
-            throw new Error(`El carrito con id ${cid} no existe.`,{cause:'Not Found'});
+            throw new CustomErrors(`El carrito con id ${cid} no existe.`,{cause:'Not Found'});
         }
         return new Cart({
             id:cart._id,
@@ -52,14 +59,20 @@ class CartMongooseRepository{
         });
     }  
     
-    async findById(cid)
+    async findById(cid:string)
     {
-        const cart = await cartModel.findById(cid).populate("products.pid");
+        const cart = await cartModel.findById(cid).populate({path:"products.pid"});
         if(!cart)
         {
-            throw new Error(`El carrito con id ${cid} no existe.`,{cause:'Not Found'});
+            throw new CustomErrors(`El carrito con id ${cid} no existe.`,{cause:'Not Found'});
         }
-        return new Cart({
+        cart.products.forEach((product) => {
+            const productsDetails = product.pid as Product
+            console.log("El producto es: ",productsDetails.title)
+            
+        });
+/*
+        return {
             id:cart._id,
             products: cart.products.map(product => ({
                 product:{
@@ -74,16 +87,20 @@ class CartMongooseRepository{
                     status: product.pid.status
                 },
                 quantity: product.quantity
-            }))       
-        });
+            }
+        )
+        )       
+        };
+*/
     }
 
-    async deletAll(cid)
+/*
+    async deletAll(cid:string)
     {
         const result = await this.update(cid,[]);
         return result;
     }
-
+*/
 }
 
 export default CartMongooseRepository;
