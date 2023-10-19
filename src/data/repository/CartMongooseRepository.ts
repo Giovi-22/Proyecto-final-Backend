@@ -1,7 +1,7 @@
 //import { Types } from "mongoose";
 import Cart from "../../domain/entities/Cart/Cart";
 import { ICart } from "../../domain/entities/Cart/ICart";
-import Product from "../../domain/entities/Product/Product";
+//import Product from "../../domain/entities/Product/Product";
 import CustomErrors from "../../shared/CustomErrors";
 //import { ICartModel } from "../models/Cart/ICartModel";
 import { cartModel } from "../models/Cart/cartModel"
@@ -67,7 +67,7 @@ class CartMongooseRepository{
             throw new CustomErrors(`El carrito con id ${cid} no existe.`,{cause:'Not Found'});
         }
         cart.products.forEach((product) => {
-            const productsDetails = product.pid as Product
+            const productsDetails = product.pid;
             console.log("El producto es: ",productsDetails.title)
             
         });

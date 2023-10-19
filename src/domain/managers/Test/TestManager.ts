@@ -1,7 +1,8 @@
-import { ICartProduct } from "../../../data/models/Cart/ICartModel";
-import { ITestModel } from "../../../data/models/testModel";
+//import { ICartProduct } from "../../../data/models/Cart/ICartModel";
+import { ITestRole } from "../../../data/models/Test/TestAbstract";
 import CartMongooseRepository from "../../../data/repository/CartMongooseRepository";
 import TestMongooseRepository from "../../../data/repository/Test/TestMongooseRepository";
+import { ICart } from "../../entities/Cart/ICart";
 
 class TestManager{
 
@@ -13,7 +14,7 @@ class TestManager{
         this.cartRepository = new CartMongooseRepository();
     }
 
-    async addNewTest(data:ITestModel){
+    async addNewTest(data:ITestRole){
         return this.testRepository.addDataTest(data);
     }
     async getUser(userId:string){
@@ -26,7 +27,7 @@ class TestManager{
         return;
     }
 
-    async updateCart(cid:string,data:ICartProduct){
+    async updateCart(cid:string,data:ICart){
         const result = await this.cartRepository.update(cid,data);
         console.log("El producto fue acutualizado: ",result)
     }

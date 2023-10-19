@@ -2,11 +2,12 @@ import container from '../../container';
 import { IProduct } from '../entities/Product/IProduct';
 import { idValidation, productUpdateSchema, productZodSchema } from '../validations/validators';
 import { IPaginationFilters } from '../../shared/Interfaces/IShared';
+//import ProductMongooseRepository from '../../data/repository/ProductMongooseRepository';
 
 class ProductManager
 {
+    //#ProductRepository:ProductMongooseRepository;
     #ProductRepository;
-
     constructor()
     {
         this.#ProductRepository = container.resolve('ProductRepository');

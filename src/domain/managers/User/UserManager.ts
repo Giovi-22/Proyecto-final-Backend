@@ -1,15 +1,17 @@
-import container from '../../container';
-import CustomErrors from '../../shared/CustomErrors';
-import { hashPassword } from '../../shared/bcrypt';
-import { IFilter } from '../../shared/Interfaces/IShared';
-import { IUser } from '../entities/User/IUser';
-import { idValidation, userZodSchema } from '../validations/validators';
+import container from '../../../container';
+import CustomErrors from '../../../shared/CustomErrors';
+import { hashPassword } from '../../../shared/bcrypt';
+import { IFilter } from '../../../shared/Interfaces/IShared';
+import { IUser } from '../../entities/User/IUser';
+import { idValidation, userZodSchema } from '../../validations/validators';
+import { IUserRepository } from '../../../data/repository/User/IUserRepository';
+import { IUserManager } from './IUserManager';
 
 
 
-class UserManager
+class UserManager implements IUserManager
 {
-        #UserRepository;
+        #UserRepository:IUserRepository;
 
     constructor()
     {
@@ -21,16 +23,7 @@ class UserManager
         await userZodSchema.parseAsync(user);
         const newUser = {...user,password: await hashPassword(user.password)};
         const result = await this.#UserRepository.create(newUser);
-        return {
-            id: result?._id,
-            firstName: result?.firstName,
-            lastName: result?.lastName,
-            age: result?.age,
-            email: result?.email,
-            cart: result?.cart,
-            role: result?.role,
-            isAdmin: result?.isAdmin
-        }
+        return result;
     }
 /*
     async getList(filters)

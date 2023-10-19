@@ -1,11 +1,12 @@
-import { IUser } from "../../domain/entities/User/IUser";
-import User from "../../domain/entities/User/User";
-import { userModel } from "../models/userModel";
-import CustomErrors from '../../shared/CustomErrors';
-import { IFilter, QueryFilter } from "../../shared/Interfaces/IShared";
+import { IUser } from "../../../domain/entities/User/IUser";
+import User from "../../../domain/entities/User/User";
+import { userModel } from "../../models/userModel";
+import CustomErrors from '../../../shared/CustomErrors';
+import { IFilter, QueryFilter } from "../../../shared/Interfaces/IShared";
+import { IUserRepository } from "./IUserRepository";
 
 
-class UserMongooseRepository{
+class UserMongooseRepository implements IUserRepository{
 
     async create(user:IUser)
     {

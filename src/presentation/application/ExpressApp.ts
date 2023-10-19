@@ -13,7 +13,7 @@ import productRouter from '../routes/productRouter';
 //import ticketRouter from '../routes/ticketRouter.js';
 import sessionsRouter from '../routes/sessionsRouter';
 import testRouter from '../routes/testRouter';
-//import userRouter from '../routes/userRouter.js';
+import userRouter from '../routes/userRouter';
 //import roleRouter from '../routes/roleRouter.js';
 //import { errorHandler } from '../middlewares/errorHandler.js';
 
@@ -62,7 +62,7 @@ class ExpressApp{
         //this.app.use('/api/carts/',cartRouter);
         //this.app.use('/api/tickets',ticketRouter);
         this.app.use('/api/sessions',sessionsRouter);
-        //this.app.use('/api/users',userRouter)
+        this.app.use('/api/users',userRouter)
         //this.app.use('/api/roles',roleRouter);
         this.app.use('/api/tests/',testRouter);
         //this.app.use(errorHandler);

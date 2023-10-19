@@ -1,8 +1,10 @@
-import UserManager from "../../domain/managers/UserManager.js";
+import { NextFunction, Response } from "express";
+import { IRequest } from "../../shared/Interfaces/custom.interfaces";
+import UserManager from "../../domain/managers/User/UserManager";
 
 class UserController{
 
-    static async create(req,res,next)
+    static async create(req:IRequest,res:Response,next:NextFunction)
     {
         const newUser = req.body;
         try
@@ -13,12 +15,12 @@ class UserController{
         }
         catch (error)
         {
-            next(error);
+            return next(error);
         }
 
     }
-
-    static async list(req,res,next)
+/*
+    static async list(req:IRequest,res:Response,next:NextFunction)
     {
         const options = {
             ...req.query,
@@ -33,11 +35,11 @@ class UserController{
         }
         catch (error)
         {
-            next(error);
+            return next(error);
         }
     }
-
-    static async getOne(req,res,next)
+*/
+    static async getOne(req:IRequest,res:Response,next:NextFunction)
     {
         const uid = req.params.uid;
         try
@@ -49,11 +51,11 @@ class UserController{
         } 
         catch (error)
         {
-            next(error);
+            return next(error);
         }
     }
 
-    static async updateOne(req,res,next)
+    static async updateOne(req:IRequest,res:Response,next:NextFunction)
     {
         const uid = req.params.uid;
         const data = req.body;
@@ -65,11 +67,11 @@ class UserController{
         }
         catch (error)
         {
-            next(error);
+            return next(error);
         }
     }
 
-    static async deleteOne(req,res,next)
+    static async deleteOne(req:IRequest,res:Response,next:NextFunction)
     {
         const uid = req.params.uid;
         try
@@ -80,7 +82,7 @@ class UserController{
         }
         catch (error)
         {
-            next(error);
+            return next(error);
         }
     }
 }

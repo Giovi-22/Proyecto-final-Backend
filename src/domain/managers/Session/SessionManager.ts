@@ -1,11 +1,11 @@
 
-import CustomErrors from '../../shared/CustomErrors';
-import { hashPassword, verifyPassword } from '../../shared/bcrypt';
-import { jwtGenerator, verifyTokenV2  } from '../../shared/jsonwebtoken';
-import { IUser } from '../entities/User/IUser';
-import { loginValidation, userZodSchema } from '../validations/validators';
-import EmailManager from './EmailManager';
-import UserManager from './UserManager';
+import CustomErrors from '../../../shared/CustomErrors';
+import { hashPassword, verifyPassword } from '../../../shared/bcrypt';
+import { jwtGenerator, verifyJWTToken,  } from '../../../shared/jsonwebtoken';
+import { IUser } from '../../entities/User/IUser';
+import { loginValidation, userZodSchema } from '../../validations/validators';
+import EmailManager from '../EmailManager';
+import UserManager from '../User/UserManager';
 
 class SessionManager{
 
@@ -50,7 +50,7 @@ async changePassword(password:string, confirmedPassword:string, token:string){
     if(password !== confirmedPassword){
         throw new CustomErrors("Change password failed, the password and confirmedPassword do not match",{cause:'Bad Request'});
     }
-    const credential = await verifyTokenV2(token);
+    const credential = await verifyJWTToken(token);
     const user = await this.#userM.findByFilter({field:"email",value:credential.user.email});
     const newHashPassword = await hashPassword(password);
     const updatedUser = await this.#userM.updateOne(user.id.toString(),{password:newHashPassword});
