@@ -1,9 +1,10 @@
 import { IUser } from "../../../domain/entities/User/IUser";
 import User from "../../../domain/entities/User/User";
-import { userModel } from "../../models/userModel";
+import { MyOptions, userModel } from "../../models/User/userModel";
 import CustomErrors from '../../../shared/CustomErrors';
-import { IFilter, QueryFilter } from "../../../shared/Interfaces/IShared";
+import { IFilter, IPaginationFilters, QueryFilter } from "../../../shared/Interfaces/IShared";
 import { IUserRepository } from "./IUserRepository";
+import { IUserPaginate } from "../../models/User/IUserModel";
 
 
 class UserMongooseRepository implements IUserRepository{
@@ -68,28 +69,54 @@ class UserMongooseRepository implements IUserRepository{
             role: user.role
         })
     }
-/*
-    async Paginate(filters)
+
+    async Paginate(filters:IPaginationFilters,query:Object):Promise<IUserPaginate>
     {
-        const options = {
-            page:filters?.page,
-            limit: filters?.limit,
-            sort:filters?.sort
+
+        const options:MyOptions = {
+            page:filters?.page || 1,
+            limit: filters?.limit || 5,
+            sort:filters?.sort || ""
         }
-        const result = await userModel.paginate(filters?.query,options);
+
+        const result = await userModel.paginate({...query},options);
+        if(!result){
+            throw new CustomErrors("Users don't found",{cause:'Bad Request'});
+        }
+        console.log("La paginacion es: ")
+        console.log(result)
+        return {
+            docs:[],
+            hasNextPage:false,
+            hasPrevPage:false,
+            limit:10,
+            pagingCounter:1,
+            totalDocs:1,
+            totalPages:1,
+            nextPage:0,
+            page:1,
+            total:1
+        };
+/*
         return {
             ...result,
             docs:result.docs.map(user =>new User(
                 {
-                    id:user?._id,
-                    firstName:user?.firstName,
-                    lastName:user?.lastName,
-                    email:user?.email,
-                    age:user?.age
+                    age:user.age,
+                    id:(user._id).toString(),
+                    firstName:user.firstName,
+                    lastName:user.lastName,
+                    email:user.email,
+                    cart:user.cart,
+                    isAdmin:user.isAdmin,
+                    password:user.password,
+                    role:user.role
+
                 }))
         }
+        */
     }
-*/
+
     async deleteOne(uid:string)
     {
         const result = await userModel.deleteOne({_id:uid});

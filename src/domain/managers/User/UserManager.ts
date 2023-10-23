@@ -1,7 +1,7 @@
 import container from '../../../container';
 import CustomErrors from '../../../shared/CustomErrors';
 import { hashPassword } from '../../../shared/bcrypt';
-import { IFilter } from '../../../shared/Interfaces/IShared';
+import { IFilter, IPaginationFilters } from '../../../shared/Interfaces/IShared';
 import { IUser } from '../../entities/User/IUser';
 import { idValidation, userZodSchema } from '../../validations/validators';
 import { IUserRepository } from '../../../data/repository/User/IUserRepository';
@@ -25,13 +25,13 @@ class UserManager implements IUserManager
         const result = await this.#UserRepository.create(newUser);
         return result;
     }
-/*
-    async getList(filters)
+
+    async getList(filters:IPaginationFilters,query:Object)
     {
-        const result = await this.#UserRepository.Paginate(filters);
+        const result = await this.#UserRepository.Paginate(filters,query);
         return result;
     }
-*/
+
 
     async findByFilter(filter:IFilter):Promise<IUser>
     {

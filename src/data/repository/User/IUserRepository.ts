@@ -1,5 +1,6 @@
 import { IUser } from "../../../domain/entities/User/IUser";
-import { IFilter } from "../../../shared/Interfaces/IShared";
+import { IFilter, IPaginationFilters } from "../../../shared/Interfaces/IShared";
+import { IUserPaginate } from "../../models/User/IUserModel";
 
 
 export interface IUserRepository{
@@ -9,27 +10,5 @@ export interface IUserRepository{
     findById(uid:string):Promise<IUser>,
     deleteOne(uid:string):Promise<{message:string}>,
     update(uid:string,data:Partial<IUser>):Promise<IUser>
-/*
-    async Paginate(filters)
-    {
-        const options = {
-            page:filters?.page,
-            limit: filters?.limit,
-            sort:filters?.sort
-        }
-        const result = await userModel.paginate(filters?.query,options);
-        return {
-            ...result,
-            docs:result.docs.map(user =>new User(
-                {
-                    id:user?._id,
-                    firstName:user?.firstName,
-                    lastName:user?.lastName,
-                    email:user?.email,
-                    age:user?.age
-                }))
-        }
-    }
-*/
-
+    Paginate(filters:IPaginationFilters,query:Object):Promise<IUserPaginate>
 }

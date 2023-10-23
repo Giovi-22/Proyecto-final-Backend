@@ -15,7 +15,6 @@ const auth = async (req:IRequest,_res:Response,next:NextFunction)=>{
     const token = authHeader.split(' ')[1];
 
     const credential = await verifyJWTToken(token);
-    console.log("Las credenciales: ",credential)
     req.user = credential.user;
     return next();
     } catch (error) {

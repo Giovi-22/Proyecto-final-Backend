@@ -1,8 +1,11 @@
+import { PaginateResult } from "mongoose"
+import { IUser } from "../../domain/entities/User/IUser"
+
 export interface IPaginationFilters{
-    limit: number,
-    page: number,
-    sort: number,
-    filter:IFilter
+    limit?: number,
+    page?: number,
+    sort?: string,
+    filter?: IFilter
 } 
 export interface IFilter{
     field:string,
@@ -11,4 +14,9 @@ export interface IFilter{
 
 export interface QueryFilter{
     [field:string]:string
+}
+
+
+export interface IPagination extends PaginateResult<IUser>{
+    
 }

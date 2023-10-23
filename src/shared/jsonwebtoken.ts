@@ -21,8 +21,6 @@ export const verifyJWTToken = async(token: string):Promise<ICredential>=>
 {
     try {
         const credential = jwt.verify(token,config.jwtKey) as JwtPayload;
-        console.log("EL resultado de las credenciales: ")
-        console.log(credential)
         if(typeof credential === 'object' && credential !== null){
             if(!credential.user){
                 throw new CustomErrors("Credentials don't found",{cause: 'Not Found'});

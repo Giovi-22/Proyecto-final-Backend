@@ -1,6 +1,7 @@
 import { NextFunction, Response } from "express";
 import { IRequest } from "../../shared/Interfaces/custom.interfaces";
 import UserManager from "../../domain/managers/User/UserManager";
+import { IPaginationFilters } from "../../shared/Interfaces/IShared";
 
 class UserController{
 
@@ -19,18 +20,19 @@ class UserController{
         }
 
     }
-/*
+
     static async list(req:IRequest,res:Response,next:NextFunction)
     {
-        const options = {
-            ...req.query,
-            query: JSON.parse(`{${req.query?.filter ?? ""}}`)
+        const options:IPaginationFilters = {
+            limit: Number(req.query.limit) || 5,
+            page: Number(req.query.page) || 1,
+            sort: req.query.sort?.toString() || "",
         }
-        
+        const query = JSON.parse(`{${req.query?.filter ?? ""}}`);
         try
         {
             const uManager = new UserManager();
-            const result = await uManager.getList(options);
+            const result = await uManager.getList(options,query);
             return res.status(200).json({status:"success",data:result.docs, ...result, docs:undefined });
         }
         catch (error)
@@ -38,7 +40,7 @@ class UserController{
             return next(error);
         }
     }
-*/
+
     static async getOne(req:IRequest,res:Response,next:NextFunction)
     {
         const uid = req.params.uid;

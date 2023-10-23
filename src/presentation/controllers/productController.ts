@@ -24,7 +24,7 @@ class ProductController{
         const options:IPaginationFilters = {
             limit: Number(req.query.limit) ?? 10,
             page: Number(req.query.page) ?? 1,
-            sort: Number(req.query.sort) ?? "", //los valores que recibe para ordenar por precio pueden ser 1 (de menor a mayor) y -1 (de mayor a menor)
+            sort: req.query.sort?.toString() ?? "", //los valores que recibe para ordenar por precio pueden ser 1 (de menor a mayor) y -1 (de mayor a menor)
             filter:JSON.parse(`{${req.query.filter ?? ""}}`) //filter se pasa por query de la siguiente forma: "productField":"value"
         }
         try

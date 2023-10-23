@@ -7,7 +7,7 @@ import { authorization } from '../middlewares/authorization';
 const userRouter = Router();
 
 
-//userRouter.get('/list',auth,authorization('getList'),UserController.list);
+userRouter.get('/list',auth,authorization('getList'),UserController.list);
 userRouter.get('/:uid',auth,authorization('getOne'),UserController.getOne);              
 userRouter.post('/',auth,authorization('create'),UserController.create);            //ruta privada
 userRouter.put('/:uid',auth,authorization('updateOne'),UserController.updateOne);

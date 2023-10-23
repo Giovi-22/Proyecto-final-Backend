@@ -1,7 +1,7 @@
 
 import { NextFunction, Response } from "express";
 import SessionManager from "../../domain/managers/Session/SessionManager";
-import { IRequest } from "../../shared/Interfaces/custom.interfaces.js";
+import { IRequest } from "../../shared/Interfaces/custom.interfaces";
 
 class SessionController{
 

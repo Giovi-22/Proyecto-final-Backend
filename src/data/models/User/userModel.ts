@@ -1,6 +1,7 @@
-import mongoose, { Model } from "mongoose";
-import mongoosePaginate from "mongoose-paginate-v2";
-import { IUser } from '../../domain/entities/User/IUser';
+import mongoose, { PaginateModel, PaginateOptions,} from "mongoose";
+import paginate from "mongoose-paginate-v2";
+import { IUser } from '../../../domain/entities/User/IUser';
+import { IUserModel } from "./IUserModel";
 
 const userCollection = 'users';
 
@@ -14,6 +15,11 @@ const userSchema = new mongoose.Schema<IUser>({
     role: {type:mongoose.Schema.Types.ObjectId,default:null,ref:'roles'},
     isAdmin: {type:mongoose.Schema.Types.Boolean,default:false}
 })
+userSchema.plugin(paginate);
 
-userSchema.plugin(mongoosePaginate);
-export const userModel:Model<IUser> = mongoose.model<IUser>(userCollection,userSchema);
+export interface MyOptions extends PaginateOptions{
+    page:number,
+    limit:number,
+    sort:string
+}
+export const userModel = mongoose.model<IUserModel,PaginateModel<IUserModel>>(userCollection,userSchema,userCollection);
