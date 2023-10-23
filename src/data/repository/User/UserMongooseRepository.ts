@@ -86,35 +86,24 @@ class UserMongooseRepository implements IUserRepository{
         console.log("La paginacion es: ")
         console.log(result)
         return {
-            docs:[],
-            hasNextPage:false,
-            hasPrevPage:false,
-            limit:10,
-            pagingCounter:1,
-            totalDocs:1,
-            totalPages:1,
-            nextPage:0,
-            page:1,
-            total:1
-        };
-/*
-        return {
             ...result,
-            docs:result.docs.map(user =>new User(
+            docs:result.docs.map((user) =>{
+                const newUser = user as IUser
+                return new User(
                 {
-                    age:user.age,
+                    age:newUser.age,
                     id:(user._id).toString(),
-                    firstName:user.firstName,
-                    lastName:user.lastName,
-                    email:user.email,
-                    cart:user.cart,
-                    isAdmin:user.isAdmin,
-                    password:user.password,
-                    role:user.role
+                    firstName:newUser.firstName,
+                    lastName:newUser.lastName,
+                    email:newUser.email,
+                    cart:newUser.cart,
+                    isAdmin:newUser.isAdmin,
+                    password:newUser.password,
+                    role:newUser.role
 
-                }))
+                })})
         }
-        */
+        
     }
 
     async deleteOne(uid:string)
